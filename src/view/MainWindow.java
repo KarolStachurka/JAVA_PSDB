@@ -1,5 +1,9 @@
 package view;
 
+import view.client.CreateClientView;
+import view.user.RestorePasswordView;
+import view.user.UserLoginView;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,8 +20,6 @@ public class MainWindow {
     {
         mainFrame = new JFrame("PSDB");
         userLoginView = new UserLoginView();
-        restorePasswordView = new RestorePasswordView();
-        createClientView = new CreateClientView();
         mainPanel.setLayout(new CardLayout());
         mainPanel.add(userLoginView.getWindowPanel(), userLoginView.getWindowName().toString());
         mainFrame.setContentPane(mainPanel);
