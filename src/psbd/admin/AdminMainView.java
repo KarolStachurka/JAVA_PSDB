@@ -30,4 +30,16 @@ public class AdminMainView extends ViewTemplate {
     public JButton getLogoutButton() {
         return logoutButton;
     }
+
+    public JButton getAddNewUserButton() {
+        return addNewUserButton;
+    }
+
+    public JButton getEditReviewsButton() {
+        return editReviewsButton;
+    }
+
+    public JButton getEditUserButton() {
+        return editUserButton;
+    }
 }

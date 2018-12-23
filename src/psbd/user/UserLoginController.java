@@ -1,6 +1,7 @@
 package psbd.user;
 
 import psbd.PanelEnum;
+import psbd.UserEnum;
 
 public class UserLoginController {
     private UserLoginView view;
@@ -19,8 +20,8 @@ public class UserLoginController {
         return true;
     }
 
-    public PanelEnum userType(){
-        return PanelEnum.SUPPLIERMAIN;
+    public UserEnum userType(){
+        return UserEnum.ADMIN;
     }
 
 }

@@ -37,4 +37,16 @@ public class ManagerMainView extends ViewTemplate {
     public JButton getLogoutButton() {
         return logoutButton;
     }
+
+    public JButton getDiscountsControlButton() {
+        return discountsControlButton;
+    }
+
+    public JButton getRecipesControlButton() {
+        return recipesControlButton;
+    }
+
+    public JButton getModifyAccountBalanceButton() {
+        return modifyAccountBalanceButton;
+    }
 }

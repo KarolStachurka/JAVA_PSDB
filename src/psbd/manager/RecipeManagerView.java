@@ -31,4 +31,16 @@ public class RecipeManagerView extends ViewTemplate {
     public void cleanAll() {
 
     }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getRemoveButton() {
+        return removeButton;
+    }
 }

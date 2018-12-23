@@ -1,3 +1,5 @@
+package psbd;
+
 import java.sql.*;
 
 public class DatabaseConnector {
@@ -7,7 +9,7 @@ public class DatabaseConnector {
     private Connection connection;
     private Statement statement;
     private ResultSet result;
-    private static final String address = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+    private static final String address = "jdbc:mysql://localhost:3306/psbd?useSSL=false";
     private static final String databaseLogin = "student";
     private static final String databasePassword = "student";
 

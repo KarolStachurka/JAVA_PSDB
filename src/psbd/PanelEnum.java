@@ -19,5 +19,6 @@ public enum PanelEnum {
     WAREHOUSESTATS,
     DISCOUNTMANAGER,
     CREATEDELIVERY,
-    EDITSTORAGE;
+    EDITSTORAGE,
+    ERROR
 }

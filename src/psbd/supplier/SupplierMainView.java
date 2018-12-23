@@ -32,4 +32,20 @@ public class SupplierMainView extends ViewTemplate {
     public JButton getLogoutButton() {
         return logoutButton;
     }
+
+    public JButton getCreateNewDeliveryButton() {
+        return createNewDeliveryButton;
+    }
+
+    public JButton getEditStorageButton() {
+        return editStorageButton;
+    }
+
+    public JButton getStatisticsButton() {
+        return statisticsButton;
+    }
+
+    public JButton getReceiveDeliveryButton() {
+        return receiveDeliveryButton;
+    }
 }

@@ -28,4 +28,20 @@ public class EditReviewView extends ViewTemplate {
     public void cleanAll() {
 
     }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getEditThisReviewButton() {
+        return editThisReviewButton;
+    }
+
+    public JButton getRemoveThisReviewButton() {
+        return removeThisReviewButton;
+    }
+
+    public JButton getRemoveThisUserButton() {
+        return removeThisUserButton;
+    }
 }

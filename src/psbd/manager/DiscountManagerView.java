@@ -31,4 +31,20 @@ public class DiscountManagerView extends ViewTemplate {
     public void cleanAll() {
 
     }
+
+    public JButton getRemoveButton() {
+        return removeButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getAcceptButton() {
+        return acceptButton;
+    }
 }

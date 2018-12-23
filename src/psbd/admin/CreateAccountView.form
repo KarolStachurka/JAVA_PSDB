@@ -32,7 +32,7 @@
               </grid>
             </constraints>
           </vspacer>
-          <component id="91e7c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="91e7c" class="javax.swing.JTextField" binding="nameTextInput">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -40,7 +40,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="8c17d" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+          <component id="8c17d" class="javax.swing.JTextField" binding="loginTextInput">
             <constraints>
               <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -48,7 +48,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="6ccc0" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+          <component id="6ccc0" class="javax.swing.JTextField" binding="passwordTextInput">
             <constraints>
               <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -64,7 +64,7 @@
               <text value="Surname"/>
             </properties>
           </component>
-          <component id="f28b1" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="f28b1" class="javax.swing.JTextField" binding="surnameTextInput">
             <constraints>
               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -104,7 +104,7 @@
               <text value="Password"/>
             </properties>
           </component>
-          <component id="61afd" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+          <component id="61afd" class="javax.swing.JTextField" binding="confirmPasswordTextInput">
             <constraints>
               <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -112,7 +112,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="e0dc8" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+          <component id="e0dc8" class="javax.swing.JTextField" binding="emailTextInput">
             <constraints>
               <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -136,7 +136,7 @@
               <text value="Email"/>
             </properties>
           </component>
-          <component id="4a6db" class="javax.swing.JTextField" binding="textField7" default-binding="true">
+          <component id="4a6db" class="javax.swing.JTextField" binding="confirmEmailTextInput">
             <constraints>
               <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -152,7 +152,7 @@
               <text value="Confirm Email"/>
             </properties>
           </component>
-          <component id="ab46a" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="ab46a" class="javax.swing.JComboBox" binding="companyNameBox">
             <constraints>
               <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -181,7 +181,7 @@
               <text value="Phone number"/>
             </properties>
           </component>
-          <component id="9361c" class="javax.swing.JTextField" binding="textField8" default-binding="true">
+          <component id="9361c" class="javax.swing.JTextField" binding="phoneNumberTextInput">
             <constraints>
               <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -196,7 +196,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="5c37b" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="5c37b" class="javax.swing.JComboBox" binding="accountTypeBox">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -242,7 +242,7 @@
               <text value="PESEL"/>
             </properties>
           </component>
-          <component id="b5436" class="javax.swing.JTextField" default-binding="true">
+          <component id="b5436" class="javax.swing.JTextField" binding="peselTextInput">
             <constraints>
               <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
