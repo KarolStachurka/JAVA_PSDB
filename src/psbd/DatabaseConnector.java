@@ -9,6 +9,7 @@ public class DatabaseConnector {
     private Connection connection;
     private Statement statement;
     private ResultSet result;
+    private PreparedStatement preparedStatement;
     private static final String address = "jdbc:mysql://localhost:3306/psbd?useSSL=false";
     private static final String databaseLogin = "student";
     private static final String databasePassword = "student";
@@ -45,20 +46,46 @@ public class DatabaseConnector {
         return instance;
     }
 
-    public void getData(String SQLQuery)
+    public void getData()
     {
         try {
-            statement = connection.createStatement();
-            result = statement.executeQuery(SQLQuery);
+            result = preparedStatement.executeQuery();
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             e.printStackTrace();
         }
     }
 
+    public boolean executeStatement()
+    {
+        try{
+            preparedStatement.execute();
+        }
+        catch (SQLException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public ResultSet getResult() {
         return result;
+    }
+
+    public void setPreparedStatement(PreparedStatement preparedStatement) {
+        this.preparedStatement = preparedStatement;
+    }
+
+    public PreparedStatement getPreparedStatement(String sqlQuery) {
+        try {
+            preparedStatement = connection.prepareStatement(sqlQuery);
+        }
+        catch (SQLException e)
+        {
+            return null;
+        }
+        return preparedStatement;
     }
 
     public void close() throws SQLException

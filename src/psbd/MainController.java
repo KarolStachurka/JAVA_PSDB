@@ -2,18 +2,12 @@ package psbd;
 
 import psbd.admin.*;
 import psbd.client.*;
-import psbd.cook.CookMainController;
-import psbd.cook.CookMainView;
-import psbd.courier.CourierMainController;
-import psbd.courier.CourierMainView;
+import psbd.cook.*;
+import psbd.courier.*;
 import psbd.manager.*;
 import psbd.supplier.*;
-import psbd.user.RestorePasswordController;
-import psbd.user.RestorePasswordView;
-import psbd.user.UserLoginController;
-import psbd.user.UserLoginView;
+import psbd.user.*;
 
-// todo tidy up imports
 
 public class MainController {
     private MainWindow view;

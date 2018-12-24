@@ -11,7 +11,7 @@ public class CreateAccountView extends ViewTemplate {
     private JTextField loginTextInput;
     private JTextField passwordTextInput;
     private JTextField surnameTextInput;
-    private JButton confirmButton;
+    private JButton createAccountButton;
     private JTextField confirmPasswordTextInput;
     private JTextField emailTextInput;
     private JTextField confirmEmailTextInput;
@@ -21,10 +21,13 @@ public class CreateAccountView extends ViewTemplate {
     private JComboBox accountTypeBox;
     private JButton removeThisAccountButton;
     private JTextField peselTextInput;
+    private JLabel communicatesLabel;
+    private JButton editAccountButton;
 
     public CreateAccountView()
     {
         setWindowName(PanelEnum.CREATEACCOUNT);
+
     }
 
     public JPanel getWindowPanel() {
@@ -42,61 +45,70 @@ public class CreateAccountView extends ViewTemplate {
         emailTextInput.setText("");
         confirmEmailTextInput.setText("");
         phoneNumberTextInput.setText("");
+        communicatesLabel.setText("");
     }
 
     public JButton getBackButton() {
         return backButton;
     }
 
-    public JButton getConfirmButton() {
-        return confirmButton;
+    JButton getCreateAccountButton() {
+        return createAccountButton;
     }
 
-    public JButton getRemoveThisAccountButton() {
+    JButton getRemoveThisAccountButton() {
         return removeThisAccountButton;
     }
 
-    public JTextField getNameTextInput() {
+    JButton getEditAccountButton() {
+        return editAccountButton;
+    }
+
+    JTextField getNameTextInput() {
         return nameTextInput;
     }
 
-    public JTextField getSurnameTextInput() {
+    JTextField getSurnameTextInput() {
         return surnameTextInput;
     }
 
-    public JTextField getPeselTextInput() {
+    JTextField getPeselTextInput() {
         return peselTextInput;
     }
 
-    public JTextField getConfirmEmailTextInput() {
+    JTextField getConfirmEmailTextInput() {
         return confirmEmailTextInput;
     }
 
-    public JTextField getEmailTextInput() {
+    JTextField getEmailTextInput() {
         return emailTextInput;
     }
 
-    public JTextField getLoginTextInput() {
+    JTextField getLoginTextInput() {
         return loginTextInput;
     }
 
-    public JTextField getPasswordTextInput() {
+    JTextField getPasswordTextInput() {
         return passwordTextInput;
     }
 
-    public JTextField getConfirmPasswordTextInput() {
+    JTextField getConfirmPasswordTextInput() {
         return confirmPasswordTextInput;
     }
 
-    public JTextField getPhoneNumberTextInput() {
+    JTextField getPhoneNumberTextInput() {
         return phoneNumberTextInput;
     }
 
-    public JComboBox getAccountTypeBox() {
+    JComboBox getAccountTypeBox() {
         return accountTypeBox;
     }
 
-    public JComboBox getCompanyNameBox() {
+    JComboBox getCompanyNameBox() {
         return companyNameBox;
+    }
+
+    JLabel getCommunicatesLabel() {
+        return communicatesLabel;
     }
 }
