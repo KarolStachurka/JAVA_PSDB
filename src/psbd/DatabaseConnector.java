@@ -46,7 +46,7 @@ public class DatabaseConnector {
         return instance;
     }
 
-    public void getData()
+    public ResultSet getData()
     {
         try {
             result = preparedStatement.executeQuery();
@@ -55,6 +55,7 @@ public class DatabaseConnector {
         {
             e.printStackTrace();
         }
+        return result;
     }
 
     public boolean executeStatement()
@@ -101,5 +102,29 @@ public class DatabaseConnector {
         if (connection != null) {
             connection.close();
         }
+    }
+
+    public boolean checkIfRecordExists(String table_name, String column_name, String value) throws SQLException
+    {
+        String SQLQuery = "SELECT * FROM " + table_name +" WHERE " + column_name + " = " + value;
+        PreparedStatement statement = getPreparedStatement(SQLQuery);
+        ResultSet result;
+        if(statement == null)
+        {
+            return false;
+        }
+        setPreparedStatement(statement);
+        result = getData();
+
+        return result.next();
+    }
+
+    public ResultSet getFullTableData(String table)
+    {
+        String SQLQuery = "SELECT * FROM " + table;
+        PreparedStatement statement = getPreparedStatement(SQLQuery);
+        setPreparedStatement(statement);
+        return getData();
+
     }
 }

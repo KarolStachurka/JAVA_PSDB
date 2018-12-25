@@ -19,6 +19,7 @@ public class CreateAccountController {
     {
         this.view = view;
         setUserTypes();
+        setCompaniesList();
         view.getCreateAccountButton().addActionListener(e-> {
             if(createAccount(createUser()))
             {
@@ -72,8 +73,8 @@ public class CreateAccountController {
         {
             company = null;
         }
-        User user = new User(UserEnum.valueOf(userType),login,password,name,surname,email,pesel,phoneNumber,company);
-        return user;
+
+        return new User(UserEnum.valueOf(userType),login,password,name,surname,email,pesel,phoneNumber,company);
     }
     /* todo :
         add company name handling
@@ -88,7 +89,8 @@ public class CreateAccountController {
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "INSERT INTO users(user_type, user_login, user_password, name, surname, pesel, email, phone_number, company) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sqlQuery = "INSERT INTO users(user_type, user_login, user_password, name, surname, pesel, email, phone_number, company) " +
+                "VALUES(?,?, SHA2(?, 256),?,?,?,?,?,?)";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
@@ -112,7 +114,12 @@ public class CreateAccountController {
             setCommunicate(communicates.databaseError);
             return false;
         }
-        return  database.executeStatement();
+        if(!database.executeStatement())
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        return  true;
     }
 
     private boolean editAccountData(User user)
@@ -120,7 +127,8 @@ public class CreateAccountController {
         if(checkIfAccountNotExist(user.getLogin()))
             return false;
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "UPDATE users SET user_password = ? ,name = ? ,surname = ? ,pesel = ? ,email = ? ,phone_number = ? ,company = ? WHERE user_login = ?";
+        String sqlQuery = "UPDATE users SET user_password = ? ,name = ? ,surname = ? ,pesel = ? ,email = ? ," +
+                "phone_number = ? ,company = ? WHERE user_login = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
@@ -168,9 +176,9 @@ public class CreateAccountController {
     private boolean checkIfAccountNotExist(String login)
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT FROM users WHERE user_login = ?";
+        String sqlQuery = "SELECT * FROM users WHERE user_login = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
-        ResultSet result = null;
+        ResultSet result;
         if(statement == null)
         {
             return false;
@@ -179,7 +187,6 @@ public class CreateAccountController {
             statement.setString(1, login);
             database.setPreparedStatement(statement);
             result = statement.executeQuery();
-
         }
         catch (SQLException e)
         {
@@ -201,6 +208,22 @@ public class CreateAccountController {
             view.getAccountTypeBox().addItem(user.toString());
         }
     }
+    private void setCompaniesList()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        ResultSet table = database.getFullTableData("companies");
+        try{
+            while (table.next())
+            {
+                view.getCompanyNameBox().addItem(table.getString("company_name"));
+            }
+        }
+        catch (Exception e)
+        {
+            // Leave list empty
+        }
+    }
+
     private boolean checkInputValues(String login, String password, String confirmPassword,
                                      String name, String surname, String pesel, String phone,
                                      String email, String confirmEmail)

@@ -125,6 +125,7 @@ public class MainController {
                                 break;
                             case ADMIN:
                                 view.setWindowActive(adminMainController.getView().getWindowName());
+                                adminMainController.showAllUsers();
                                 break;
                             case SUPPLIER:
                                 view.setWindowActive(supplierMainController.getView().getWindowName());
@@ -171,11 +172,23 @@ public class MainController {
         // admin main page buttons
         adminMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
         adminMainController.getView().getAddNewUserButton().addActionListener(e->view.setWindowActive(createAccountController.getView().getWindowName()));
-        adminMainController.getView().getEditUserButton().addActionListener(e->view.setWindowActive(createAccountController.getView().getWindowName()));
+        adminMainController.getView().getEditUserButton().addActionListener(e->{
+            view.setWindowActive(createAccountController.getView().getWindowName());
+
+        });
         adminMainController.getView().getEditReviewsButton().addActionListener(e->view.setWindowActive(editReviewController.getView().getWindowName()));
+        adminMainController.getView().getEditDiscountsButton().addActionListener(e->{
+            view.setWindowActive(discountManagerController.getView().getWindowName());
+            discountManagerController.updateTable();
+        });
 
         //admin create account page buttons
-        createAccountController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
+        createAccountController.getView().getBackButton().addActionListener(e-> {
+                    view.setWindowActive(adminMainController.getView().getWindowName());
+                    createAccountController.getView().cleanAll();
+                    adminMainController.showAllUsers();
+                }
+        );
 
         // edit review page buttons
         editReviewController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
@@ -187,7 +200,7 @@ public class MainController {
         managerMainController.getView().getRecipesControlButton().addActionListener(e->view.setWindowActive(recipeManagerController.getView().getWindowName()));
 
         // discount manager page buttons
-        discountManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(managerMainController.getView().getWindowName()));
+        discountManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
 
         //recipe manager page buttons
         recipeManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(managerMainController.getView().getWindowName()));

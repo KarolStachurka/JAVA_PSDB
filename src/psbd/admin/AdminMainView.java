@@ -4,6 +4,7 @@ import psbd.PanelEnum;
 import psbd.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class AdminMainView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -11,11 +12,14 @@ public class AdminMainView extends ViewTemplate {
     private JButton addNewUserButton;
     private JButton editReviewsButton;
     private JButton editUserButton;
-    private JList list1;
+    private JButton editDiscountsButton;
+    private JTable usersTable;
+    private JLabel AdminUserDataLabel;
 
     public AdminMainView()
     {
         setWindowName(PanelEnum.ADMINMAIN);
+
     }
 
     public JPanel getWindowPanel() {
@@ -24,7 +28,8 @@ public class AdminMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-
+        DefaultTableModel model = (DefaultTableModel) usersTable.getModel();
+        model.setRowCount(0);
     }
 
     public JButton getLogoutButton() {
@@ -42,4 +47,13 @@ public class AdminMainView extends ViewTemplate {
     public JButton getEditUserButton() {
         return editUserButton;
     }
+
+    public JButton getEditDiscountsButton() {
+        return editDiscountsButton;
+    }
+
+    public JTable getUsersTable() {
+        return usersTable;
+    }
+
 }
