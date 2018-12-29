@@ -21,6 +21,7 @@ public class DiscountManagerController {
     public DiscountManagerController(DiscountManagerView view)
     {
         this.view = view;
+        updateTable();
         view.getCompaniesTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -130,6 +131,31 @@ public class DiscountManagerController {
     }
     private boolean editExistingCompany(Company company)
     {
+        if(!checkIfCompanyExist(String.valueOf(company.getNip())))
+        {
+            setCommunicate(communicates.notExists);
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "UPDATE companies SET company_name = ? ,discount = ? WHERE nip = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        try {
+            statement.setString(1, company.getName());
+            statement.setInt(2, company.getDiscountValue());
+            statement.setInt(3, company.getNip());
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+        }
+        catch (SQLException e)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
         return true;
     }
     private boolean removeExistingCompany(Company company)
@@ -145,6 +171,7 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
+            setCommunicate(communicates.databaseError);
             return false;
         }
         return !checkIfCompanyExist((String.valueOf(company.getNip())));

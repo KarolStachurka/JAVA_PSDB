@@ -3,7 +3,7 @@ import psbd.*;
 import java.sql.*;
 /* todo important list:
     - test every functionality in admin view
-    -
+    - remove email confirmation necessity and its input field
 */
 
 
@@ -22,7 +22,6 @@ public class Main {
         MainWindow view = new MainWindow();
         MainController controller = new MainController(view);
         }
-
     }
 
 

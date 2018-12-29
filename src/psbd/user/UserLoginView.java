@@ -7,11 +7,12 @@ import javax.swing.*;
 
 public class UserLoginView extends ViewTemplate {
     private JPanel WindowPanel;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField loginTextInput;
+    private JTextField passwordTextInput;
     private JButton loginButton;
     private JButton forgotPasswordButton;
     private JButton createAccountButton;
+    private JLabel communicatesLabel;
 
     public UserLoginView()
     {
@@ -34,8 +35,22 @@ public class UserLoginView extends ViewTemplate {
         return forgotPasswordButton;
     }
 
+    public JLabel getCommunicatesLabel() {
+        return communicatesLabel;
+    }
+
+    public JTextField getPasswordTextInput() {
+        return passwordTextInput;
+    }
+
+    public JTextField getLoginTextInput() {
+        return loginTextInput;
+    }
+
     @Override
     public void cleanAll() {
-
+        communicatesLabel.setText("");
+        passwordTextInput.setText("");
+        loginTextInput.setText("");
     }
 }

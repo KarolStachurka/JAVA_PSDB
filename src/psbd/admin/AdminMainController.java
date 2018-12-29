@@ -1,33 +1,324 @@
 package psbd.admin;
 
+import com.mysql.jdbc.StringUtils;
+import psbd.Communicates;
+import psbd.UserEnum;
 import psbd.DatabaseConnector;
+import psbd.user.User;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+/*
+ todo: remove test button
+ */
 public class AdminMainController {
     private AdminMainView view;
+    private Communicates communicates;
 
     public AdminMainController(AdminMainView view)
     {
         this.view = view;
+        setUserTypes();
+        setCompaniesList();
+        updateList();
+        view.getUsersTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
+                view.getAccountTypeBox().setSelectedItem(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 0)
+                );
+                view.getLoginTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 1).toString()
+                );
+                view.getNameTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 2).toString()
+                );
+                view.getSurnameTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 3).toString()
+                );
+                view.getEmailTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 4).toString()
+                );
+                view.getPhoneNumberTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 5).toString()
+                );
+                view.getCompanyNameBox().setSelectedItem(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 6)
+                );
+                view.getPeselTextInput().setText(view.getUsersTable().getValueAt(
+                        view.getUsersTable().getSelectedRow(), 7).toString()
+                );
+            }
+        });
+
+        view.getCreateAccountButton().addActionListener(e-> {
+            if(createAccount(createUser()))
+            {
+                this.view.cleanAll();
+                updateList();
+                setCommunicate(communicates.accountCreated);
+            }
+        });
+        view.getEditAccountButton().addActionListener(e->{
+            if(editAccountData(createUser()))
+            {
+                this.view.cleanAll();
+                updateList();
+                setCommunicate(communicates.accountEdited);
+            }
+
+        });
+        view.getRemoveThisAccountButton().addActionListener(e->{
+            if(removeAccount(createUser()))
+            {
+                this.view.cleanAll();
+                updateList();
+                setCommunicate(communicates.accountRemoved);
+            }
+        });
+
+        view.getTestButton().addActionListener(e->{
+            this.view.cleanAll();
+            updateList();
+        });
     }
 
     public AdminMainView getView() {
         return view;
     }
 
-    public void showAllUsers()
+    private User createUser()
+    {
+
+        String name = view.getNameTextInput().getText();
+        String surname= view.getSurnameTextInput().getText();
+        String login = view.getLoginTextInput().getText();
+        String password = view.getPasswordTextInput().getText();
+        String email = view.getEmailTextInput().getText();
+        String pesel = view.getPeselTextInput().getText();
+        String phoneNumber = view.getPhoneNumberTextInput().getText();
+        String userType;
+        String company;
+        try {
+            userType = this.view.getAccountTypeBox().getSelectedItem().toString();
+        }
+        catch (NullPointerException e)
+        {
+            userType = null;
+        }
+        try {
+            String company_name = this.view.getCompanyNameBox().getSelectedItem().toString();
+            if(company_name.equals("Empty"))
+            {
+                company = null;
+            }
+            else
+            {
+                company = company_name;
+            }
+        }
+        catch (NullPointerException e)
+        {
+            company = null;
+        }
+
+        return new User(UserEnum.valueOf(userType),login,password,name,surname,email,pesel,phoneNumber,company);
+    }
+    /* todo :
+        add company name handling
+    */
+    private boolean createAccount(User user)
+    {
+        String confirmPassword = view.getConfirmPasswordTextInput().getText();
+        String confirmEmail = view.getConfirmEmailTextInput().getText();
+
+        if(!checkInputValues(user.getLogin(),user.getPassword(),confirmPassword,user.getName(),user.getSurname(),user.getEmail(),confirmEmail))  {
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "INSERT INTO users(user_type, user_login, user_password, name, surname, pesel, email, phone_number, company) " +
+                "VALUES(?,?, SHA2(?, 256),?,?,?,?,?,?)";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        try {
+            statement.setString(1, user.getType().toString());
+            statement.setString(2, user.getLogin());
+            statement.setString(3, user.getPassword());
+            statement.setString(4, user.getName());
+            statement.setString(5, user.getSurname());
+            statement.setString(6, user.getPesel());
+            statement.setString(7, user.getEmail());
+            statement.setString(8, user.getPhoneNumber());
+            statement.setString(9, user.getCompany());
+            database.setPreparedStatement(statement);
+        }
+        catch (SQLException e)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        if(!database.executeStatement())
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        return  true;
+    }
+
+    private boolean editAccountData(User user)
+    {
+        if(!checkIfAccountExist(user.getLogin()))
+        {
+            setCommunicate(communicates.notExists);
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "UPDATE users SET user_password = SHA2(?, 256) ,name = ? ,surname = ? ,pesel = ? ,email = ? ," +
+                "phone_number = ? ,company = ? WHERE user_login = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        try {
+            statement.setString(1, user.getPassword());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getSurname());
+            statement.setString(4, user.getPesel());
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getPhoneNumber());
+            statement.setString(7, user.getCompany());
+            statement.setString(8, user.getLogin());
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+        }
+        catch (SQLException e)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean removeAccount(User user)
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "DELETE FROM users WHERE user_login = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        try {
+            statement.setString(1, user.getLogin());
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+
+        }
+        catch (SQLException e)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+        return !checkIfAccountExist(user.getLogin());
+    }
+
+    private boolean checkIfAccountExist(String login)
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        try {
+            return database.checkIfRecordExists("users", "user_login", login);
+        }
+        catch (SQLException e)
+        {
+            setCommunicate(communicates.databaseError);
+            return false;
+        }
+    }
+
+
+    private void setCommunicate(String error)
+    {
+        view.getCommunicatesLabel().setText(error);
+    }
+
+    private void setUserTypes()
+    {
+        for(UserEnum user: UserEnum.values())
+        {
+            view.getAccountTypeBox().addItem(user.toString());
+        }
+    }
+    private void setCompaniesList()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        ResultSet table = database.getFullTableData("companies");
+        view.getCompanyNameBox().addItem("Empty");
+        try{
+            while (table.next())
+            {
+                view.getCompanyNameBox().addItem(table.getString("company_name"));
+            }
+        }
+        catch (Exception e)
+        {
+            // Leave list empty
+        }
+    }
+
+    private boolean checkInputValues(String login, String password, String confirmPassword,
+                                     String name, String surname, String email, String confirmEmail)
+    {
+        if(!password.equals(confirmPassword))
+        {
+            setCommunicate(communicates.passwordNotMatch);
+            return false;
+        }
+
+        if(!email.equals(confirmEmail))
+        {
+            setCommunicate(communicates.emailNotMatch);
+            return false;
+        }
+
+        if(StringUtils.isEmptyOrWhitespaceOnly(login) ||
+            StringUtils.isEmptyOrWhitespaceOnly(password)||
+            StringUtils.isEmptyOrWhitespaceOnly(name)||
+            StringUtils.isEmptyOrWhitespaceOnly(surname) ||
+            StringUtils.isEmptyOrWhitespaceOnly(email))
+        {
+            setCommunicate(communicates.unfilledNecessaryFields);
+            return false;
+        }
+
+        if(checkIfAccountExist(login))
+        {
+            setCommunicate(communicates.alreadyExists);
+            return false;
+        }
+        return true;
+    }
+
+    private void updateList()
     {
         String[] columnNames = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
         String [][] data = getUsersList();
         DefaultTableModel model = (DefaultTableModel) view.getUsersTable().getModel();
         model.setColumnIdentifiers(columnNames);
-        model.addRow(data[0]);
+        if(data.length > 0)
+            for(String[] row:data)
+            {
+                model.addRow(row);
+            }
         view.getUsersTable().repaint();
     }
 
@@ -78,7 +369,5 @@ public class AdminMainController {
         return data;
     }
 
-    public void setCurrentUser()
-    {}
 
 }

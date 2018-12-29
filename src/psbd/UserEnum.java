@@ -6,5 +6,6 @@ public enum UserEnum {
     COOK,
     COURIER,
     MANAGER,
-    SUPPLIER
+    SUPPLIER,
+    ERROR
 }

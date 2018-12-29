@@ -25,7 +25,6 @@ public class MainController {
     private CookMainController cookMainController;
 
     private AdminMainController adminMainController;
-    private CreateAccountController createAccountController;
     private EditReviewController editReviewController;
 
     private ManagerMainController managerMainController;
@@ -56,7 +55,6 @@ public class MainController {
         courierMainController = new CourierMainController(new CourierMainView());
 
         adminMainController = new AdminMainController(new AdminMainView());
-        createAccountController = new CreateAccountController(new CreateAccountView());
         editReviewController = new EditReviewController(new EditReviewView());
 
         managerMainController = new ManagerMainController(new ManagerMainView());
@@ -88,7 +86,6 @@ public class MainController {
         view.addToMainPanel(courierMainController.getView().getWindowPanel(), courierMainController.getView().getWindowName());
 
         view.addToMainPanel(adminMainController.getView().getWindowPanel(), adminMainController.getView().getWindowName());
-        view.addToMainPanel(createAccountController.getView().getWindowPanel(), createAccountController.getView().getWindowName());
         view.addToMainPanel(editReviewController.getView().getWindowPanel(), editReviewController.getView().getWindowName());
 
         view.addToMainPanel(managerMainController.getView().getWindowPanel(), managerMainController.getView().getWindowName());
@@ -125,7 +122,6 @@ public class MainController {
                                 break;
                             case ADMIN:
                                 view.setWindowActive(adminMainController.getView().getWindowName());
-                                adminMainController.showAllUsers();
                                 break;
                             case SUPPLIER:
                                 view.setWindowActive(supplierMainController.getView().getWindowName());
@@ -169,30 +165,13 @@ public class MainController {
         // cook main page buttons
         cookMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
 
-        // admin main page buttons
-        adminMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
-        adminMainController.getView().getAddNewUserButton().addActionListener(e->view.setWindowActive(createAccountController.getView().getWindowName()));
-        adminMainController.getView().getEditUserButton().addActionListener(e->{
-            view.setWindowActive(createAccountController.getView().getWindowName());
-
-        });
-        adminMainController.getView().getEditReviewsButton().addActionListener(e->view.setWindowActive(editReviewController.getView().getWindowName()));
-        adminMainController.getView().getEditDiscountsButton().addActionListener(e->{
-            view.setWindowActive(discountManagerController.getView().getWindowName());
-            discountManagerController.updateTable();
-        });
-
         //admin create account page buttons
-        createAccountController.getView().getBackButton().addActionListener(e-> {
-                    view.setWindowActive(adminMainController.getView().getWindowName());
-                    createAccountController.getView().cleanAll();
-                    adminMainController.showAllUsers();
-                }
-        );
+        adminMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        adminMainController.getView().getEditDiscountsButton().addActionListener(e->view.setWindowActive(discountManagerController.getView().getWindowName()));
+        adminMainController.getView().getEditReviewsButton().addActionListener(e->view.setWindowActive(editReviewController.getView().getWindowName()));
 
         // edit review page buttons
         editReviewController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
-        editReviewController.getView().getRemoveThisUserButton().addActionListener(e->view.setWindowActive(createAccountController.getView().getWindowName()));
 
         //manager main page buttons
         managerMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
@@ -200,7 +179,9 @@ public class MainController {
         managerMainController.getView().getRecipesControlButton().addActionListener(e->view.setWindowActive(recipeManagerController.getView().getWindowName()));
 
         // discount manager page buttons
-        discountManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
+        discountManagerController.getView().getBackButton().addActionListener(e->{
+            view.setWindowActive(adminMainController.getView().getWindowName());
+        });
 
         //recipe manager page buttons
         recipeManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(managerMainController.getView().getWindowName()));

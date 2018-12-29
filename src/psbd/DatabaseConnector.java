@@ -104,19 +104,38 @@ public class DatabaseConnector {
         }
     }
 
-    public boolean checkIfRecordExists(String table_name, String column_name, String value) throws SQLException
+    public boolean checkIfRecordExists(String tableName, String columnName, String value) throws SQLException
     {
-        String SQLQuery = "SELECT * FROM " + table_name +" WHERE " + column_name + " = " + value;
+        String SQLQuery = "SELECT * FROM " + tableName +" WHERE " + columnName + " = ?";
         PreparedStatement statement = getPreparedStatement(SQLQuery);
-        ResultSet result;
+
         if(statement == null)
         {
             return false;
         }
+        statement.setString(1,value);
+        ResultSet result;
         setPreparedStatement(statement);
         result = getData();
 
         return result.next();
+    }
+
+    public ResultSet getSingleStringRecord(String tableName, String column, String value ) throws SQLException
+    {
+        String SQLQuery = "SELECT * FROM " + tableName +" WHERE " + column + " = ?";
+        PreparedStatement statement = getPreparedStatement(SQLQuery);
+
+        if(statement == null)
+        {
+            return null;
+        }
+        statement.setString(1,value);
+        ResultSet result;
+        setPreparedStatement(statement);
+        result = getData();
+
+        return result;
     }
 
     public ResultSet getFullTableData(String table)
