@@ -1,7 +1,7 @@
 package psbd.user;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class UserLoginView extends ViewTemplate {
     private JButton loginButton;
     private JButton forgotPasswordButton;
     private JButton createAccountButton;
-    private JLabel communicatesLabel;
+    private JLabel messagesLabel;
 
     public UserLoginView()
     {
@@ -35,8 +35,8 @@ public class UserLoginView extends ViewTemplate {
         return forgotPasswordButton;
     }
 
-    public JLabel getCommunicatesLabel() {
-        return communicatesLabel;
+    public JLabel getMessagesLabel() {
+        return messagesLabel;
     }
 
     public JTextField getPasswordTextInput() {
@@ -49,7 +49,7 @@ public class UserLoginView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-        communicatesLabel.setText("");
+        messagesLabel.setText("");
         passwordTextInput.setText("");
         loginTextInput.setText("");
     }

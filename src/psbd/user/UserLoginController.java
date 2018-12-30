@@ -1,19 +1,18 @@
 package psbd.user;
 
-import com.mysql.jdbc.StringUtils;
-import psbd.Communicates;
-import psbd.DatabaseConnector;
-import psbd.PanelEnum;
-import psbd.UserEnum;
+import psbd.models.CurrentSession;
+import psbd.utils.Messages;
+import psbd.utils.DatabaseConnector;
+import psbd.utils.UserEnum;
+import psbd.models.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class UserLoginController {
     private UserLoginView view;
-    private Communicates communicates;
+    private Messages messages;
 
     public UserLoginController(UserLoginView view)
     {
@@ -32,13 +31,13 @@ public class UserLoginController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         try {
             if (!database.checkIfRecordExists("users", "user_login", login)) {
-                setCommunicate(communicates.notExists);
+                setMessage(messages.notExists);
                 return false;
             }
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
         }
         String SQLQuery = "SELECT * FROM users WHERE user_login = ? AND user_password = SHA2(?, 256)" ;
         PreparedStatement statement = database.getPreparedStatement(SQLQuery);
@@ -69,7 +68,7 @@ public class UserLoginController {
 
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
 
@@ -85,9 +84,9 @@ public class UserLoginController {
             return session.getLoggedUser().getType();
     }
 
-    private void setCommunicate(String communicate)
+    public void setMessage(String communicate)
     {
-        view.getCommunicatesLabel().setText(communicate);
+        view.getMessagesLabel().setText(communicate);
     }
 
 }

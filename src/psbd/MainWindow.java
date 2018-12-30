@@ -3,6 +3,7 @@ package psbd;
 import psbd.client.CreateClientView;
 import psbd.user.RestorePasswordView;
 import psbd.user.UserLoginView;
+import psbd.utils.PanelEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +37,7 @@ public class MainWindow {
     }
 
 
-    public void addToMainPanel(JPanel windowPanel,PanelEnum name)
+    public void addToMainPanel(JPanel windowPanel, PanelEnum name)
     {
         mainPanel.add(windowPanel,name.toString());
     }

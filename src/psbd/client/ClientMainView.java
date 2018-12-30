@@ -1,7 +1,7 @@
 package psbd.client;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 
@@ -12,6 +12,7 @@ public class ClientMainView extends ViewTemplate {
     private JButton createDishReviewButton;
     private JButton logoutButton;
     private JButton editUserDataButton;
+    private JLabel userDataLabel;
 
     public ClientMainView()
     {
@@ -42,4 +43,9 @@ public class ClientMainView extends ViewTemplate {
     public JButton getEditUserDataButton() {
         return editUserDataButton;
     }
+
+    public JLabel getUserDataLabel() {
+        return userDataLabel;
+    }
+
 }

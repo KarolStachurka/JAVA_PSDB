@@ -1,27 +1,21 @@
 package psbd.user;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RestorePasswordView extends ViewTemplate {
     private JButton sendMailButton;
     private JPanel WindowPanel;
-    private JTextField textField1;
+    private JTextField loginTextInput;
     private JButton backButton;
+    private JLabel messagesLabel;
 
     public RestorePasswordView()
     {
         setWindowName(PanelEnum.RESTOREPASSWORD);
-        sendMailButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
 
-            }
-        });
     }
 
     public JPanel getWindowPanel() {
@@ -36,8 +30,17 @@ public class RestorePasswordView extends ViewTemplate {
         return sendMailButton;
     }
 
+    public JTextField getLoginTextInput() {
+        return loginTextInput;
+    }
+
+    public JLabel getMessagesLabel() {
+        return messagesLabel;
+    }
+
     @Override
     public void cleanAll() {
-
+            loginTextInput.setText("");
+            messagesLabel.setText("");
     }
 }

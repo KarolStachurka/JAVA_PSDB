@@ -1,7 +1,7 @@
 package psbd.admin;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +22,7 @@ public class AdminMainView extends ViewTemplate {
     private JComboBox accountTypeBox;
     private JButton removeThisAccountButton;
     private JTextField peselTextInput;
-    private JLabel communicatesLabel;
+    private JLabel messagesLabel;
     private JButton editAccountButton;
     private JTable usersTable;
     private JButton editReviewsButton;
@@ -53,7 +53,7 @@ public class AdminMainView extends ViewTemplate {
         emailTextInput.setText("");
         confirmEmailTextInput.setText("");
         phoneNumberTextInput.setText("");
-        communicatesLabel.setText("");
+        messagesLabel.setText("");
     }
 
     public JButton getLogoutButton() {
@@ -124,8 +124,8 @@ public class AdminMainView extends ViewTemplate {
         return companyNameBox;
     }
 
-    JLabel getCommunicatesLabel() {
-        return communicatesLabel;
+    JLabel getMessagesLabel() {
+        return messagesLabel;
     }
 
     public JButton getTestButton() {

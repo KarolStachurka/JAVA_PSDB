@@ -1,4 +1,4 @@
-package psbd;
+package psbd.utils;
 
 public enum UserEnum {
     ADMIN,

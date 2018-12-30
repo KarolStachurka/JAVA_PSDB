@@ -1,4 +1,4 @@
-package psbd;
+package psbd.utils;
 
 public abstract  class ViewTemplate {
     private PanelEnum windowName;

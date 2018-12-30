@@ -1,4 +1,4 @@
-package psbd;
+package psbd.models;
 
 public class Company {
     private int nip;

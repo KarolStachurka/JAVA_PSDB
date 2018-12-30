@@ -5,8 +5,10 @@ import psbd.client.*;
 import psbd.cook.*;
 import psbd.courier.*;
 import psbd.manager.*;
+import psbd.models.CurrentSession;
 import psbd.supplier.*;
 import psbd.user.*;
+import psbd.utils.Messages;
 
 
 public class MainController {
@@ -108,11 +110,12 @@ public class MainController {
         userLoginController.getView().getCreateAccountButton().addActionListener(e->view.setWindowActive(createClientController.getView().getWindowName()));
         userLoginController.getView().getLoginButton().addActionListener(
                 e-> {
-                    if(userLoginController.userLogin())
-                        switch (userLoginController.userType())
-                        {
+                    if(userLoginController.userLogin()) {
+
+                        switch (userLoginController.userType()) {
                             case CLIENT:
                                 view.setWindowActive(clientMainController.getView().getWindowName());
+                                clientMainController.login();
                                 break;
                             case COURIER:
                                 view.setWindowActive(courierMainController.getView().getWindowName());
@@ -122,6 +125,7 @@ public class MainController {
                                 break;
                             case ADMIN:
                                 view.setWindowActive(adminMainController.getView().getWindowName());
+                                adminMainController.login();
                                 break;
                             case SUPPLIER:
                                 view.setWindowActive(supplierMainController.getView().getWindowName());
@@ -130,14 +134,26 @@ public class MainController {
                                 view.setWindowActive(managerMainController.getView().getWindowName());
                                 break;
                         }
-
+                        userLoginController.getView().cleanAll();
+                    }
+                    else
+                    {
+                        Messages messages = Messages.getInstance();
+                        userLoginController.setMessage(messages.notExists);
+                    }
                     });
 
         //restore password buttons
-        restorePasswordController.getView().getBackButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        restorePasswordController.getView().getBackButton().addActionListener(e->{
+            view.setWindowActive(userLoginController.getView().getWindowName());
+            restorePasswordController.getView().cleanAll();
+        });
 
         //create clients buttons
-        createClientController.getView().getBackButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        createClientController.getView().getBackButton().addActionListener(e->{
+            view.setWindowActive(userLoginController.getView().getWindowName());
+            createClientController.getView().cleanAll();
+        });
 
         // main client page buttons
         clientMainController.getView().getLogoutButton().addActionListener(e->
@@ -166,7 +182,10 @@ public class MainController {
         cookMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
 
         //admin create account page buttons
-        adminMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        adminMainController.getView().getLogoutButton().addActionListener(e->{
+            adminMainController.logout();
+            view.setWindowActive(userLoginController.getView().getWindowName());
+        });
         adminMainController.getView().getEditDiscountsButton().addActionListener(e->view.setWindowActive(discountManagerController.getView().getWindowName()));
         adminMainController.getView().getEditReviewsButton().addActionListener(e->view.setWindowActive(editReviewController.getView().getWindowName()));
 
@@ -174,13 +193,24 @@ public class MainController {
         editReviewController.getView().getBackButton().addActionListener(e->view.setWindowActive(adminMainController.getView().getWindowName()));
 
         //manager main page buttons
-        managerMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        managerMainController.getView().getLogoutButton().addActionListener(e->{
+            view.setWindowActive(userLoginController.getView().getWindowName());
+            managerMainController.getView().cleanAll();
+        });
         managerMainController.getView().getDiscountsControlButton().addActionListener(e->view.setWindowActive(discountManagerController.getView().getWindowName()));
         managerMainController.getView().getRecipesControlButton().addActionListener(e->view.setWindowActive(recipeManagerController.getView().getWindowName()));
 
         // discount manager page buttons
         discountManagerController.getView().getBackButton().addActionListener(e->{
-            view.setWindowActive(adminMainController.getView().getWindowName());
+            CurrentSession session = CurrentSession.getInstance();
+            switch (session.getLoggedUser().getType()) {
+                case ADMIN:
+                    view.setWindowActive(adminMainController.getView().getWindowName());
+                    break;
+                case MANAGER:
+                    view.setWindowActive(managerMainController.getView().getWindowName());
+                    break;
+            }
         });
 
         //recipe manager page buttons

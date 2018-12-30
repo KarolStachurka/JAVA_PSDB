@@ -1,10 +1,9 @@
-package psbd;
+package psbd.utils;
 
-import com.mysql.jdbc.StringUtils;
-
-public class Communicates {
+public class Messages {
     public static final String passwordNotMatch = "Password is not confirmed!";
     public static final String emailNotMatch = "Email is not confirmed!";
+    public static final String restorePassword = "Email with instructions was send to your email address";
     public static final String alreadyExists = "Account with this data already exists";
     public static final String notExists = "This account not exists in database";
     public static final String unfilledNecessaryFields = "Please fill all necessary fields";
@@ -13,12 +12,12 @@ public class Communicates {
     public static final String accountEdited = "Account data has been successfully edited";
     public static final String accountRemoved = "Account has been removed";
 
-    private static Communicates ourInstance = new Communicates();
+    private static Messages ourInstance = new Messages();
 
-    public static Communicates getInstance() {
+    public static Messages getInstance() {
         return ourInstance;
     }
 
-    private Communicates() {
+    private Messages() {
     }
 }

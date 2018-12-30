@@ -1,12 +1,10 @@
 package psbd.manager;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class DiscountManagerView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -21,7 +19,7 @@ public class DiscountManagerView extends ViewTemplate {
     private JButton editCompanyButton;
     private JTable companiesTable;
     private JTextField nipTextInput;
-    private JLabel communicatesLabel;
+    private JLabel messageslabel;
 
     public DiscountManagerView()
     {
@@ -41,7 +39,7 @@ public class DiscountManagerView extends ViewTemplate {
         companyNameTextInput.setText("");
         discountTextInput.setText("");
         companyDiscountTextInput.setText("");
-        communicatesLabel.setText("");
+        messageslabel.setText("");
     }
 
     public JButton getRemoveCompanyButton() {
@@ -64,8 +62,8 @@ public class DiscountManagerView extends ViewTemplate {
         return editCompanyButton;
     }
 
-    public JLabel getCommunicatesLabel() {
-        return communicatesLabel;
+    public JLabel getMessageslabel() {
+        return messageslabel;
     }
     public JComboBox getDiscountMilestonesValues() {
         return discountMilestonesValues;

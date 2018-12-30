@@ -1,34 +1,29 @@
 package psbd.client;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CreateClientView extends ViewTemplate {
     private JPanel WindowPanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField nameTextInput;
+    private JTextField surnameTextInput;
+    private JTextField loginTextInput;
+    private JTextField passwordTextInput;
     private JButton confirmButton;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JComboBox comboBox1;
+    private JTextField confirmPasswordTextInput;
+    private JTextField emailTextInput;
+    private JTextField confirmEmailTextInput;
+    private JComboBox companyNameBox;
     private JButton backButton;
-    private JTextField textField8;
+    private JTextField phoneNumberTextInput;
+    private JLabel messagesLabel;
 
     public CreateClientView()
     {
         setWindowName(PanelEnum.CREATECLIENACCOUNT);
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-            }
-        });
+
     }
 
     public JPanel getWindowPanel() {
@@ -43,8 +38,56 @@ public class CreateClientView extends ViewTemplate {
         return confirmButton;
     }
 
+    public JTextField getLoginTextInput() {
+        return loginTextInput;
+    }
+
+    public JTextField getPasswordTextInput() {
+        return passwordTextInput;
+    }
+
+    public JTextField getPhoneNumberTextInput() {
+        return phoneNumberTextInput;
+    }
+
+    public JTextField getConfirmPasswordTextInput() {
+        return confirmPasswordTextInput;
+    }
+
+    public JTextField getEmailTextInput() {
+        return emailTextInput;
+    }
+
+    public JTextField getConfirmEmailTextInput() {
+        return confirmEmailTextInput;
+    }
+
+    public JTextField getSurnameTextInput() {
+        return surnameTextInput;
+    }
+
+    public JTextField getNameTextInput() {
+        return nameTextInput;
+    }
+
+    public JComboBox getCompanyNameBox() {
+        return companyNameBox;
+    }
+
+    public JLabel getMessagesLabel() {
+        return messagesLabel;
+    }
+
     @Override
     public void cleanAll() {
-
+        loginTextInput.setText("");
+        passwordTextInput.setText("");
+        confirmPasswordTextInput.setText("");
+        nameTextInput.setText("");
+        surnameTextInput.setText("");
+        emailTextInput.setText("");
+        confirmEmailTextInput.setText("");
+        phoneNumberTextInput.setText("");
+        messagesLabel.setText("");
     }
 }

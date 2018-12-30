@@ -1,10 +1,9 @@
 package psbd.supplier;
 
-import psbd.PanelEnum;
-import psbd.ViewTemplate;
+import psbd.utils.PanelEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
-import javax.swing.text.View;
 
 public class EditStorageView extends ViewTemplate {
     private JButton backButton;

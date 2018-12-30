@@ -1,5 +1,7 @@
 package psbd.client;
 
+import psbd.models.CurrentSession;
+
 public class ClientMainController {
 
     private ClientMainView view;
@@ -13,7 +15,15 @@ public class ClientMainController {
         return view;
     }
 
-    public void logout(){
+    public void login()
+    {
+        CurrentSession session = CurrentSession.getInstance();
+        String text = session.getLoggedUser().getName() + " " + session.getLoggedUser().getSurname();
+        view.getUserDataLabel().setText(text);
+    }
 
+    public void logout(){
+        CurrentSession session = CurrentSession.getInstance();
+        session.setLoggedUser(null);
     }
 }

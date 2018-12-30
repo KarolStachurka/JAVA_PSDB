@@ -1,4 +1,4 @@
-package psbd;
+package psbd.utils;
 
 import java.sql.*;
 

@@ -1,9 +1,8 @@
 package psbd.manager;
 
-import com.mysql.jdbc.StringUtils;
-import psbd.Communicates;
-import psbd.Company;
-import psbd.DatabaseConnector;
+import psbd.utils.Messages;
+import psbd.models.Company;
+import psbd.utils.DatabaseConnector;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class DiscountManagerController {
 
     private DiscountManagerView view;
-    private Communicates communicates;
+    private Messages messages;
 
     public DiscountManagerController(DiscountManagerView view)
     {
@@ -41,7 +40,7 @@ public class DiscountManagerController {
             if(createCompanyAccount(createNewCompany()))
             {
                 view.cleanAll();
-                setCommunicate(communicates.accountCreated);
+                setMessage(messages.accountCreated);
                 updateTable();
             }
 
@@ -50,7 +49,7 @@ public class DiscountManagerController {
             if(editExistingCompany(createNewCompany()))
             {
                 view.cleanAll();
-                setCommunicate(communicates.accountEdited);
+                setMessage(messages.accountEdited);
                 updateTable();
             }
             else
@@ -61,7 +60,7 @@ public class DiscountManagerController {
             if(removeExistingCompany(createNewCompany()))
             {
                 view.cleanAll();
-                setCommunicate(communicates.accountRemoved);
+                setMessage(messages.accountRemoved);
                 updateTable();
             }
             else
@@ -85,7 +84,7 @@ public class DiscountManagerController {
         }
         catch (NumberFormatException e)
         {
-            setCommunicate(communicates.unfilledNecessaryFields);
+            setMessage(messages.unfilledNecessaryFields);
             return null;
         }
     }
@@ -94,12 +93,12 @@ public class DiscountManagerController {
     {
         if(company == null)
         {
-            setCommunicate(communicates.unfilledNecessaryFields);
+            setMessage(messages.unfilledNecessaryFields);
             return false;
         }
         if(checkIfCompanyExist(String.valueOf(company.getNip())))
         {
-            setCommunicate(communicates.alreadyExists);
+            setMessage(messages.alreadyExists);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -108,7 +107,7 @@ public class DiscountManagerController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -119,12 +118,12 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         if(!database.executeStatement())
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -133,7 +132,7 @@ public class DiscountManagerController {
     {
         if(!checkIfCompanyExist(String.valueOf(company.getNip())))
         {
-            setCommunicate(communicates.notExists);
+            setMessage(messages.notExists);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -141,7 +140,7 @@ public class DiscountManagerController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -153,7 +152,7 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -171,15 +170,15 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return !checkIfCompanyExist((String.valueOf(company.getNip())));
     }
 
-    private void setCommunicate(String error)
+    private void setMessage(String error)
     {
-        view.getCommunicatesLabel().setText(error);
+        view.getMessageslabel().setText(error);
     }
 
     private boolean checkIfCompanyExist(String nip)
@@ -190,7 +189,7 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
     }

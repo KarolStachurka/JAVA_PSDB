@@ -1,10 +1,11 @@
 package psbd.admin;
 
 import com.mysql.jdbc.StringUtils;
-import psbd.Communicates;
-import psbd.UserEnum;
-import psbd.DatabaseConnector;
-import psbd.user.User;
+import psbd.models.CurrentSession;
+import psbd.utils.Messages;
+import psbd.utils.UserEnum;
+import psbd.utils.DatabaseConnector;
+import psbd.models.User;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
@@ -20,7 +21,9 @@ import java.util.ArrayList;
  */
 public class AdminMainController {
     private AdminMainView view;
-    private Communicates communicates;
+    private Messages messages;
+
+    public AdminMainController(){}
 
     public AdminMainController(AdminMainView view)
     {
@@ -64,7 +67,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setCommunicate(communicates.accountCreated);
+                setMessage(messages.accountCreated);
             }
         });
         view.getEditAccountButton().addActionListener(e->{
@@ -72,7 +75,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setCommunicate(communicates.accountEdited);
+                setMessage(messages.accountEdited);
             }
 
         });
@@ -81,7 +84,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setCommunicate(communicates.accountRemoved);
+                setMessage(messages.accountRemoved);
             }
         });
 
@@ -93,6 +96,19 @@ public class AdminMainController {
 
     public AdminMainView getView() {
         return view;
+    }
+
+    public void login()
+    {
+        CurrentSession session = CurrentSession.getInstance();
+        String text = "Hello " + session.getLoggedUser().getName() + " " + session.getLoggedUser().getSurname();
+        view.getUserDataLabel().setText(text);
+    }
+
+    public void logout()
+    {
+        CurrentSession session = CurrentSession.getInstance();
+        session.setLoggedUser(null);
     }
 
     private User createUser()
@@ -149,7 +165,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -166,12 +182,12 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         if(!database.executeStatement())
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return  true;
@@ -181,7 +197,7 @@ public class AdminMainController {
     {
         if(!checkIfAccountExist(user.getLogin()))
         {
-            setCommunicate(communicates.notExists);
+            setMessage(messages.notExists);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -190,7 +206,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -207,7 +223,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -226,7 +242,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
         return !checkIfAccountExist(user.getLogin());
@@ -240,15 +256,15 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setCommunicate(communicates.databaseError);
+            setMessage(messages.databaseError);
             return false;
         }
     }
 
 
-    private void setCommunicate(String error)
+    private void setMessage(String error)
     {
-        view.getCommunicatesLabel().setText(error);
+        view.getMessagesLabel().setText(error);
     }
 
     private void setUserTypes()
@@ -280,15 +296,15 @@ public class AdminMainController {
     {
         if(!password.equals(confirmPassword))
         {
-            setCommunicate(communicates.passwordNotMatch);
+            setMessage(messages.passwordNotMatch);
             return false;
         }
 
-        if(!email.equals(confirmEmail))
-        {
-            setCommunicate(communicates.emailNotMatch);
-            return false;
-        }
+//        if(!email.equals(confirmEmail))
+//        {
+//            setMessage(messages.emailNotMatch);
+//            return false;
+//        }
 
         if(StringUtils.isEmptyOrWhitespaceOnly(login) ||
             StringUtils.isEmptyOrWhitespaceOnly(password)||
@@ -296,13 +312,13 @@ public class AdminMainController {
             StringUtils.isEmptyOrWhitespaceOnly(surname) ||
             StringUtils.isEmptyOrWhitespaceOnly(email))
         {
-            setCommunicate(communicates.unfilledNecessaryFields);
+            setMessage(messages.unfilledNecessaryFields);
             return false;
         }
 
         if(checkIfAccountExist(login))
         {
-            setCommunicate(communicates.alreadyExists);
+            setMessage(messages.alreadyExists);
             return false;
         }
         return true;

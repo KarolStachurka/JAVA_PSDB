@@ -1,7 +1,6 @@
-package psbd.user;
+package psbd.models;
 
-import com.mysql.jdbc.StringUtils;
-import psbd.UserEnum;
+import psbd.utils.UserEnum;
 
 public class User {
 

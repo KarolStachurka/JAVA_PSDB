@@ -1,4 +1,4 @@
-package psbd.user;
+package psbd.models;
 
 public class CurrentSession {
     private static CurrentSession ourInstance = new CurrentSession();
