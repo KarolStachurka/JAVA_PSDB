@@ -18,7 +18,7 @@ public class ClientMainController {
     public void login()
     {
         CurrentSession session = CurrentSession.getInstance();
-        String text = session.getLoggedUser().getName() + " " + session.getLoggedUser().getSurname();
+        String text = "Hello " + session.getLoggedUser().getName() + " " + session.getLoggedUser().getSurname();
         view.getUserDataLabel().setText(text);
     }
 

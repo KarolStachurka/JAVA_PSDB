@@ -12,6 +12,11 @@ public class Messages {
     public static final String accountEdited = "Account data has been successfully edited";
     public static final String accountRemoved = "Account has been removed";
 
+    // table headers
+    public static final String[] userTableHeaders = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
+    public static final String[] companyTableHeaders = {"NIP","Company name", "Discount value"};
+    public static final String[] ingredientTableHeaders  = {"Name", "Type", "Price", "Expiration date", "Amount"};
+
     private static Messages ourInstance = new Messages();
 
     public static Messages getInstance() {

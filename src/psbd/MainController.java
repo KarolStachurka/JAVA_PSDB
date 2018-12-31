@@ -129,6 +129,7 @@ public class MainController {
                                 break;
                             case SUPPLIER:
                                 view.setWindowActive(supplierMainController.getView().getWindowName());
+                                supplierMainController.login();
                                 break;
                             case MANAGER:
                                 view.setWindowActive(managerMainController.getView().getWindowName());
@@ -217,7 +218,11 @@ public class MainController {
         recipeManagerController.getView().getBackButton().addActionListener(e->view.setWindowActive(managerMainController.getView().getWindowName()));
 
         // supplier main page buttons
-        supplierMainController.getView().getLogoutButton().addActionListener(e->view.setWindowActive(userLoginController.getView().getWindowName()));
+        supplierMainController.getView().getLogoutButton().addActionListener(e->{
+            supplierMainController.logout();
+            view.setWindowActive(userLoginController.getView().getWindowName());
+
+        });
         supplierMainController.getView().getCreateNewDeliveryButton().addActionListener(e->view.setWindowActive(createDeliveryController.getView().getWindowName()));
         supplierMainController.getView().getEditStorageButton().addActionListener(e->view.setWindowActive(editStorageController.getView().getWindowName()));
         supplierMainController.getView().getStatisticsButton().addActionListener(e->view.setWindowActive(warehouseStatisticsController.getView().getWindowName()));

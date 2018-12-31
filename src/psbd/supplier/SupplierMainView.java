@@ -14,6 +14,7 @@ public class SupplierMainView extends ViewTemplate {
     private JButton editStorageButton;
     private JButton statisticsButton;
     private JList list2;
+    private JLabel userDataLabel;
 
     public SupplierMainView()
     {
@@ -47,5 +48,9 @@ public class SupplierMainView extends ViewTemplate {
 
     public JButton getReceiveDeliveryButton() {
         return receiveDeliveryButton;
+    }
+
+    public JLabel getUserDataLabel() {
+        return userDataLabel;
     }
 }

@@ -56,9 +56,15 @@ public class AdminMainController {
                 view.getCompanyNameBox().setSelectedItem(view.getUsersTable().getValueAt(
                         view.getUsersTable().getSelectedRow(), 6)
                 );
-                view.getPeselTextInput().setText(view.getUsersTable().getValueAt(
-                        view.getUsersTable().getSelectedRow(), 7).toString()
-                );
+                try {
+                    view.getPeselTextInput().setText(view.getUsersTable().getValueAt(
+                            view.getUsersTable().getSelectedRow(), 7).toString()
+                    );
+                }
+                catch (NullPointerException e)
+                {
+                    view.getPeselTextInput().setText( "");
+                }
             }
         });
 
@@ -86,11 +92,6 @@ public class AdminMainController {
                 updateList();
                 setMessage(messages.accountRemoved);
             }
-        });
-
-        view.getTestButton().addActionListener(e->{
-            this.view.cleanAll();
-            updateList();
         });
     }
 
@@ -148,9 +149,7 @@ public class AdminMainController {
 
         return new User(UserEnum.valueOf(userType),login,password,name,surname,email,pesel,phoneNumber,company);
     }
-    /* todo :
-        add company name handling
-    */
+
     private boolean createAccount(User user)
     {
         String confirmPassword = view.getConfirmPasswordTextInput().getText();
@@ -326,7 +325,7 @@ public class AdminMainController {
 
     private void updateList()
     {
-        String[] columnNames = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
+        String[] columnNames = messages.userTableHeaders;
         String [][] data = getUsersList();
         DefaultTableModel model = (DefaultTableModel) view.getUsersTable().getModel();
         model.setColumnIdentifiers(columnNames);

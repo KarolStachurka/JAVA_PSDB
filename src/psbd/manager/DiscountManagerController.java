@@ -196,7 +196,7 @@ public class DiscountManagerController {
 
     public void updateTable()
     {
-        String[] columnNames = {"NIP","Name", "Discount"};
+        String[] columnNames = messages.companyTableHeaders;
         String [][] data = getCompaniesList();
         DefaultTableModel model = (DefaultTableModel) view.getCompaniesTable().getModel();
         model.setColumnIdentifiers(columnNames);
