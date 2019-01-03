@@ -8,13 +8,13 @@ import javax.swing.*;
 public class SupplierMainView extends ViewTemplate {
     private JPanel WindowPanel;
     private JButton logoutButton;
-    private JList list1;
     private JButton receiveDeliveryButton;
     private JButton createNewDeliveryButton;
-    private JButton editStorageButton;
+    private JButton StorageStateButton;
     private JButton statisticsButton;
     private JList list2;
     private JLabel userDataLabel;
+    private JButton ingredientListButton;
 
     public SupplierMainView()
     {
@@ -38,12 +38,16 @@ public class SupplierMainView extends ViewTemplate {
         return createNewDeliveryButton;
     }
 
-    public JButton getEditStorageButton() {
-        return editStorageButton;
+    public JButton getStorageStateButton() {
+        return StorageStateButton;
     }
 
     public JButton getStatisticsButton() {
         return statisticsButton;
+    }
+
+    public JButton getIngredientListButton() {
+        return ingredientListButton;
     }
 
     public JButton getReceiveDeliveryButton() {

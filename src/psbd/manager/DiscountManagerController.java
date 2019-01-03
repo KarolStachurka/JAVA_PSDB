@@ -213,8 +213,8 @@ public class DiscountManagerController {
         String[][] errorData = {{}};
 
         DatabaseConnector database = DatabaseConnector.getInstance();
-        ResultSet result = database.getFullTableData("companies");
         try {
+            ResultSet result = database.getFullTableData("companies");
             while (result.next()) {
                 ArrayList<String> dataRow = new ArrayList<>();
                 dataRow.add(result.getString("nip"));

@@ -38,9 +38,9 @@ public class CreateClientController {
     private void setCompaniesList()
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        ResultSet table = database.getFullTableData("companies");
         view.getCompanyNameBox().addItem("Empty");
         try{
+            ResultSet table = database.getFullTableData("companies");
             while (table.next())
             {
                 view.getCompanyNameBox().addItem(table.getString("company_name"));

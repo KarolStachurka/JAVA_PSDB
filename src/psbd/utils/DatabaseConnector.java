@@ -65,6 +65,7 @@ public class DatabaseConnector {
         }
         catch (SQLException e)
         {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -84,6 +85,7 @@ public class DatabaseConnector {
         }
         catch (SQLException e)
         {
+            e.printStackTrace();
             return null;
         }
         return preparedStatement;

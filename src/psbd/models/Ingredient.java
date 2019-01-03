@@ -3,13 +3,12 @@ package psbd.models;
 import psbd.utils.IngredientsEnum;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Ingredient {
     private String name;
     private IngredientsEnum type;
     private double price;
-    private double amount;
+    private double quantity;
     private Date expiration_time;
     private int warehouse;
 
@@ -18,17 +17,24 @@ public class Ingredient {
         this.name = name;
         this.type = type;
         this.price = price;
-        this.amount = amount;
+        this.quantity = amount;
         this.expiration_time = expiration_time;
         this.warehouse = warehouse;
+    }
+
+    public Ingredient(String name, IngredientsEnum type, double price)
+    {
+        this.name = name;
+        this.type = type;
+        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getQuantity() {
+        return quantity;
     }
 
     public double getPrice() {

@@ -20,5 +20,6 @@ public enum PanelEnum {
     DISCOUNTMANAGER,
     CREATEDELIVERY,
     EDITSTORAGE,
+    INGREDIENTLIST,
     ERROR
 }

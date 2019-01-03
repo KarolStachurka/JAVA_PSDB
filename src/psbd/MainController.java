@@ -37,6 +37,7 @@ public class MainController {
     private CreateDeliveryController createDeliveryController;
     private EditStorageController editStorageController;
     private WarehouseStatisticsController warehouseStatisticsController;
+    private SupplierIngredientListController supplierIngredientListController;
 
     public MainController(MainWindow view)
     {
@@ -67,6 +68,8 @@ public class MainController {
         createDeliveryController = new CreateDeliveryController(new CreateDeliveryView());
         editStorageController = new EditStorageController(new EditStorageView());
         warehouseStatisticsController = new WarehouseStatisticsController(new WarehouseStatisticsView());
+        supplierIngredientListController = new SupplierIngredientListController(new SupplierIngredientListView());
+
         initView();
         initConnections();
     }
@@ -98,8 +101,9 @@ public class MainController {
         view.addToMainPanel(createDeliveryController.getView().getWindowPanel(), createDeliveryController.getView().getWindowName());
         view.addToMainPanel(editStorageController.getView().getWindowPanel(), editStorageController.getView().getWindowName());
         view.addToMainPanel(warehouseStatisticsController.getView().getWindowPanel(), warehouseStatisticsController.getView().getWindowName());
+        view.addToMainPanel(supplierIngredientListController.getView().getWindowPanel(), supplierIngredientListController.getView().getWindowName());
 
-        view.setWindowActive(userLoginController.getView().getWindowName());
+        view.setWindowActive(createDeliveryController.getView().getWindowName());
     }
 
     // Creates connections between panels in application
@@ -224,8 +228,9 @@ public class MainController {
 
         });
         supplierMainController.getView().getCreateNewDeliveryButton().addActionListener(e->view.setWindowActive(createDeliveryController.getView().getWindowName()));
-        supplierMainController.getView().getEditStorageButton().addActionListener(e->view.setWindowActive(editStorageController.getView().getWindowName()));
+        supplierMainController.getView().getStorageStateButton().addActionListener(e->view.setWindowActive(editStorageController.getView().getWindowName()));
         supplierMainController.getView().getStatisticsButton().addActionListener(e->view.setWindowActive(warehouseStatisticsController.getView().getWindowName()));
+        supplierMainController.getView().getIngredientListButton().addActionListener(e->view.setWindowActive(supplierIngredientListController.getView().getWindowName()));
 
         //create delivery page buttons
         createDeliveryController.getView().getBackButton().addActionListener(e->view.setWindowActive(supplierMainController.getView().getWindowName()));
@@ -235,6 +240,9 @@ public class MainController {
 
         // warehouse statistics page buttons
         warehouseStatisticsController.getView().getBackButton().addActionListener(e->view.setWindowActive(supplierMainController.getView().getWindowName()));
+
+        // supplier ingredient list page
+        supplierIngredientListController.getView().getBackButton().addActionListener(e->view.setWindowActive(supplierMainController.getView().getWindowName()));
     }
 
 }
