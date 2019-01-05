@@ -7,19 +7,22 @@ import javax.swing.*;
 
 public class EditClientDataView extends ViewTemplate {
     private JPanel WindowPanel;
-    private JList list1;
     private JButton addNewAdressButton;
     private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JComboBox comboBox1;
-    private JTextField textField6;
-    private JTextField textField7;
+    private JTextField nameTextInput;
+    private JTextField surnameTextInput;
+    private JTextField emailTextInput;
+    private JTextField confirmEmailTextInput;
+    private JTextField phoneTextInput;
+    private JTextField currentPasswordTextInput;
     private JButton backButton;
-    private JComboBox comboBox2;
     private JButton confirmButton;
+    private JTabbedPane tabbedPane1;
+    private JTable table1;
+    private JButton removeAddressButton;
+    private JTextField newPasswordTextInput;
+    private JTextField confirmNewPasswordTextInput;
+    private JLabel messagesLabel;
 
     public EditClientDataView()
     {
@@ -32,6 +35,15 @@ public class EditClientDataView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
+        nameTextInput.setText("");
+        surnameTextInput.setText("");
+        phoneTextInput.setText("");
+        emailTextInput.setText("");
+        confirmEmailTextInput.setText("");
+        newPasswordTextInput.setText("");
+        confirmNewPasswordTextInput.setText("");
+        currentPasswordTextInput.setText("");
+        messagesLabel.setText("");
 
     }
 
@@ -45,5 +57,41 @@ public class EditClientDataView extends ViewTemplate {
 
     public JButton getAddNewAdressButton() {
         return addNewAdressButton;
+    }
+
+    public JTextField getNameTextInput() {
+        return nameTextInput;
+    }
+
+    public JTextField getSurnameTextInput() {
+        return surnameTextInput;
+    }
+
+    public JTextField getPhoneTextInput() {
+        return phoneTextInput;
+    }
+
+    public JTextField getConfirmEmailTextInput() {
+        return confirmEmailTextInput;
+    }
+
+    public JTextField getEmailTextInput() {
+        return emailTextInput;
+    }
+
+    public JTextField getCurrentPasswordTextInput() {
+        return currentPasswordTextInput;
+    }
+
+    public JTextField getNewPasswordTextInput() {
+        return newPasswordTextInput;
+    }
+
+    public JTextField getConfirmNewPasswordTextInput() {
+        return confirmNewPasswordTextInput;
+    }
+
+    public JLabel getMessagesLabel() {
+        return messagesLabel;
     }
 }

@@ -1,11 +1,11 @@
 package psbd.utils;
 
 public class Messages {
-    public static final String PASSWORD_NOT_MATCH = "Password is not confirmed!";
+    public static final String PASSWORD_NOT_MATCH = "New password is not confirmed!";
     public static final String EMAIL_NOT_MATCH = "Email is not confirmed!";
     public static final String RESTORE_PASSWORD = "Email with instructions was send to your email address";
     public static final String ALREADY_EXISTS = "Account with this data already exists";
-    public static final String NOT_EXISTS = "This account not exists in database";
+    public static final String NOT_EXISTS = "This account does not exist in database";
     public static final String UNFILLED_NECESSARY_FIELDS = "Please fill all necessary fields";
     public static final String INVALID_INPUT = "Invalid input";
     public static final String DATABASE_ERROR = "Error with database connection";

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SupplierMainController {
 
@@ -73,7 +74,7 @@ public class SupplierMainController {
     private boolean editDeliver(Delivery delivery)
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "UPDATE deliveries SET `received` = ?, `date_of_receiving` = NOW() WHERE delivery_id = ?";
+        String sqlQuery = "UPDATE deliveries SET `received` = ?, `date_of_receiving` = ? WHERE delivery_id = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
@@ -81,7 +82,15 @@ public class SupplierMainController {
         }
         try {
             statement.setInt(1,delivery.isReceived()? 1 : 0 );
-            statement.setString(2,delivery.getId());
+            if(delivery.isReceived())
+            {
+                statement.setDate(2,new Date(Calendar.getInstance().getTime().getTime()));
+            }
+            else
+            {
+                statement.setDate(2,null);
+            }
+            statement.setString(3,delivery.getId());
             database.setPreparedStatement(statement);
         }
         catch (SQLException e)
