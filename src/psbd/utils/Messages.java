@@ -1,23 +1,24 @@
 package psbd.utils;
 
 public class Messages {
-    public static final String passwordNotMatch = "Password is not confirmed!";
-    public static final String emailNotMatch = "Email is not confirmed!";
-    public static final String restorePassword = "Email with instructions was send to your email address";
-    public static final String alreadyExists = "Account with this data already exists";
-    public static final String notExists = "This account not exists in database";
-    public static final String unfilledNecessaryFields = "Please fill all necessary fields";
-    public static final String invalidInput = "Invalid input";
-    public static final String databaseError = "Error with database connection";
-    public static final String accountCreated = "New account was properly created";
-    public static final String accountEdited = "Account data has been successfully edited";
-    public static final String accountRemoved = "Account has been removed";
+    public static final String PASSWORD_NOT_MATCH = "Password is not confirmed!";
+    public static final String EMAIL_NOT_MATCH = "Email is not confirmed!";
+    public static final String RESTORE_PASSWORD = "Email with instructions was send to your email address";
+    public static final String ALREADY_EXISTS = "Account with this data already exists";
+    public static final String NOT_EXISTS = "This account not exists in database";
+    public static final String UNFILLED_NECESSARY_FIELDS = "Please fill all necessary fields";
+    public static final String INVALID_INPUT = "Invalid input";
+    public static final String DATABASE_ERROR = "Error with database connection";
+    public static final String ACCOUNT_CREATED = "New account was properly created";
+    public static final String ACCOUNT_EDITED = "Account data has been successfully edited";
+    public static final String ACCOUNT_REMOVED = "Account has been removed";
 
     // table headers
-    public static final String[] userTableHeaders = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
-    public static final String[] companyTableHeaders = {"NIP","Company name", "Discount value"};
-    public static final String[] ingredientTableHeaders  = {"Name", "Type", "Price"};
-    public static final String[] deliveriesTableHeaders = {"ID","Type","Warehouse","Quantity","Date of order","Received","Date of receiving","Expiration date"};
+    public static final String[] USER_TABLE_HEADERS = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
+    public static final String[] COMPANY_TABLE_HEADERS = {"NIP","Company name", "Discount value"};
+    public static final String[] INGREDIENT_TABLE_HEADERS = {"Name", "Type", "Price"};
+    public static final String[] DELIVERIES_MANAGER_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Expiration date","Date of order"};
+    public static final String[] DELIVERIES_LIST_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Received","Date of order","Date of receiving"};
 
     private static Messages ourInstance = new Messages();
 

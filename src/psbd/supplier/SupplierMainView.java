@@ -1,24 +1,29 @@
 package psbd.supplier;
 
+import psbd.utils.Messages;
+import psbd.utils.MyTableModel;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class SupplierMainView extends ViewTemplate {
     private JPanel WindowPanel;
     private JButton logoutButton;
-    private JButton receiveDeliveryButton;
     private JButton createNewDeliveryButton;
     private JButton StorageStateButton;
     private JButton statisticsButton;
-    private JList list2;
     private JLabel userDataLabel;
     private JButton ingredientListButton;
+    private JTable deliveriesTable;
 
     public SupplierMainView()
     {
         setWindowName(PanelEnum.SUPPLIERMAIN);
+        Messages messages = Messages.getInstance();
+        MyTableModel model = new MyTableModel(messages.DELIVERIES_LIST_TABLE_HEADERS,4);
+        deliveriesTable.setModel(model);
     }
 
     public JPanel getWindowPanel() {
@@ -27,7 +32,8 @@ public class SupplierMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-
+        DefaultTableModel model = (DefaultTableModel) deliveriesTable.getModel();
+        model.setRowCount(0);
     }
 
     public JButton getLogoutButton() {
@@ -50,11 +56,11 @@ public class SupplierMainView extends ViewTemplate {
         return ingredientListButton;
     }
 
-    public JButton getReceiveDeliveryButton() {
-        return receiveDeliveryButton;
-    }
-
     public JLabel getUserDataLabel() {
         return userDataLabel;
+    }
+
+    public JTable getDeliveriesTable() {
+        return deliveriesTable;
     }
 }

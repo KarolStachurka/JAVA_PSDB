@@ -71,7 +71,7 @@ public class SupplierIngredientListController {
     {
         if(ingredient == null)
         {
-            setMessage(messages.invalidInput);
+            setMessage(messages.INVALID_INPUT);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -80,7 +80,7 @@ public class SupplierIngredientListController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -91,12 +91,12 @@ public class SupplierIngredientListController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class SupplierIngredientListController {
     {
         if(!checkIfIngredientExist(ingredient.getName()))
         {
-            setMessage(messages.notExists);
+            setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -114,7 +114,7 @@ public class SupplierIngredientListController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -126,7 +126,7 @@ public class SupplierIngredientListController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -149,7 +149,7 @@ public class SupplierIngredientListController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return !checkIfIngredientExist(ingredient.getName());
@@ -163,7 +163,7 @@ public class SupplierIngredientListController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
     }
@@ -175,7 +175,7 @@ public class SupplierIngredientListController {
 
     private void updateList()
     {
-        String[] columnNames = messages.ingredientTableHeaders;
+        String[] columnNames = messages.INGREDIENT_TABLE_HEADERS;
         String [][] data = getIngredientsList();
         DefaultTableModel model = (DefaultTableModel) view.getIngredientsTable().getModel();
 

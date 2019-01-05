@@ -144,7 +144,7 @@ public class MainController {
                     else
                     {
                         Messages messages = Messages.getInstance();
-                        userLoginController.setMessage(messages.notExists);
+                        userLoginController.setMessage(messages.NOT_EXISTS);
                     }
                     });
 

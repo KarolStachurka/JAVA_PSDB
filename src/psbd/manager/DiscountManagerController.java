@@ -40,7 +40,7 @@ public class DiscountManagerController {
             if(createCompanyAccount(createNewCompany()))
             {
                 view.cleanAll();
-                setMessage(messages.accountCreated);
+                setMessage(messages.ACCOUNT_CREATED);
                 updateTable();
             }
 
@@ -49,7 +49,7 @@ public class DiscountManagerController {
             if(editExistingCompany(createNewCompany()))
             {
                 view.cleanAll();
-                setMessage(messages.accountEdited);
+                setMessage(messages.ACCOUNT_EDITED);
                 updateTable();
             }
             else
@@ -60,7 +60,7 @@ public class DiscountManagerController {
             if(removeExistingCompany(createNewCompany()))
             {
                 view.cleanAll();
-                setMessage(messages.accountRemoved);
+                setMessage(messages.ACCOUNT_REMOVED);
                 updateTable();
             }
             else
@@ -84,7 +84,7 @@ public class DiscountManagerController {
         }
         catch (NumberFormatException e)
         {
-            setMessage(messages.unfilledNecessaryFields);
+            setMessage(messages.UNFILLED_NECESSARY_FIELDS);
             return null;
         }
     }
@@ -93,12 +93,12 @@ public class DiscountManagerController {
     {
         if(company == null)
         {
-            setMessage(messages.unfilledNecessaryFields);
+            setMessage(messages.UNFILLED_NECESSARY_FIELDS);
             return false;
         }
         if(checkIfCompanyExist(String.valueOf(company.getNip())))
         {
-            setMessage(messages.alreadyExists);
+            setMessage(messages.ALREADY_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -107,7 +107,7 @@ public class DiscountManagerController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -118,12 +118,12 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -132,7 +132,7 @@ public class DiscountManagerController {
     {
         if(!checkIfCompanyExist(String.valueOf(company.getNip())))
         {
-            setMessage(messages.notExists);
+            setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -140,7 +140,7 @@ public class DiscountManagerController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -152,7 +152,7 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -170,7 +170,7 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return !checkIfCompanyExist((String.valueOf(company.getNip())));
@@ -189,14 +189,14 @@ public class DiscountManagerController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
     }
 
     public void updateTable()
     {
-        String[] columnNames = messages.companyTableHeaders;
+        String[] columnNames = messages.COMPANY_TABLE_HEADERS;
         String [][] data = getCompaniesList();
         DefaultTableModel model = (DefaultTableModel) view.getCompaniesTable().getModel();
         model.setColumnIdentifiers(columnNames);

@@ -73,7 +73,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.accountCreated);
+                setMessage(messages.ACCOUNT_CREATED);
             }
         });
         view.getEditAccountButton().addActionListener(e->{
@@ -81,7 +81,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.accountEdited);
+                setMessage(messages.ACCOUNT_EDITED);
             }
 
         });
@@ -90,7 +90,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.accountRemoved);
+                setMessage(messages.ACCOUNT_REMOVED);
             }
         });
     }
@@ -164,7 +164,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -181,12 +181,12 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return  true;
@@ -196,7 +196,7 @@ public class AdminMainController {
     {
         if(!checkIfAccountExist(user.getLogin()))
         {
-            setMessage(messages.notExists);
+            setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -205,7 +205,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -222,7 +222,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -241,7 +241,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return !checkIfAccountExist(user.getLogin());
@@ -255,7 +255,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
     }
@@ -295,13 +295,13 @@ public class AdminMainController {
     {
         if(!password.equals(confirmPassword))
         {
-            setMessage(messages.passwordNotMatch);
+            setMessage(messages.PASSWORD_NOT_MATCH);
             return false;
         }
 
 //        if(!email.equals(confirmEmail))
 //        {
-//            setMessage(messages.emailNotMatch);
+//            setMessage(messages.EMAIL_NOT_MATCH);
 //            return false;
 //        }
 
@@ -311,13 +311,13 @@ public class AdminMainController {
             StringUtils.isEmptyOrWhitespaceOnly(surname) ||
             StringUtils.isEmptyOrWhitespaceOnly(email))
         {
-            setMessage(messages.unfilledNecessaryFields);
+            setMessage(messages.UNFILLED_NECESSARY_FIELDS);
             return false;
         }
 
         if(checkIfAccountExist(login))
         {
-            setMessage(messages.alreadyExists);
+            setMessage(messages.ALREADY_EXISTS);
             return false;
         }
         return true;
@@ -325,7 +325,7 @@ public class AdminMainController {
 
     private void updateList()
     {
-        String[] columnNames = messages.userTableHeaders;
+        String[] columnNames = messages.USER_TABLE_HEADERS;
         String [][] data = getUsersList();
         DefaultTableModel model = (DefaultTableModel) view.getUsersTable().getModel();
         model.setColumnIdentifiers(columnNames);

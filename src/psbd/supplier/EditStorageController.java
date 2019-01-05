@@ -102,7 +102,7 @@ public class EditStorageController {
     {
         if(ingredient == null)
         {
-            setMessage(messages.notExists);
+            setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -111,7 +111,7 @@ public class EditStorageController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -125,12 +125,12 @@ public class EditStorageController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -140,7 +140,7 @@ public class EditStorageController {
     {
         if(!checkIfIngredientExist(ingredient.getName()))
         {
-            setMessage(messages.notExists);
+            setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -148,7 +148,7 @@ public class EditStorageController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -163,7 +163,7 @@ public class EditStorageController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -186,7 +186,7 @@ public class EditStorageController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return !checkIfIngredientExist(ingredient.getName());
@@ -200,7 +200,7 @@ public class EditStorageController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
     }
@@ -212,7 +212,7 @@ public class EditStorageController {
 
     private void updateList()
     {
-        String[] columnNames = messages.ingredientTableHeaders;
+        String[] columnNames = messages.INGREDIENT_TABLE_HEADERS;
         String [][] data = getIngredientsList(view.getStorageListComboBox().getSelectedItem().toString());
         DefaultTableModel model = (DefaultTableModel) view.getIngredientsTable().getModel();
         model.setColumnIdentifiers(columnNames);

@@ -31,13 +31,13 @@ public class UserLoginController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         try {
             if (!database.checkIfRecordExists("users", "user_login", login)) {
-                setMessage(messages.notExists);
+                setMessage(messages.NOT_EXISTS);
                 return false;
             }
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
         }
         String SQLQuery = "SELECT * FROM users WHERE user_login = ? AND user_password = SHA2(?, 256)" ;
         PreparedStatement statement = database.getPreparedStatement(SQLQuery);
@@ -68,7 +68,7 @@ public class UserLoginController {
 
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
 
