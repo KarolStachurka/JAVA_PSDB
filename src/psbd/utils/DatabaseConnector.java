@@ -136,6 +136,7 @@ public class DatabaseConnector {
         ResultSet result;
         setPreparedStatement(statement);
         result = getData();
+        result.next();
 
         return result;
     }

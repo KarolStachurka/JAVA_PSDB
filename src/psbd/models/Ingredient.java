@@ -3,6 +3,7 @@ package psbd.models;
 import psbd.utils.IngredientsEnum;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Ingredient {
     private String name;
@@ -11,6 +12,7 @@ public class Ingredient {
     private double quantity;
     private Date expiration_time;
     private int warehouse;
+    private boolean optional;
 
     public Ingredient(String name, IngredientsEnum type, double price, double amount, Date expiration_time, int warehouse)
     {
@@ -22,11 +24,31 @@ public class Ingredient {
         this.warehouse = warehouse;
     }
 
+    public Ingredient(String name, IngredientsEnum type, double price, double quantity, boolean optional)
+    {
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.quantity = quantity;
+        this.optional = optional;
+    }
+
     public Ingredient(String name, IngredientsEnum type, double price)
     {
         this.name = name;
         this.type = type;
         this.price = price;
+    }
+
+    public ArrayList<Object> getIngredientModelToList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add(type);
+        list.add(price);
+        list.add(quantity);
+        list.add(optional);
+        return list;
     }
 
     public String getName() {
@@ -51,5 +73,9 @@ public class Ingredient {
 
     public int getWarehouse() {
         return warehouse;
+    }
+
+    public boolean isOptional() {
+        return optional;
     }
 }

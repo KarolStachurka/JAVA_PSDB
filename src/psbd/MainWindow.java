@@ -12,8 +12,6 @@ public class MainWindow {
 
     private JFrame mainFrame;
     private UserLoginView userLoginView;
-    private RestorePasswordView restorePasswordView;
-    private CreateClientView createClientView;
     private JPanel mainPanel;
     private CardLayout cardLayout;
 

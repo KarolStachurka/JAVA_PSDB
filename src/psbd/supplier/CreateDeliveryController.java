@@ -4,6 +4,7 @@ import psbd.models.Delivery;
 import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
 
+
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -168,6 +169,7 @@ public class CreateDeliveryController {
             // Leave list empty
         }
     }
+
     private void setMessage(String error)
     {
         view.getMessagesLabel().setText(error);

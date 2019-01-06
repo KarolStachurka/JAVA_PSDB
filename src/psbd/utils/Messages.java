@@ -11,7 +11,12 @@ public class Messages {
     public static final String DATABASE_ERROR = "Error with database connection";
     public static final String ACCOUNT_CREATED = "New account was properly created";
     public static final String ACCOUNT_EDITED = "Account data has been successfully edited";
-    public static final String ACCOUNT_REMOVED = "Account has been removed";
+    public static final String ACCOUNT_REMOVED = "Account has been successfully removed";
+    public static final String RECORD_CREATED = "New element was properly created";
+    public static final String RECORD_EDITED = "Element data has been successfully edited";
+    public static final String RECORD_REMOVED = "Element has been successfully removed";
+
+
 
     // table headers
     public static final String[] USER_TABLE_HEADERS = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
@@ -19,6 +24,9 @@ public class Messages {
     public static final String[] INGREDIENT_TABLE_HEADERS = {"Name", "Type", "Price"};
     public static final String[] DELIVERIES_MANAGER_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Expiration date","Date of order"};
     public static final String[] DELIVERIES_LIST_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Received","Date of order","Date of receiving"};
+    public static final String[] RECIPES_TABLE_HEADERS = {"Name", "Price", "Availability"};
+    public static final String[] RECIPE_INGREDIENTS_TABLE_HEADERS = {"Name", "Type", "Price", "Quantity", "Optional"};
+
 
     private static Messages ourInstance = new Messages();
 
