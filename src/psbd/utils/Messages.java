@@ -26,6 +26,7 @@ public class Messages {
     public static final String[] DELIVERIES_LIST_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Received","Date of order","Date of receiving"};
     public static final String[] RECIPES_TABLE_HEADERS = {"Name", "Price", "Availability"};
     public static final String[] RECIPE_INGREDIENTS_TABLE_HEADERS = {"Name", "Type", "Price", "Quantity", "Optional"};
+    public static final String[] ADDRESS_TABLE_HEADERS = {"Address details"};
 
 
     private static Messages ourInstance = new Messages();

@@ -7,9 +7,11 @@ import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
 import psbd.utils.UserEnum;
 
+import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EditClientDataController {
     private EditClientDataView view;
@@ -29,12 +31,134 @@ public class EditClientDataController {
         view.getBackButton().addActionListener(e->{
             view.cleanAll();
         });
+
+        view.getAddNewAddressButton().addActionListener(e->{
+            String address = view.getAddressTextInput().getText();
+            if(addNewAddress(address))
+            {
+                view.cleanAll();
+                updateList();
+                setMessage(messages.ACCOUNT_EDITED);
+            }
+            else
+            {
+                setMessage(messages.INVALID_INPUT);
+            }
+
+        });
+
+        view.getRemoveAddressButton().addActionListener(e->{
+            String address = null;
+            if(removeAddress(address))
+            {
+                view.cleanAll();
+                updateList();
+                setMessage(messages.ACCOUNT_EDITED);
+            }
+            else
+            {
+                setMessage(messages.DATABASE_ERROR);
+            }
+        });
     }
 
     public EditClientDataView getView() {
         view.cleanAll();
+        updateList();
         setDataFields();
         return view;
+    }
+
+    private void updateList()
+    {
+        Object [][] data = getAdressList();
+        DefaultTableModel model = (DefaultTableModel) view.getAddressTable().getModel();
+        if(data.length > 0)
+            for(Object[] row:data)
+            {
+                model.addRow(row);
+            }
+        view.getAddressTable().repaint();
+    }
+
+    private boolean addNewAddress(String address)
+    {
+        CurrentSession session = CurrentSession.getInstance();
+        String login = session.getLoggedUser().getLogin();
+        if(StringUtils.isEmptyOrWhitespaceOnly(address))
+        {
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "INSERT INTO client_addresses(`address`, `client_id`) " +
+                "VALUES(?,(SELECT user_id FROM users WHERE user_login = ?))";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+        try {
+            statement.setString(1,address);
+            statement.setString(2, login);
+            database.setPreparedStatement(statement);
+        }
+        catch (SQLException e)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+        if(!database.executeStatement())
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean removeAddress(String address)
+    {
+        return true;
+    }
+
+    private Object[][] getAdressList()
+    {
+        ArrayList<ArrayList<Object>> dataList = new ArrayList<>();
+        Object[][] errorData = {{}};
+
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT * FROM client_addresses";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        ResultSet result;
+        if(statement == null)
+        {
+            return errorData;
+        }
+        try {
+            database.setPreparedStatement(statement);
+            result = statement.executeQuery();
+        }
+        catch (SQLException e)
+        {
+            return errorData;
+        }
+        try {
+            while (result.next()) {
+                ArrayList<Object> dataRow = new ArrayList<>();
+                dataRow.add(result.getString("address"));
+                dataList.add(dataRow);
+            }
+        }
+        catch (SQLException e)
+        {
+            return errorData;
+        }
+        Object [][] data = new Object[dataList.size()][];
+        for (int i = 0; i < dataList.size(); i++) {
+            data[i] = dataList.get(i).toArray(new Object[0]);
+        }
+        return data;
     }
 
     private boolean changeUserData(User user)
@@ -71,6 +195,7 @@ public class EditClientDataController {
         }
         return true;
     }
+
     private boolean changePassword(User user)
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
