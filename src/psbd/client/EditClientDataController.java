@@ -39,6 +39,7 @@ public class EditClientDataController {
                 view.cleanAll();
                 updateList();
                 setMessage(messages.ACCOUNT_EDITED);
+                setDataFields();
             }
             else
             {
@@ -48,12 +49,13 @@ public class EditClientDataController {
         });
 
         view.getRemoveAddressButton().addActionListener(e->{
-            String address = null;
+            String address = view.getAddressTable().getValueAt(view.getAddressTable().getSelectedRow(),0).toString();
             if(removeAddress(address))
             {
                 view.cleanAll();
                 updateList();
                 setMessage(messages.ACCOUNT_EDITED);
+                setDataFields();
             }
             else
             {
@@ -71,7 +73,7 @@ public class EditClientDataController {
 
     private void updateList()
     {
-        Object [][] data = getAdressList();
+        Object [][] data = getAddressList();
         DefaultTableModel model = (DefaultTableModel) view.getAddressTable().getModel();
         if(data.length > 0)
             for(Object[] row:data)
@@ -119,16 +121,56 @@ public class EditClientDataController {
 
     private boolean removeAddress(String address)
     {
+        CurrentSession session = CurrentSession.getInstance();
+        String login = session.getLoggedUser().getLogin();
+        if(StringUtils.isEmptyOrWhitespaceOnly(address))
+        {
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "DELETE FROM client_addresses WHERE `address` = ? AND `client_id` = (SELECT user_id FROM users WHERE user_login = ?)";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+        try {
+            statement.setString(1,address);
+            statement.setString(2, login);
+            database.setPreparedStatement(statement);
+        }
+        catch (SQLException e)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+        if(!database.executeStatement())
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+
         return true;
     }
 
-    private Object[][] getAdressList()
-    {
+    private Object[][] getAddressList() {
         ArrayList<ArrayList<Object>> dataList = new ArrayList<>();
         Object[][] errorData = {{}};
+        String login;
+
+        CurrentSession session = CurrentSession.getInstance();
+        try
+        {
+            login = session.getLoggedUser().getLogin();
+        }
+        catch (NullPointerException e)
+        {
+            return errorData;
+        }
 
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT * FROM client_addresses";
+        String sqlQuery = "SELECT * FROM client_addresses WHERE `client_id` = (SELECT user_id FROM users WHERE user_login = ?)";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         ResultSet result;
         if(statement == null)
@@ -136,6 +178,7 @@ public class EditClientDataController {
             return errorData;
         }
         try {
+            statement.setString(1, login);
             database.setPreparedStatement(statement);
             result = statement.executeQuery();
         }
