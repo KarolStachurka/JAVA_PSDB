@@ -14,12 +14,12 @@ public class Ingredient {
     private int warehouse;
     private boolean optional;
 
-    public Ingredient(String name, IngredientsEnum type, double price, double amount, Date expiration_time, int warehouse)
+    public Ingredient(String name, IngredientsEnum type, double price, double quantity, Date expiration_time, int warehouse)
     {
         this.name = name;
         this.type = type;
         this.price = price;
-        this.quantity = amount;
+        this.quantity = quantity;
         this.expiration_time = expiration_time;
         this.warehouse = warehouse;
     }

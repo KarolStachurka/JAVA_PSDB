@@ -1,8 +1,7 @@
 package psbd.supplier;
 
-import psbd.models.Ingredient;
+import psbd.models.Delivery;
 import psbd.utils.DatabaseConnector;
-import psbd.utils.IngredientsEnum;
 import psbd.utils.Messages;
 
 import javax.swing.table.DefaultTableModel;
@@ -18,12 +17,14 @@ public class EditStorageController {
 
     private EditStorageView view;
     private Messages messages;
+    private Delivery delivery;
 
     public EditStorageController(EditStorageView view)
     {
         this.view = view;
         setWarehousesList();
         updateList();
+        delivery = null;
 
         view.getIngredientsTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -32,30 +33,23 @@ public class EditStorageController {
                 view.getNameTextInput().setText(view.getIngredientsTable().getValueAt(
                         view.getIngredientsTable().getSelectedRow(), 0).toString()
                 );
-                view.getPriceTextInput().setText(view.getIngredientsTable().getValueAt(
+                view.getIngredientTypeComboBox().setSelectedItem(
+                        view.getIngredientsTable().getValueAt( view.getIngredientsTable().getSelectedRow(),1)
+                );
+                view.getQuantityTextInput().setText(view.getIngredientsTable().getValueAt(
                         view.getIngredientsTable().getSelectedRow(), 2).toString()
                 );
-                view.getIngredientTypeComboBox().setSelectedItem(view.getIngredientsTable().getValueAt( view.getIngredientsTable().getSelectedRow(),1));
                 view.getDateTextInput().setText(view.getIngredientsTable().getValueAt(
                         view.getIngredientsTable().getSelectedRow(), 3).toString()
                 );
-                view.getQuantityTextInput().setText(view.getIngredientsTable().getValueAt(
-                        view.getIngredientsTable().getSelectedRow(), 4).toString()
-                );
-            }
-        });
-
-        view.getAddButton().addActionListener(e->{
-            if(addIngredient(createIngredient()))
-            {
-                view.cleanAll();
-                updateList();
+                createDelivery();
             }
         });
 
         view.getEditButton().addActionListener(e->
         {
-            if(editIngredient(createIngredient()))
+            createDelivery();
+            if(editIngredient())
             {
                 view.cleanAll();
                 updateList();
@@ -63,7 +57,8 @@ public class EditStorageController {
         });
 
         view.getRemoveButton().addActionListener(e->{
-            if(removeIngredient(createIngredient()))
+            createDelivery();
+            if(removeIngredient())
             {
                 view.cleanAll();
                 updateList();
@@ -98,16 +93,15 @@ public class EditStorageController {
         }
     }
 
-    private boolean addIngredient(Ingredient ingredient)
+    private boolean editIngredient()
     {
-        if(ingredient == null)
+        if(delivery == null)
         {
             setMessage(messages.NOT_EXISTS);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "INSERT INTO ingredients(`name`, `price`, `expiration_date`, `amount`, `warehouse`, `type`) " +
-                "VALUES(?,?,?,?,?,?)";
+        String sqlQuery = "UPDATE deliveries SET available_quantity = ?,  expiration_date = ? WHERE delivery_id = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
@@ -115,49 +109,9 @@ public class EditStorageController {
             return false;
         }
         try {
-            statement.setString(1, ingredient.getName());
-            statement.setDouble(2,ingredient.getPrice());
-            statement.setDate(3, ingredient.getExpiration_time());
-            statement.setDouble(4,ingredient.getQuantity());
-            statement.setInt(5,getSelectedStorageId());
-            statement.setString(6, ingredient.getType().toString());
-            database.setPreparedStatement(statement);
-        }
-        catch (SQLException e)
-        {
-            setMessage(messages.DATABASE_ERROR);
-            return false;
-        }
-        if(!database.executeStatement())
-        {
-            setMessage(messages.DATABASE_ERROR);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean editIngredient(Ingredient ingredient)
-    {
-        if(!checkIfIngredientExist(ingredient.getName()))
-        {
-            setMessage(messages.NOT_EXISTS);
-            return false;
-        }
-        DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "UPDATE ingredients SET price = ?, amount = ?, warehouse = ?, expiration_date = ? WHERE name = ? AND warehouse = ?";
-        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
-        if(statement == null)
-        {
-            setMessage(messages.DATABASE_ERROR);
-            return false;
-        }
-        try {
-            statement.setDouble(1,ingredient.getPrice());
-            statement.setDouble(2,ingredient.getQuantity());
-            statement.setInt(3,getSelectedStorageId());
-            statement.setDate(4, ingredient.getExpiration_time());
-            statement.setString(5,ingredient.getName());
-            statement.setInt(6,ingredient.getWarehouse());
+            statement.setDouble(1,delivery.getQuantity());
+            statement.setDate(2, delivery.getExpirationDate());
+            statement.setString(3,delivery.getId());
             database.setPreparedStatement(statement);
             database.executeStatement();
         }
@@ -169,17 +123,17 @@ public class EditStorageController {
         return true;
     }
 
-    private boolean removeIngredient(Ingredient ingredient)
+    private boolean removeIngredient()
     {
-        if(ingredient == null)
+        if(delivery == null)
         {
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "DELETE FROM ingredients WHERE name = ?";
+        String sqlQuery = "UPDATE deliveries SET available_quantity = 0 WHERE delivery_id = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         try {
-            statement.setString(1, ingredient.getName());
+            statement.setString(1, delivery.getId());
             database.setPreparedStatement(statement);
             database.executeStatement();
 
@@ -189,20 +143,7 @@ public class EditStorageController {
             setMessage(messages.DATABASE_ERROR);
             return false;
         }
-        return !checkIfIngredientExist(ingredient.getName());
-    }
-
-    private boolean checkIfIngredientExist(String name)
-    {
-        DatabaseConnector database = DatabaseConnector.getInstance();
-        try {
-            return database.checkIfRecordExists("ingredients", "name", name);
-        }
-        catch (SQLException e)
-        {
-            setMessage(messages.DATABASE_ERROR);
-            return false;
-        }
+        return true;
     }
 
     private void setMessage(String error)
@@ -212,15 +153,13 @@ public class EditStorageController {
 
     private void updateList()
     {
-        String[] columnNames = messages.INGREDIENT_TABLE_HEADERS;
         String [][] data = getIngredientsList(view.getStorageListComboBox().getSelectedItem().toString());
         DefaultTableModel model = (DefaultTableModel) view.getIngredientsTable().getModel();
-        model.setColumnIdentifiers(columnNames);
-        if(data.length > 0)
-            for(String[] row:data)
-            {
+        if(data.length > 0) {
+            for (String[] row : data) {
                 model.addRow(row);
             }
+        }
         view.getIngredientsTable().repaint();
     }
 
@@ -230,7 +169,8 @@ public class EditStorageController {
         String[][] errorData = {{}};
 
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT * FROM ingredients INNER JOIN warehouses ON ingredients.warehouse = warehouses.warehouse_id WHERE warehouse_name = ?";
+        String sqlQuery = "SELECT * FROM deliveries INNER JOIN warehouses ON deliveries.warehouse_id = warehouses.warehouse_id " +
+                "INNER JOIN ingredients ON deliveries.ingredient = ingredients.name WHERE warehouse_name = ? AND available_quantity > 0 AND received = 1";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         ResultSet result;
         if(statement == null)
@@ -251,9 +191,9 @@ public class EditStorageController {
                 ArrayList<String> dataRow = new ArrayList<>();
                 dataRow.add(result.getString("name"));
                 dataRow.add(result.getString("type"));
-                dataRow.add(result.getString("price"));
+                dataRow.add(result.getString("available_quantity"));
                 dataRow.add(result.getString("expiration_date"));
-                dataRow.add(result.getString("amount"));
+                dataRow.add(result.getString("delivery_id"));
                 dataList.add(dataRow);
             }
         }
@@ -269,45 +209,18 @@ public class EditStorageController {
         return data;
     }
 
-    private int getSelectedStorageId()
-    {
-        String name = view.getStorageListComboBox().getSelectedItem().toString();
-        DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT * FROM warehouses WHERE warehouse_name = ?";
-        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
-        ResultSet result;
-        if(statement == null)
-        {
-            return 0;
-        }
-        try {
-            statement.setString(1,name);
-            database.setPreparedStatement(statement);
-            result = statement.executeQuery();
-            result.next();
-            int id = result.getInt("warehouse_id");
-            return id;
-        }
-        catch(SQLException e)
-        {
-            return 0;
-        }
-    }
-
-    private Ingredient createIngredient()
+    private void createDelivery()
     {
         try{
-        String name = view.getNameTextInput().getText();
-        IngredientsEnum type = IngredientsEnum.valueOf(view.getIngredientTypeComboBox().getSelectedItem().toString());
-        double price = Double.parseDouble(view.getPriceTextInput().getText());
-        double quantity = Double.parseDouble(view.getQuantityTextInput().getText());
-        Date expiration_time = Date.valueOf(view.getDateTextInput().getText());
-        int warehouse = getSelectedStorageId();
-        return new Ingredient(name,type,price,quantity,expiration_time,warehouse);
+            String name = view.getNameTextInput().getText();
+            double quantity = Double.parseDouble(view.getQuantityTextInput().getText());
+            Date expiration_time = Date.valueOf(view.getDateTextInput().getText());
+            int warehouse = 0;
+            this.delivery = new Delivery(name,warehouse,quantity,expiration_time);
+            this.delivery.setId(view.getIngredientsTable().getValueAt(view.getIngredientsTable().getSelectedRow(), 4).toString());
         }
         catch (Exception e)
         {
-            return null;
         }
     }
 }

@@ -103,7 +103,7 @@ public class MainController {
         view.addToMainPanel(warehouseStatisticsController.getView().getWindowPanel(), warehouseStatisticsController.getView().getWindowName());
         view.addToMainPanel(supplierIngredientListController.getView().getWindowPanel(), supplierIngredientListController.getView().getWindowName());
 
-        view.setWindowActive(userLoginController.getView().getWindowName());
+        view.setWindowActive(editStorageController.getView().getWindowName());
     }
 
     // Creates connections between panels in application

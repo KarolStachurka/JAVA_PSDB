@@ -24,9 +24,13 @@ public class Messages {
     public static final String[] INGREDIENT_TABLE_HEADERS = {"Name", "Type", "Price"};
     public static final String[] DELIVERIES_MANAGER_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Expiration date","Date of order"};
     public static final String[] DELIVERIES_LIST_TABLE_HEADERS = {"ID","Type","Warehouse","Quantity","Received","Date of order","Date of receiving"};
+    public static final String[] MANAGER_WAREHOUSE_EDIT_TABLE_HEADERS = {"Name", "Type", "Quantity", "Expiration date", "ID"};
     public static final String[] RECIPES_TABLE_HEADERS = {"Name", "Price", "Availability"};
+    public static final String[] MENU_ORDER_TABLE_HEADERS = {"Name", "Price"};
     public static final String[] RECIPE_INGREDIENTS_TABLE_HEADERS = {"Name", "Type", "Price", "Quantity", "Optional"};
-    public static final String[] ADDRESS_TABLE_HEADERS = {"Address details"};
+    public static final String[] MENU_INGREDIENTS_TABLE_HEADERS = {"Name", "Quantity", "Included"};
+    public static final String[] ORDER_DETAILS_TABLE_HEADERS = {"Name", "Price"};
+    public static final String[] CLIENT_ADDRESS_TABLE_HEADERS = {"Address details"};
 
 
     private static Messages ourInstance = new Messages();

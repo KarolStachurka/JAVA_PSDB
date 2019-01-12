@@ -30,7 +30,7 @@ public class EditClientDataView extends ViewTemplate {
     public EditClientDataView()
     {
         setWindowName(PanelEnum.EDITCLIENTDATA);
-        DefaultTableModel model = new DefaultTableModel(messages.ADDRESS_TABLE_HEADERS, 0);
+        DefaultTableModel model = new DefaultTableModel(messages.CLIENT_ADDRESS_TABLE_HEADERS, 0);
         addressTable.setModel(model);
     }
 
