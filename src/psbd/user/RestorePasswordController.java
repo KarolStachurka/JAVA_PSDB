@@ -17,7 +17,7 @@ public class RestorePasswordController {
             {
 
                 view.cleanAll();
-                setMessage(messages.NOT_EXISTS);
+                setMessage(messages.notExists);
             }
         });
     }
@@ -36,7 +36,7 @@ public class RestorePasswordController {
         String login = view.getLoginTextInput().getText();
         if(checkIfAccountExist(login))
         {
-            setMessage(messages.RESTORE_PASSWORD);
+            setMessage(messages.restorePassword);
             return true;
         }
         return false;
@@ -50,7 +50,7 @@ public class RestorePasswordController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
     }

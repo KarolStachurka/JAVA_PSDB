@@ -2,9 +2,9 @@ package psbd.admin;
 
 import com.mysql.jdbc.StringUtils;
 import psbd.models.CurrentSession;
+import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
 import psbd.utils.UserEnum;
-import psbd.utils.DatabaseConnector;
 import psbd.models.User;
 
 import javax.swing.table.DefaultTableModel;
@@ -73,7 +73,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.ACCOUNT_CREATED);
+                setMessage(messages.accountCreated);
             }
         });
         view.getEditAccountButton().addActionListener(e->{
@@ -81,7 +81,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.ACCOUNT_EDITED);
+                setMessage(messages.accountEdited);
             }
 
         });
@@ -90,7 +90,7 @@ public class AdminMainController {
             {
                 this.view.cleanAll();
                 updateList();
-                setMessage(messages.ACCOUNT_REMOVED);
+                setMessage(messages.accountRemoved);
             }
         });
     }
@@ -164,7 +164,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -181,12 +181,12 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return  true;
@@ -196,7 +196,7 @@ public class AdminMainController {
     {
         if(!checkIfAccountExist(user.getLogin()))
         {
-            setMessage(messages.NOT_EXISTS);
+            setMessage(messages.notExists);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -205,7 +205,7 @@ public class AdminMainController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -222,7 +222,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -241,7 +241,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return !checkIfAccountExist(user.getLogin());
@@ -255,7 +255,7 @@ public class AdminMainController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
     }
@@ -295,13 +295,13 @@ public class AdminMainController {
     {
         if(!password.equals(confirmPassword))
         {
-            setMessage(messages.PASSWORD_NOT_MATCH);
+            setMessage(messages.passwordNotMatch);
             return false;
         }
 
 //        if(!email.equals(confirmEmail))
 //        {
-//            setMessage(messages.EMAIL_NOT_MATCH);
+//            setMessage(messages.emailNotMatch);
 //            return false;
 //        }
 
@@ -311,13 +311,13 @@ public class AdminMainController {
             StringUtils.isEmptyOrWhitespaceOnly(surname) ||
             StringUtils.isEmptyOrWhitespaceOnly(email))
         {
-            setMessage(messages.UNFILLED_NECESSARY_FIELDS);
+            setMessage(messages.unfilledNecessaryFields);
             return false;
         }
 
         if(checkIfAccountExist(login))
         {
-            setMessage(messages.ALREADY_EXISTS);
+            setMessage(messages.alreadyExists);
             return false;
         }
         return true;
@@ -325,7 +325,7 @@ public class AdminMainController {
 
     private void updateList()
     {
-        String[] columnNames = messages.USER_TABLE_HEADERS;
+        String[] columnNames = messages.userTableHeaders;
         String [][] data = getUsersList();
         DefaultTableModel model = (DefaultTableModel) view.getUsersTable().getModel();
         model.setColumnIdentifiers(columnNames);

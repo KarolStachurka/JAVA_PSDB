@@ -13,6 +13,7 @@ public class CookMainView extends ViewTemplate {
     private JList list3;
     private JButton setOrderReadyButton;
     private JButton updateListButton;
+    private JLabel userDataLabel;
 
     public CookMainView()
     {
@@ -30,5 +31,9 @@ public class CookMainView extends ViewTemplate {
 
     public JButton getLogoutButton() {
         return logoutButton;
+    }
+
+    public JLabel getUserDataLabel() {
+        return userDataLabel;
     }
 }

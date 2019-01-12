@@ -1,6 +1,5 @@
 package psbd.supplier;
 
-import psbd.utils.Messages;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
@@ -23,10 +22,6 @@ public class CreateDeliveryView extends ViewTemplate {
 
     public CreateDeliveryView()
     {
-        Messages messages = Messages.getInstance();
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(messages.DELIVERIES_MANAGER_TABLE_HEADERS);
-        deliveriesTable.setModel(model);
         setWindowName(PanelEnum.CREATEDELIVERY);
     }
 
@@ -86,6 +81,5 @@ public class CreateDeliveryView extends ViewTemplate {
         orderDateTextInput.setText("");
         DefaultTableModel model = (DefaultTableModel) deliveriesTable.getModel();
         model.setRowCount(0);
-        deliveriesTable.repaint();
     }
 }

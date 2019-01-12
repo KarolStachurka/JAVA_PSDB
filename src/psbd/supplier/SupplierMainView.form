@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="psbd.supplier.SupplierMainView">
-  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="7" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="707" height="279"/>
+      <xy x="20" y="20" width="707" height="371"/>
     </constraints>
     <properties>
       <preferredSize width="720" height="480"/>
@@ -25,12 +25,12 @@
       </component>
       <vspacer id="ad2ca">
         <constraints>
-          <grid row="0" column="0" row-span="6" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="7" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <vspacer id="29fbb">
         <constraints>
-          <grid row="0" column="4" row-span="6" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="4" row-span="7" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <component id="78490" class="javax.swing.JButton" binding="logoutButton" default-binding="true">
@@ -40,6 +40,14 @@
         <properties>
           <text value="Logout"/>
         </properties>
+      </component>
+      <component id="972a1" class="javax.swing.JList" binding="list2" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="5" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties/>
       </component>
       <component id="8ecf6" class="javax.swing.JLabel">
         <constraints>
@@ -67,33 +75,30 @@
           <text value="Storage state"/>
         </properties>
       </component>
-      <scrollpane id="1233">
-        <constraints>
-          <grid row="2" column="2" row-span="4" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="b2ff5" class="javax.swing.JTable" binding="deliveriesTable">
-            <constraints/>
-            <properties/>
-          </component>
-        </children>
-      </scrollpane>
-      <component id="246fc" class="javax.swing.JButton" binding="createNewDeliveryButton" default-binding="true">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Deliveries manager"/>
-        </properties>
-      </component>
       <component id="9ea41" class="javax.swing.JButton" binding="statisticsButton" default-binding="true">
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Statistics"/>
+        </properties>
+      </component>
+      <component id="246fc" class="javax.swing.JButton" binding="createNewDeliveryButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Create new delivery"/>
+        </properties>
+      </component>
+      <component id="c1c27" class="javax.swing.JButton" binding="receiveDeliveryButton" default-binding="true">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="143" height="13"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Receive delivery"/>
         </properties>
       </component>
     </children>

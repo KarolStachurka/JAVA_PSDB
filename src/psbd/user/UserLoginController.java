@@ -2,8 +2,8 @@ package psbd.user;
 
 import psbd.models.CurrentSession;
 import psbd.utils.Messages;
-import psbd.utils.DatabaseConnector;
 import psbd.utils.UserEnum;
+import psbd.utils.DatabaseConnector;
 import psbd.models.User;
 
 import java.sql.PreparedStatement;
@@ -31,13 +31,13 @@ public class UserLoginController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         try {
             if (!database.checkIfRecordExists("users", "user_login", login)) {
-                setMessage(messages.NOT_EXISTS);
+                setMessage(messages.notExists);
                 return false;
             }
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
         }
         String SQLQuery = "SELECT * FROM users WHERE user_login = ? AND user_password = SHA2(?, 256)" ;
         PreparedStatement statement = database.getPreparedStatement(SQLQuery);
@@ -68,7 +68,7 @@ public class UserLoginController {
 
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
 

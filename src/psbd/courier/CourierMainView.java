@@ -10,9 +10,9 @@ public class CourierMainView extends ViewTemplate {
     private JButton logoutButton;
     private JList list1;
     private JButton getNewListButton;
+    private JLabel userDataLabel;
 
-    public CourierMainView()
-    {
+    public CourierMainView(){
         setWindowName(PanelEnum.COURIERMAIN);
     }
 
@@ -27,5 +27,9 @@ public class CourierMainView extends ViewTemplate {
 
     public JButton getLogoutButton() {
         return logoutButton;
+    }
+
+    public JLabel getUserDataLabel() {
+        return userDataLabel;
     }
 }

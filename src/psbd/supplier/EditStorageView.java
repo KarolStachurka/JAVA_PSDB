@@ -1,18 +1,21 @@
 package psbd.supplier;
 
-import psbd.utils.*;
+import psbd.utils.IngredientsEnum;
+import psbd.utils.PanelEnum;
+import psbd.utils.UserEnum;
+import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class EditStorageView extends ViewTemplate {
-    private Messages messages;
     private JButton backButton;
     private JButton addButton;
     private JButton removeButton;
     private JTextField nameTextInput;
     private JTextField quantityTextInput;
     private JTextField dateTextInput;
+    private JTextField priceTextInput;
     private JPanel WindowPanel;
     private JButton editButton;
     private JTable ingredientsTable;
@@ -23,8 +26,6 @@ public class EditStorageView extends ViewTemplate {
     public EditStorageView()
     {
         setWindowName(PanelEnum.EDITSTORAGE);
-        DefaultTableModel model = new DefaultTableModel(messages.MANAGER_WAREHOUSE_EDIT_TABLE_HEADERS,0);
-        ingredientsTable.setModel(model);
         setIngredientTypesList();
     }
 
@@ -33,10 +34,9 @@ public class EditStorageView extends ViewTemplate {
         dateTextInput.setText("");
         nameTextInput.setText("");
         quantityTextInput.setText("");
+        priceTextInput.setText("");
         DefaultTableModel model = (DefaultTableModel) ingredientsTable.getModel();
         model.setRowCount(0);
-        ingredientTypeComboBox.removeAllItems();
-        setIngredientTypesList();
 
     }
 
@@ -68,6 +68,10 @@ public class EditStorageView extends ViewTemplate {
         return dateTextInput;
     }
 
+    public JTextField getPriceTextInput() {
+        return priceTextInput;
+    }
+
     public JTextField getQuantityTextInput() {
         return quantityTextInput;
     }
@@ -94,6 +98,5 @@ public class EditStorageView extends ViewTemplate {
         {
             ingredientTypeComboBox.addItem(type.toString());
         }
-
     }
 }

@@ -19,6 +19,7 @@ public class ManagerMainView extends ViewTemplate {
     private JButton acceptForChoosenDayButton;
     private JButton acceptForChoosenMonthButton;
     private JButton acceptForChoosenWeekButton;
+    private JLabel userDataLabel;
 
     public ManagerMainView()
     {
@@ -48,5 +49,9 @@ public class ManagerMainView extends ViewTemplate {
 
     public JButton getModifyAccountBalanceButton() {
         return modifyAccountBalanceButton;
+    }
+
+    public JLabel getUserDataLabel() {
+        return userDataLabel;
     }
 }

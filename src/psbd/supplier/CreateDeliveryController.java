@@ -1,9 +1,8 @@
 package psbd.supplier;
 
 import psbd.models.Delivery;
-import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
-
+import psbd.utils.DatabaseConnector;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
@@ -22,17 +21,23 @@ public class CreateDeliveryController {
     public CreateDeliveryController(CreateDeliveryView view)
     {
         this.view = view;
+        setIngredientsList();
+        setWarehousesList();
         updateList();
 
         view.getDeliveriesTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
+                if(view.getDeliveriesTable().getSelectedColumn() == 5)
+                {
+                    //change received value
+                }
                 view.getQuantityTextInput().setText(view.getDeliveriesTable().getValueAt(
                         view.getDeliveriesTable().getSelectedRow(), 3).toString()
                 );
                 view.getExpirationDateTextInput().setText(view.getDeliveriesTable().getValueAt(
-                        view.getDeliveriesTable().getSelectedRow(), 5).toString()
+                        view.getDeliveriesTable().getSelectedRow(), 7).toString()
                 );
                 view.getOrderDateTextInput().setText(view.getDeliveriesTable().getValueAt(
                         view.getDeliveriesTable().getSelectedRow(), 4).toString()
@@ -47,8 +52,6 @@ public class CreateDeliveryController {
             if(addDelivery(createNewDelivery()))
             {
                 view.cleanAll();
-                setIngredientsList();
-                setWarehousesList();
                 updateList();
             }
         });
@@ -56,8 +59,6 @@ public class CreateDeliveryController {
             if(editDelivery(createExistingDelivery()))
             {
                 view.cleanAll();
-                setIngredientsList();
-                setWarehousesList();
                 updateList();
             }
         });
@@ -67,23 +68,21 @@ public class CreateDeliveryController {
             if(removeDelivery(createExistingDelivery()))
             {
                 view.cleanAll();
-                setIngredientsList();
-                setWarehousesList();
                 updateList();
             }
         });
     }
 
     public CreateDeliveryView getView() {
-        setIngredientsList();
-        setWarehousesList();
         return view;
     }
 
     private void updateList()
     {
+        String[] columnNames = messages.deliveriesTableHeaders;
         String [][] data = getDeliveriesList();
         DefaultTableModel model = (DefaultTableModel) view.getDeliveriesTable().getModel();
+        model.setColumnIdentifiers(columnNames);
         if(data.length > 0)
             for(String[] row:data)
             {
@@ -120,8 +119,10 @@ public class CreateDeliveryController {
                 dataRow.add(result.getString("ingredient"));
                 dataRow.add(getSelectedStorageName(Integer.valueOf(result.getString("warehouse_id"))));
                 dataRow.add(result.getString("quantity"));
-                dataRow.add(result.getString("expiration_date"));
                 dataRow.add(result.getString("date_of_order"));
+                dataRow.add(result.getString("received"));
+                dataRow.add(result.getString("date_of_receiving"));
+                dataRow.add(result.getString("expiration_date"));
                 dataList.add(dataRow);
             }
         }
@@ -141,7 +142,6 @@ public class CreateDeliveryController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         try{
             ResultSet table = database.getFullTableData("warehouses");
-            view.getWarehousesComboBox().removeAllItems();
             while (table.next())
             {
                 view.getWarehousesComboBox().addItem(table.getString("warehouse_name"));
@@ -158,7 +158,6 @@ public class CreateDeliveryController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         try{
             ResultSet table = database.getFullTableData("ingredients");
-            view.getIngredientsComboBox().removeAllItems();
             while (table.next())
             {
                 view.getIngredientsComboBox().addItem(table.getString("name"));
@@ -169,7 +168,6 @@ public class CreateDeliveryController {
             // Leave list empty
         }
     }
-
     private void setMessage(String error)
     {
         view.getMessagesLabel().setText(error);
@@ -179,7 +177,7 @@ public class CreateDeliveryController {
     {
         if(delivery == null)
         {
-            setMessage(messages.INVALID_INPUT);
+            setMessage(messages.invalidInput);
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
         String sqlQuery = "INSERT INTO deliveries(`ingredient`, `warehouse_id`, `date_of_order`, `expiration_date`, `quantity`, `available_quantity`) " +
@@ -187,7 +185,7 @@ public class CreateDeliveryController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -200,12 +198,12 @@ public class CreateDeliveryController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -215,7 +213,7 @@ public class CreateDeliveryController {
     {
         if(delivery == null)
         {
-            setMessage(messages.INVALID_INPUT);
+            setMessage(messages.invalidInput);
         }
         delivery.setQuantity(Double.parseDouble(view.getQuantityTextInput().getText()));
         delivery.setExpirationDate(Date.valueOf(view.getExpirationDateTextInput().getText()));
@@ -228,7 +226,7 @@ public class CreateDeliveryController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         try {
@@ -239,15 +237,16 @@ public class CreateDeliveryController {
             statement.setDouble(5,delivery.getQuantity());
             statement.setString(6,delivery.getId());
             database.setPreparedStatement(statement);
+            System.out.print(delivery.getId());
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return true;
@@ -257,7 +256,7 @@ public class CreateDeliveryController {
     {
         if(delivery == null)
         {
-            setMessage(messages.INVALID_INPUT);
+            setMessage(messages.invalidInput);
             return false;
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -271,7 +270,7 @@ public class CreateDeliveryController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
         return !checkIfDeliveryExist(delivery.getIngredient());
@@ -285,7 +284,7 @@ public class CreateDeliveryController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(messages.databaseError);
             return false;
         }
     }
@@ -313,8 +312,17 @@ public class CreateDeliveryController {
             int warehouseId = getSelectedWarehouseId(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 2).toString());
             double quantity = Double.parseDouble(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 3).toString());
             Date orderDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 4).toString());
-            Date expirationDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 5).toString());
-            Delivery delivery = new Delivery(name,warehouseId,quantity,quantity,expirationDate,orderDate,null,false);
+            Date receiveDate;
+            if(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 6) == null)
+            {
+                receiveDate = null;
+            }
+            else {
+                receiveDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 6).toString());
+            }
+            boolean received = Boolean.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 5).toString());
+            Date expirationDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 7).toString());
+            Delivery delivery = new Delivery(name,warehouseId,quantity,quantity,expirationDate,orderDate,receiveDate,received);
             delivery.setId(id);
             return delivery;
         }

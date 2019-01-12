@@ -12,14 +12,17 @@ public class MainWindow {
 
     private JFrame mainFrame;
     private UserLoginView userLoginView;
-    private JPanel mainPanel;
-    private CardLayout cardLayout;
+    private RestorePasswordView restorePasswordView;
+    private CreateClientView createClientView;
+    private JPanel mainPanel = new JPanel();
+    private CardLayout cardLayout = new CardLayout();
 
     public MainWindow()
     {
+        System.out.print(mainPanel == null);
         mainFrame = new JFrame("PSDB");
         userLoginView = new UserLoginView();
-        mainPanel.setLayout(new CardLayout());
+        mainPanel.setLayout(cardLayout);
         mainPanel.add(userLoginView.getWindowPanel(), userLoginView.getWindowName().toString());
         mainFrame.setContentPane(mainPanel);
         mainFrame.pack();

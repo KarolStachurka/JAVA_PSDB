@@ -103,7 +103,7 @@ public class MainController {
         view.addToMainPanel(warehouseStatisticsController.getView().getWindowPanel(), warehouseStatisticsController.getView().getWindowName());
         view.addToMainPanel(supplierIngredientListController.getView().getWindowPanel(), supplierIngredientListController.getView().getWindowName());
 
-        view.setWindowActive(editStorageController.getView().getWindowName());
+        view.setWindowActive(createDeliveryController.getView().getWindowName());
     }
 
     // Creates connections between panels in application
@@ -123,9 +123,11 @@ public class MainController {
                                 break;
                             case COURIER:
                                 view.setWindowActive(courierMainController.getView().getWindowName());
+                                courierMainController.login();
                                 break;
                             case COOK:
                                 view.setWindowActive(cookMainController.getView().getWindowName());
+                                cookMainController.login();
                                 break;
                             case ADMIN:
                                 view.setWindowActive(adminMainController.getView().getWindowName());
@@ -137,6 +139,7 @@ public class MainController {
                                 break;
                             case MANAGER:
                                 view.setWindowActive(managerMainController.getView().getWindowName());
+                                managerMainController.login();
                                 break;
                         }
                         userLoginController.getView().cleanAll();
@@ -144,7 +147,7 @@ public class MainController {
                     else
                     {
                         Messages messages = Messages.getInstance();
-                        userLoginController.setMessage(messages.NOT_EXISTS);
+                        userLoginController.setMessage(messages.notExists);
                     }
                     });
 

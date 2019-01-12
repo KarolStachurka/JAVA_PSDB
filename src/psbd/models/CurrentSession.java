@@ -17,7 +17,6 @@ public class CurrentSession {
     }
 
     public User getLoggedUser() {
-
         return loggedUser;
     }
 

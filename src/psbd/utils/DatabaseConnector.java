@@ -18,6 +18,7 @@ public class DatabaseConnector {
         connection = null;
         statement = null;
         result = null;
+
         connect();
     }
 
@@ -26,7 +27,7 @@ public class DatabaseConnector {
     {
         try
         {
-            connection = DriverManager.getConnection(address, databaseLogin, databasePassword);
+            connection = DriverManager.getConnection(address);
         }
         catch (Exception e)
         {
@@ -136,7 +137,6 @@ public class DatabaseConnector {
         ResultSet result;
         setPreparedStatement(statement);
         result = getData();
-        result.next();
 
         return result;
     }

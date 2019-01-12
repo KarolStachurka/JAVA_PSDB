@@ -6,6 +6,7 @@ import psbd.utils.ViewTemplate;
 import javax.swing.*;
 
 public class CreateClientView extends ViewTemplate {
+
     private JPanel WindowPanel;
     private JTextField nameTextInput;
     private JTextField surnameTextInput;
