@@ -12,7 +12,8 @@ public class CourierMainView extends ViewTemplate {
     private JButton getNewListButton;
     private JLabel userDataLabel;
 
-    public CourierMainView(){
+    public CourierMainView()
+    {
         setWindowName(PanelEnum.COURIERMAIN);
     }
 

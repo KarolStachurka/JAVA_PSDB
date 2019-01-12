@@ -3,7 +3,6 @@ package psbd.courier;
 import psbd.models.CurrentSession;
 
 public class CourierMainController {
-
     private CourierMainView view;
 
     public CourierMainController(CourierMainView view)

@@ -6,6 +6,7 @@ import psbd.utils.ViewTemplate;
 import javax.swing.*;
 
 public class CookMainView extends ViewTemplate {
+
     private JButton logoutButton;
     private JPanel WindowPanel;
     private JList list1;

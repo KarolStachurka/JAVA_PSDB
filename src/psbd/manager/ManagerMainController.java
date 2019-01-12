@@ -14,7 +14,6 @@ public class ManagerMainController {
     public ManagerMainView getView() {
         return view;
     }
-
     public void login(){
         CurrentSession session = CurrentSession.getInstance();
         String text = "Hello " + session.getLoggedUser().getName() + " " + session.getLoggedUser().getSurname();

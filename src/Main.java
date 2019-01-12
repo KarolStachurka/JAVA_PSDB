@@ -1,5 +1,4 @@
-import psbd.MainController;
-import psbd.MainWindow;
+import psbd.*;
 /* todo important list:
     - test every functionality in admin view
     - remove email confirmation necessity and its input field

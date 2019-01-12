@@ -1,9 +1,9 @@
 package psbd.client;
 
-import com.mysql.jdbc.*;
+import com.mysql.jdbc.StringUtils;
 import psbd.models.User;
-import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
+import psbd.utils.DatabaseConnector;
 import psbd.utils.UserEnum;
 
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ public class CreateClientController {
         view.getConfirmButton().addActionListener(e->{
             if(createClientAccount(createUser()))
             {
-                setMessage(messages.accountCreated);
+                setMessage(messages.ACCOUNT_CREATED);
             }
         });
     }
@@ -95,7 +95,7 @@ public class CreateClientController {
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -112,12 +112,12 @@ public class CreateClientController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         if(!database.executeStatement())
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
         return true;
@@ -128,13 +128,13 @@ public class CreateClientController {
     {
         if(!password.equals(confirmPassword))
         {
-            setMessage(messages.passwordNotMatch);
+            setMessage(messages.PASSWORD_NOT_MATCH);
             return false;
         }
 
         if(!email.equals(confirmEmail))
         {
-            setMessage(messages.emailNotMatch);
+            setMessage(messages.EMAIL_NOT_MATCH);
             return false;
         }
 
@@ -145,13 +145,13 @@ public class CreateClientController {
                 StringUtils.isEmptyOrWhitespaceOnly(email) ||
                 StringUtils.isEmptyOrWhitespaceOnly(phoneNumber))
         {
-            setMessage(messages.unfilledNecessaryFields);
+            setMessage(messages.UNFILLED_NECESSARY_FIELDS);
             return false;
         }
 
         if(checkIfAccountExist(login))
         {
-            setMessage(messages.alreadyExists);
+            setMessage(messages.ALREADY_EXISTS);
             return false;
         }
         return true;
@@ -165,7 +165,7 @@ public class CreateClientController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.databaseError);
+            setMessage(messages.DATABASE_ERROR);
             return false;
         }
     }
