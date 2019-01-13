@@ -2,16 +2,21 @@ package psbd.client;
 
 import psbd.models.CurrentSession;
 import psbd.models.Ingredient;
+import psbd.models.Order;
 import psbd.models.Recipe;
 import psbd.utils.DatabaseConnector;
 import psbd.utils.IngredientsEnum;
+import psbd.utils.Messages;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CreateOrderController {
@@ -27,21 +32,51 @@ public class CreateOrderController {
         currentIngredientList = new ArrayList<>();
         currentRecipeList = new ArrayList<>();
 
-        view.getMenuTable().addMouseListener(new MouseAdapter() {
+        view.getRecipesTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
+                view.getOrderTable().clearSelection();
                 getRecipeIngredientsList();
                 updateIngredientsTable();
             }
         });
+        view.getOrderTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
+                view.getRecipesTable().clearSelection();
+                currentIngredientList = new ArrayList<>(currentRecipeList.get(view.getOrderTable().getSelectedRow()).getIngredientsList());
+                updateIngredientsTable();
+            }
+        });
+        view.getIngredientsTable().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
+                updateIngredient();
+            }
+        });
+
+
+
+        view.getCompleteOrderButton().addActionListener(e->{
+            if(completeOrder(createOrder()))
+            {
+                setMessage(Messages.getInstance().ORDER_COMPLETED);
+            }
+        });
 
         view.getAddToOrderButton().addActionListener(e->{
-
+            currentRecipeList.add(createRecipe());
+            updateOrderTable();
+            updatePrice();
         });
 
         view.getRemoveFromOrderButton().addActionListener(e->{
-
+            currentRecipeList.remove(view.getOrderTable().getSelectedRow());
+            updateOrderTable();
+            updatePrice();
         });
 
     }
@@ -54,8 +89,44 @@ public class CreateOrderController {
         return view;
     }
 
-    public void createOrder() {
+    private boolean completeOrder(Order order) {
+        return true;
+    }
 
+    private boolean addRecipesToOrder(ArrayList<Recipe> recipesList)
+    {
+        return true;
+    }
+
+    private boolean addIngredientsToRecipe(ArrayList<Ingredient> ingredientsList)
+    {
+        return true;
+    }
+
+    private Order createOrder()
+    {
+        try{
+            String login = CurrentSession.getInstance().getLoggedUser().getLogin();
+            String discount = CurrentSession.getInstance().getLoggedUser().getCompany();
+            Timestamp orderTime = Timestamp.valueOf(view.getDateTextInput().getText());
+            return new Order(login,currentRecipeList,getFullPrice(),0,0,orderTime);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    private double getFullPrice()
+    {
+        double price = 0;
+        if(currentRecipeList.size() > 0)
+        {
+            for(Recipe recipe: currentRecipeList) {
+                price += recipe.getPrice();
+            }
+        }
+        return BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     private void setMessage(String error) {
@@ -88,13 +159,13 @@ public class CreateOrderController {
     private void updateMenuTable()
     {
         Object [][] data = getMenuList();
-        DefaultTableModel model = (DefaultTableModel) view.getMenuTable().getModel();
+        DefaultTableModel model = (DefaultTableModel) view.getRecipesTable().getModel();
         if(data.length > 0)
             for(Object[] row:data)
             {
                 model.addRow(row);
             }
-        view.getRecipesTable().repaint();
+        view.getIngredientsTable().repaint();
     }
 
 
@@ -147,8 +218,8 @@ public class CreateOrderController {
             return;
         }
         try {
-            statement.setString(1,(view.getMenuTable().getValueAt(
-                    view.getMenuTable().getSelectedRow(), 0).toString())
+            statement.setString(1,(view.getRecipesTable().getValueAt(
+                    view.getRecipesTable().getSelectedRow(), 0).toString())
             );
             database.setPreparedStatement(statement);
             result = statement.executeQuery();
@@ -164,7 +235,7 @@ public class CreateOrderController {
                         IngredientsEnum.valueOf(result.getString("ingredients.type")),
                         result.getDouble("ingredients.price"),
                         result.getDouble("quantity"),
-                        !result.getBoolean("optionality")
+                        result.getBoolean("optionality")
                 ));
             }
         }
@@ -174,21 +245,73 @@ public class CreateOrderController {
         }
     }
 
+    private Recipe createRecipe()
+    {
+        try{
+            String name = view.getRecipesTable().getValueAt(view.getRecipesTable().getSelectedRow(),0).toString();
+            double price = Double.parseDouble(view.getRecipesTable().getValueAt(view.getRecipesTable().getSelectedRow(),1).toString());
+            ArrayList<Ingredient> ingredients = new ArrayList<>(currentIngredientList);
+            return new Recipe(name,price,ingredients,true);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
     private void updateIngredientsTable()
     {
         Object [][] data = new Object[currentIngredientList.size()][];
         for (int i = 0; i < currentIngredientList.size(); i++) {
             data[i] = currentIngredientList.get(i).getIngredientModelToClientList().toArray(new Object[0]);
         }
-        DefaultTableModel model = (DefaultTableModel) view.getRecipesTable().getModel();
+        DefaultTableModel model = (DefaultTableModel) view.getIngredientsTable().getModel();
         model.setRowCount(0);
         if(data.length > 0)
             for(Object[] row:data)
             {
                 model.addRow(row);
             }
-        view.getRecipesTable().repaint();
+        view.getIngredientsTable().repaint();
 
+    }
+    private void updateOrderTable()
+    {
+        Object [][] data = new Object[currentRecipeList.size()][];
+        for (int i = 0; i < currentRecipeList.size(); i++) {
+            data[i] = currentRecipeList.get(i).getRecipeModelToClientList().toArray(new Object[0]);
+        }
+        DefaultTableModel model = (DefaultTableModel) view.getOrderTable().getModel();
+        model.setRowCount(0);
+        if(data.length > 0)
+            for(Object[] row:data)
+            {
+                model.addRow(row);
+            }
+        view.getOrderTable().repaint();
+
+    }
+
+    //todo: check this method below, it might have some bugs Cloning arraylist does not clone its content.
+
+    private void updateIngredient() {
+        int index = view.getIngredientsTable().getSelectedRow();
+        currentIngredientList.get(index).setIncluded(
+                (boolean) view.getIngredientsTable().getValueAt(
+                        index, 3
+                ));
+        currentIngredientList = new ArrayList<>(currentIngredientList);
+        System.out.println(currentIngredientList);
+        if (view.getRecipesTable().getSelectionModel().isSelectionEmpty()) {
+            currentRecipeList.get(view.getOrderTable().getSelectedRow()).setIngredientsList(new ArrayList<>(currentIngredientList));
+
+        }
+    }
+
+    private void updatePrice()
+    {
+        double price = getFullPrice();
+        view.getPriceLabel().setText(String.valueOf(price));
     }
 
 }

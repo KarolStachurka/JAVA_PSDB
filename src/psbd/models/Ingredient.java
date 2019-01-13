@@ -13,6 +13,7 @@ public class Ingredient {
     private Date expiration_time;
     private int warehouse;
     private boolean optional;
+    private boolean included;
 
     public Ingredient(String name, IngredientsEnum type, double price, double quantity, Date expiration_time, int warehouse)
     {
@@ -22,6 +23,7 @@ public class Ingredient {
         this.quantity = quantity;
         this.expiration_time = expiration_time;
         this.warehouse = warehouse;
+        this.included = true;
     }
 
     public Ingredient(String name, IngredientsEnum type, double price, double quantity, boolean optional)
@@ -31,6 +33,7 @@ public class Ingredient {
         this.price = price;
         this.quantity = quantity;
         this.optional = optional;
+        this.included = true;
     }
 
     public Ingredient(String name, IngredientsEnum type, double price)
@@ -38,6 +41,7 @@ public class Ingredient {
         this.name = name;
         this.type = type;
         this.price = price;
+        this.included = true;
     }
 
     public ArrayList<Object> getIngredientModelToList()
@@ -47,7 +51,7 @@ public class Ingredient {
         list.add(type);
         list.add(price);
         list.add(quantity);
-        list.add(optional);
+        list.add(included);
         return list;
     }
     public ArrayList<Object> getIngredientModelToClientList()
@@ -56,7 +60,7 @@ public class Ingredient {
         list.add(name);
         list.add(type);
         list.add(quantity);
-        list.add(optional);
+        list.add(included);
         return list;
     }
 
@@ -86,5 +90,13 @@ public class Ingredient {
 
     public boolean isOptional() {
         return optional;
+    }
+
+    public boolean isIncluded() {
+        return included;
+    }
+
+    public void setIncluded(boolean included) {
+        this.included = included;
     }
 }

@@ -31,4 +31,16 @@ public class Recipe {
     public boolean isAvailable() {
         return available;
     }
+
+    public ArrayList<Object> getRecipeModelToClientList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add(price);
+        return list;
+    }
+
+    public void setIngredientsList(ArrayList<Ingredient> ingredientsList) {
+        this.ingredientsList = ingredientsList;
+    }
 }

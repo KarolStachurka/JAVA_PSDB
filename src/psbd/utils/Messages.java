@@ -15,6 +15,7 @@ public class Messages {
     public static final String RECORD_CREATED = "New element was properly created";
     public static final String RECORD_EDITED = "Element data has been successfully edited";
     public static final String RECORD_REMOVED = "Element has been successfully removed";
+    public static final String ORDER_COMPLETED = "Your order has been created";
 
 
 

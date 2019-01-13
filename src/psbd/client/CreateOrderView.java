@@ -16,8 +16,8 @@ public class CreateOrderView extends ViewTemplate {
     private JComboBox addressComboBox;
     private JButton addToOrderButton;
     private JButton removeFromOrderButton;
-    private JTable menuTable;
     private JTable recipesTable;
+    private JTable ingredientsTable;
     private JTable orderTable;
     private JLabel priceLabel;
     private JLabel messagesLabel;
@@ -29,9 +29,9 @@ public class CreateOrderView extends ViewTemplate {
     {
         setWindowName(PanelEnum.CREATEORDER);
         DefaultTableModel menuModel = new DefaultTableModel(messages.MENU_ORDER_TABLE_HEADERS,0);
-        menuTable.setModel(menuModel);
+        recipesTable.setModel(menuModel);
         MyTableModel recipesModel = new MyTableModel(messages.MENU_INGREDIENTS_TABLE_HEADERS,3);
-        recipesTable.setModel(recipesModel);
+        ingredientsTable.setModel(recipesModel);
         DefaultTableModel orderModel = new DefaultTableModel(messages.ORDER_DETAILS_TABLE_HEADERS,0);
         orderTable.setModel(orderModel);
     }
@@ -42,9 +42,9 @@ public class CreateOrderView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-        DefaultTableModel menuModel = (DefaultTableModel) menuTable.getModel();
+        DefaultTableModel menuModel = (DefaultTableModel) recipesTable.getModel();
         menuModel.setRowCount(0);
-        DefaultTableModel recipeModel = (DefaultTableModel) recipesTable.getModel();
+        DefaultTableModel recipeModel = (DefaultTableModel) ingredientsTable.getModel();
         recipeModel.setRowCount(0);
         DefaultTableModel orderModel = (DefaultTableModel) orderTable.getModel();
         orderModel.setRowCount(0);
@@ -87,16 +87,16 @@ public class CreateOrderView extends ViewTemplate {
         return hourTextInput;
     }
 
-    public JTable getMenuTable() {
-        return menuTable;
+    public JTable getRecipesTable() {
+        return recipesTable;
     }
 
     public JTable getOrderTable() {
         return orderTable;
     }
 
-    public JTable getRecipesTable() {
-        return recipesTable;
+    public JTable getIngredientsTable() {
+        return ingredientsTable;
     }
 
     public JComboBox getAddressComboBox() {
