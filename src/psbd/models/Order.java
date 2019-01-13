@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Order {
     private String courierId;
     private String login;
+    private String address;
     private ArrayList<Recipe> recipeList;
     private double price;
     private double discount;
@@ -16,20 +17,22 @@ public class Order {
     private Timestamp realizationTime;
     private Timestamp deliveryTime;
 
-    public Order(String login, ArrayList<Recipe> recipeList, double price, double discount, double companyDiscount, Timestamp orderTime)
+    public Order(String login, String address, ArrayList<Recipe> recipeList, double price, double discount, double companyDiscount, Timestamp deliveryTime)
     {
         this.recipeList = recipeList;
+        this.address = address;
         this.login = login;
         this.price = price;
         this.discount = discount;
         this.companyDiscount = companyDiscount;
-        this.orderTime = orderTime;
+        this.deliveryTime = deliveryTime;
     }
 
-    public Order(String login, ArrayList<Recipe> recipeList, String courierId, double price, double discount, double companyDiscount,
+    public Order(String login, String address, ArrayList<Recipe> recipeList, String courierId, double price, double discount, double companyDiscount,
                  Timestamp orderTime, Timestamp realizationTime, Timestamp deliveryTime, boolean realized, boolean delivered)
     {
         this.recipeList = recipeList;
+        this.address = address;
         this.login = login;
         this.courierId = courierId;
         this.price = price;
@@ -59,6 +62,10 @@ public class Order {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getCourierId() {

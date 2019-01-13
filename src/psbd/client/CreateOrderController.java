@@ -90,16 +90,127 @@ public class CreateOrderController {
     }
 
     private boolean completeOrder(Order order) {
+        if(order == null || order.getRecipeList().size() < 1)
+        {
+            setMessage(Messages.INVALID_INPUT);
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "INSERT INTO orders(`client_id`, `address_id`,`price`, `discount`, `company_discount`, `order_time`, `delivery_time`) " +
+                "VALUES((SELECT user_id FROM users WHERE user_login = ?)," +
+                "(SELECT address_id FROM client_addresses WHERE address = ? AND client_id = (SELECT user_id FROM users WHERE user_login = ?)),?,?,?,NOW(),?)";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setMessage(Messages.DATABASE_ERROR);
+            return false;
+        }
+        try {
+            statement.setString(1,CurrentSession.getInstance().getLoggedUser().getLogin());
+            statement.setString(2,order.getAddress());
+            statement.setString(3,CurrentSession.getInstance().getLoggedUser().getLogin());
+            statement.setDouble(4,order.getPrice());
+            statement.setDouble(5, order.getDiscount());
+            statement.setDouble(6,order.getCompanyDiscount());
+            statement.setTimestamp(7,order.getDeliveryTime());
+            database.setPreparedStatement(statement);
+        }
+        catch (SQLException e)
+        {
+            setMessage(Messages.DATABASE_ERROR);
+            return false;
+        }
+        if(!database.executeStatement())
+        {
+            setMessage(Messages.DATABASE_ERROR);
+            return false;
+        }
+        if(!addRecipesToOrder(order.getRecipeList()))
+        {
+            return false;
+        }
         return true;
     }
 
     private boolean addRecipesToOrder(ArrayList<Recipe> recipesList)
     {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "INSERT INTO dishes(`recipe_id`, `order_id`) " +
+                "VALUES((SELECT id FROM recipes WHERE name = ?),(SELECT MAX(id) FROM orders))";
+        for(Recipe recipe:recipesList)
+        {
+            PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+            if(statement == null)
+            {
+                setMessage(Messages.DATABASE_ERROR);
+
+                return false;
+            }
+            try {
+                statement.setString(1,recipe.getName());
+                database.setPreparedStatement(statement);
+            }
+            catch (SQLException e)
+            {
+                setMessage(Messages.DATABASE_ERROR);
+                return false;
+            }
+            if(!database.executeStatement())
+            {
+                setMessage(Messages.DATABASE_ERROR);
+                return false;
+            }
+            if(!addIngredientsToRecipe(recipe.getIngredientsList()))
+            {
+                setMessage(Messages.DATABASE_ERROR);
+                return false;
+            }
+
+        }
         return true;
     }
 
     private boolean addIngredientsToRecipe(ArrayList<Ingredient> ingredientsList)
     {
+        if(currentIngredientList.size() < 1)
+        {
+        return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "INSERT INTO dishes_ingredients(`dish_id`,`quantity`, `ingredient`) " +
+                "VALUES((SELECT MAX(id) FROM dishes),?, ?)";
+        for(Ingredient ingredient:ingredientsList)
+        {
+            if(!ingredient.isIncluded())
+            {
+                continue;
+            }
+            PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+            if(statement == null)
+            {
+                setMessage(Messages.DATABASE_ERROR);
+
+                return false;
+            }
+            try {
+
+                statement.setDouble(1,ingredient.getQuantity());
+                statement.setString(2,ingredient.getName());
+                database.setPreparedStatement(statement);
+            }
+            catch (SQLException e)
+            {
+                setMessage(Messages.DATABASE_ERROR);
+                return false;
+            }
+            if(!database.executeStatement())
+            {
+                setMessage(Messages.DATABASE_ERROR);
+                return false;
+            }
+
+        }
+
         return true;
     }
 
@@ -107,9 +218,10 @@ public class CreateOrderController {
     {
         try{
             String login = CurrentSession.getInstance().getLoggedUser().getLogin();
+            String address = view.getAddressComboBox().getSelectedItem().toString();
             String discount = CurrentSession.getInstance().getLoggedUser().getCompany();
             Timestamp orderTime = Timestamp.valueOf(view.getDateTextInput().getText());
-            return new Order(login,currentRecipeList,getFullPrice(),0,0,orderTime);
+            return new Order(login,address,currentRecipeList,getFullPrice(),0,0,orderTime);
         }
         catch (Exception e)
         {
@@ -136,7 +248,7 @@ public class CreateOrderController {
     private void setAddressList()
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT * FROM client_addresses WHERE client_id = (SELECT user_id FROM users WHERE user_login = ?)";
+        String sqlQuery = "SELECT address FROM client_addresses WHERE client_id = (SELECT user_id FROM users WHERE user_login = ?)";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
 
         try{
@@ -292,7 +404,7 @@ public class CreateOrderController {
 
     }
 
-    //todo: check this method below, it might have some bugs Cloning arraylist does not clone its content.
+    //todo: check this method below, it might have some bugs. Cloning arraylist does not clone its content.
 
     private void updateIngredient() {
         int index = view.getIngredientsTable().getSelectedRow();
@@ -301,7 +413,6 @@ public class CreateOrderController {
                         index, 3
                 ));
         currentIngredientList = new ArrayList<>(currentIngredientList);
-        System.out.println(currentIngredientList);
         if (view.getRecipesTable().getSelectionModel().isSelectionEmpty()) {
             currentRecipeList.get(view.getOrderTable().getSelectedRow()).setIngredientsList(new ArrayList<>(currentIngredientList));
 
