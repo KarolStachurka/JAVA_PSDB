@@ -26,6 +26,18 @@ public class Delivery {
         this.received = false;
     }
 
+    public Delivery(String ingredient, int warehouseId, double quantity, Date expirationDate, Date orderDate)
+    {
+        this.ingredient = ingredient;
+        this.warehouseId = warehouseId;
+        this.quantity = quantity;
+        this.availableQuantity = quantity;
+        this.dateOfOrder = orderDate;
+        this.dateOfReceiving = null;
+        this.expirationDate = expirationDate;
+        this.received = false;
+    }
+
     public Delivery(String ingredient, int warehouseId, double quantity, double availableQuantity, Date expirationDate,
                     Date dateOfOrder, Date dateOfReceiving, boolean received)
     {

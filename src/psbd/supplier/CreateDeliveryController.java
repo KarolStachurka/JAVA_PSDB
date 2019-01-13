@@ -185,7 +185,7 @@ public class CreateDeliveryController {
         }
         DatabaseConnector database = DatabaseConnector.getInstance();
         String sqlQuery = "INSERT INTO deliveries(`ingredient`, `warehouse_id`, `date_of_order`, `expiration_date`, `quantity`, `available_quantity`) " +
-                "VALUES(?,?,NOW(),?,?,?)";
+                "VALUES(?,?,?,?,?,?)";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
@@ -195,9 +195,10 @@ public class CreateDeliveryController {
         try {
             statement.setString(1, delivery.getIngredient());
             statement.setInt(2,delivery.getWarehouseId());
-            statement.setDate(3,delivery.getExpirationDate());
-            statement.setDouble(4,delivery.getQuantity());
-            statement.setDouble(5,delivery.getAvailableQuantity());
+            statement.setDate(3,delivery.getDateOfOrder());
+            statement.setDate(4,delivery.getExpirationDate());
+            statement.setDouble(5,delivery.getQuantity());
+            statement.setDouble(6,delivery.getAvailableQuantity());
             database.setPreparedStatement(statement);
         }
         catch (SQLException e)
@@ -218,10 +219,17 @@ public class CreateDeliveryController {
         if(delivery == null)
         {
             setMessage(messages.INVALID_INPUT);
+            return false;
         }
         delivery.setQuantity(Double.parseDouble(view.getQuantityTextInput().getText()));
-        delivery.setExpirationDate(Date.valueOf(view.getExpirationDateInput().getText()));
-        delivery.setDateOfOrder(Date.valueOf(view.getOrderDateInput().getText()));
+        try {
+            delivery.setExpirationDate(convertToSqlDateFormat(view.getExpirationDateInput().getText()));
+            delivery.setDateOfOrder(convertToSqlDateFormat(view.getOrderDateInput().getText()));
+        }
+        catch (ParseException e)
+        {
+            return false;
+        }
         delivery.setIngredient(view.getIngredientsComboBox().getSelectedItem().toString());
         delivery.setWarehouseId(getSelectedWarehouseId(view.getWarehousesComboBox().getSelectedItem().toString()));
 
@@ -299,8 +307,9 @@ public class CreateDeliveryController {
             int warehouseId = getSelectedWarehouseId(view.getWarehousesComboBox().getSelectedItem().toString());
             double quantity = Double.parseDouble(view.getQuantityTextInput().getText());
             Date expirationDate = convertToSqlDateFormat(view.getExpirationDateInput().getText());
+            Date orderDate = convertToSqlDateFormat(view.getOrderDateInput().getText());
 
-            return new Delivery(name,warehouseId,quantity,expirationDate);
+            return new Delivery(name,warehouseId,quantity,expirationDate,orderDate);
         }
         catch (Exception e)
         {
