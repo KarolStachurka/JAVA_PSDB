@@ -1,5 +1,6 @@
 package psbd.supplier;
 
+import datechooser.beans.DateChooserCombo;
 import psbd.utils.Messages;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
@@ -11,15 +12,15 @@ public class CreateDeliveryView extends ViewTemplate {
     private JButton backButton;
     private JPanel WindowPanel;
     private JTextField quantityTextInput;
-    private JTextField expirationDateTextInput;
     private JButton addButton;
     private JButton removeButton;
     private JComboBox ingredientsComboBox;
     private JComboBox warehousesComboBox;
     private JTable deliveriesTable;
-    private JTextField orderDateTextInput;
     private JButton editButton;
     private JLabel messagesLabel;
+    private DateChooserCombo orderDateInput;
+    private DateChooserCombo expirationDateInput;
 
     public CreateDeliveryView()
     {
@@ -50,14 +51,6 @@ public class CreateDeliveryView extends ViewTemplate {
         return quantityTextInput;
     }
 
-    public JTextField getExpirationDateTextInput() {
-        return expirationDateTextInput;
-    }
-
-    public JTextField getOrderDateTextInput() {
-        return orderDateTextInput;
-    }
-
     public JComboBox getIngredientsComboBox() {
         return ingredientsComboBox;
     }
@@ -78,14 +71,17 @@ public class CreateDeliveryView extends ViewTemplate {
         return WindowPanel;
     }
 
+    public DateChooserCombo getOrderDateInput(){return orderDateInput;}
+
+    public DateChooserCombo getExpirationDateInput(){return expirationDateInput;}
+
 
     @Override
     public void cleanAll() {
         quantityTextInput.setText("");
-        expirationDateTextInput.setText("");
-        orderDateTextInput.setText("");
         DefaultTableModel model = (DefaultTableModel) deliveriesTable.getModel();
         model.setRowCount(0);
         deliveriesTable.repaint();
     }
+
 }

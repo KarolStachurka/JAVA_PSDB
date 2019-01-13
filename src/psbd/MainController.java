@@ -10,6 +10,8 @@ import psbd.supplier.*;
 import psbd.user.*;
 import psbd.utils.Messages;
 
+import java.text.ParseException;
+
 
 public class MainController {
     private MainWindow view;
@@ -39,8 +41,7 @@ public class MainController {
     private WarehouseStatisticsController warehouseStatisticsController;
     private SupplierIngredientListController supplierIngredientListController;
 
-    public MainController(MainWindow view)
-    {
+    public MainController(MainWindow view){
         this.view = view;
 
         userLoginController = new UserLoginController(new UserLoginView());
@@ -65,7 +66,11 @@ public class MainController {
         recipeManagerController = new RecipeManagerController(new RecipeManagerView());
 
         supplierMainController = new SupplierMainController(new SupplierMainView());
-        createDeliveryController = new CreateDeliveryController(new CreateDeliveryView());
+        try {
+            createDeliveryController = new CreateDeliveryController(new CreateDeliveryView());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         editStorageController = new EditStorageController(new EditStorageView());
         warehouseStatisticsController = new WarehouseStatisticsController(new WarehouseStatisticsView());
         supplierIngredientListController = new SupplierIngredientListController(new SupplierIngredientListView());
