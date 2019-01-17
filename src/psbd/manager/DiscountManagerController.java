@@ -20,7 +20,7 @@ public class DiscountManagerController {
     public DiscountManagerController(DiscountManagerView view)
     {
         this.view = view;
-        updateTable();
+        updateDiscountBoxValues();
         view.getCompaniesTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -67,10 +67,22 @@ public class DiscountManagerController {
             {
             }
         });
+        view.getAcceptDiscountThresholdButton().addActionListener(e->{
+            if(changeDiscountThreshold())
+            {
+                view.cleanAll();
+                updateTable();
+            }
+        });
+        view.getDiscountMilestonesComboBox().addActionListener(e->{
+            showDiscountValues();
+        });
 
     }
 
     public DiscountManagerView getView() {
+        view.cleanAll();
+        updateTable();
         return view;
     }
 
@@ -78,7 +90,7 @@ public class DiscountManagerController {
     {
         try {
             int nip = Integer.valueOf(view.getNipTextInput().getText());
-            int discountValue = Integer.valueOf(view.getCompanyDiscountTextInput().getText());
+            double discountValue = Double.valueOf(view.getCompanyDiscountTextInput().getText());
             String name = view.getCompanyNameTextInput().getText();
             return new Company(nip,name,discountValue);
         }
@@ -113,7 +125,7 @@ public class DiscountManagerController {
         try {
             statement.setInt(1,company.getNip());
             statement.setString(2,company.getName());
-            statement.setInt(3, company.getDiscountValue());
+            statement.setDouble(3, company.getDiscountValue());
             database.setPreparedStatement(statement);
         }
         catch (SQLException e)
@@ -145,7 +157,7 @@ public class DiscountManagerController {
         }
         try {
             statement.setString(1, company.getName());
-            statement.setInt(2, company.getDiscountValue());
+            statement.setDouble(2, company.getDiscountValue());
             statement.setInt(3, company.getNip());
             database.setPreparedStatement(statement);
             database.executeStatement();
@@ -178,7 +190,7 @@ public class DiscountManagerController {
 
     private void setMessage(String error)
     {
-        view.getMessageslabel().setText(error);
+        view.getMessagesLabel().setText(error);
     }
 
     private boolean checkIfCompanyExist(String nip)
@@ -233,5 +245,77 @@ public class DiscountManagerController {
         }
 
         return data;
+    }
+
+    private boolean changeDiscountThreshold()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "UPDATE discounts SET threshold = ? ,discount = ? WHERE threshold_id = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+        try {
+            statement.setDouble(1, Double.parseDouble(view.getThresholdTextInput().getText()));
+            statement.setDouble(2, Double.parseDouble(view.getDiscountTextInput().getText()));
+            statement.setString(3,view.getDiscountMilestonesComboBox().getSelectedItem().toString());
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+        }
+        catch (SQLException e)
+        {
+            setMessage(messages.DATABASE_ERROR);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void updateDiscountBoxValues()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        try{
+            ResultSet table = database.getFullTableData("discounts");
+            view.getDiscountMilestonesComboBox().removeAllItems();
+            while (table.next())
+            {
+                view.getDiscountMilestonesComboBox().addItem(table.getString("threshold_id"));
+            }
+        }
+        catch (Exception e)
+        {
+            // Leave list empty
+        }
+
+
+    }
+
+    private void showDiscountValues()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT * FROM discounts WHERE threshold_id = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        ResultSet result;
+        if (statement == null) {
+            return;
+        }
+        try {
+            statement.setString(1,view.getDiscountMilestonesComboBox().getSelectedItem().toString());
+            database.setPreparedStatement(statement);
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            return;
+        }
+        try
+        {
+            result.next();
+            view.getThresholdTextInput().setText(result.getBigDecimal("threshold").toString());
+            view.getDiscountTextInput().setText(result.getBigDecimal("discount").toString());
+
+        } catch (SQLException e) {
+            return;
+        }
     }
 }

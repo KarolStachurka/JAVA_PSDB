@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 public class DiscountManagerView extends ViewTemplate {
     private JPanel WindowPanel;
     private JButton backButton;
-    private JComboBox discountMilestonesValues;
+    private JComboBox discountMilestonesComboBox;
     private JTextField discountTextInput;
     private JButton acceptDiscountThresholdButton;
     private JTextField companyNameTextInput;
@@ -19,7 +19,8 @@ public class DiscountManagerView extends ViewTemplate {
     private JButton editCompanyButton;
     private JTable companiesTable;
     private JTextField nipTextInput;
-    private JLabel messageslabel;
+    private JLabel messagesLabel;
+    private JTextField thresholdTextInput;
 
     public DiscountManagerView()
     {
@@ -38,8 +39,9 @@ public class DiscountManagerView extends ViewTemplate {
         nipTextInput.setText("");
         companyNameTextInput.setText("");
         discountTextInput.setText("");
+        thresholdTextInput.setText("");
         companyDiscountTextInput.setText("");
-        messageslabel.setText("");
+        messagesLabel.setText("");
     }
 
     public JButton getRemoveCompanyButton() {
@@ -62,11 +64,11 @@ public class DiscountManagerView extends ViewTemplate {
         return editCompanyButton;
     }
 
-    public JLabel getMessageslabel() {
-        return messageslabel;
+    public JLabel getMessagesLabel() {
+        return messagesLabel;
     }
-    public JComboBox getDiscountMilestonesValues() {
-        return discountMilestonesValues;
+    public JComboBox getDiscountMilestonesComboBox() {
+        return discountMilestonesComboBox;
     }
 
     public JTable getCompaniesTable() {
@@ -89,4 +91,7 @@ public class DiscountManagerView extends ViewTemplate {
         return nipTextInput;
     }
 
+    public JTextField getThresholdTextInput() {
+        return thresholdTextInput;
+    }
 }

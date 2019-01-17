@@ -3,9 +3,9 @@ package psbd.models;
 public class Company {
     private int nip;
     private String name;
-    private int discountValue;
+    private double discountValue;
 
-    public Company(int nip, String name, int discountValue)
+    public Company(int nip, String name, double discountValue)
     {
         this.nip = nip;
         this.name = name;
@@ -16,7 +16,7 @@ public class Company {
         return name;
     }
 
-    public int getDiscountValue() {
+    public double getDiscountValue() {
         return discountValue;
     }
 

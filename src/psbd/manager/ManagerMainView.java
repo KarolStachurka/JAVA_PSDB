@@ -13,13 +13,11 @@ public class ManagerMainView extends ViewTemplate {
     private JButton modifyAccountBalanceButton;
     private JTextField textField1;
     private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JComboBox comboBox1;
-    private JButton acceptForChoosenDayButton;
-    private JButton acceptForChoosenMonthButton;
-    private JButton acceptForChoosenWeekButton;
+    private JComboBox dayComboBox;
     private JLabel userDataLabel;
+    private JTextField timeOpenTextInput;
+    private JTextField timeCloseTextInput;
+    private JButton hoursChangeButton;
 
     public ManagerMainView()
     {
@@ -32,6 +30,8 @@ public class ManagerMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
+        timeOpenTextInput.setText("");
+        timeCloseTextInput.setText("");
 
     }
 
@@ -51,7 +51,23 @@ public class ManagerMainView extends ViewTemplate {
         return modifyAccountBalanceButton;
     }
 
+    public JButton getHoursChangeButton() {
+        return hoursChangeButton;
+    }
+
     public JLabel getUserDataLabel() {
         return userDataLabel;
+    }
+
+    public JTextField getTimeCloseTextInput() {
+        return timeCloseTextInput;
+    }
+
+    public JTextField getTimeOpenTextInput() {
+        return timeOpenTextInput;
+    }
+
+    public JComboBox getDayComboBox() {
+        return dayComboBox;
     }
 }

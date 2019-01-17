@@ -7,12 +7,12 @@ import javax.swing.*;
 
 public class ClientMainView extends ViewTemplate {
     private JPanel WindowPanel;
-    private JList list1;
     private JButton createNewOrderButton;
     private JButton createDishReviewButton;
     private JButton logoutButton;
     private JButton editUserDataButton;
     private JLabel userDataLabel;
+    private JTable clientOrderTable;
 
     public ClientMainView()
     {
@@ -48,4 +48,7 @@ public class ClientMainView extends ViewTemplate {
         return userDataLabel;
     }
 
+    public JTable getClientOrderTable() {
+        return clientOrderTable;
+    }
 }
