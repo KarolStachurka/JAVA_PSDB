@@ -23,17 +23,18 @@ public class MainWindow {
         mainPanel.add(userLoginView.getWindowPanel(), userLoginView.getWindowName().toString());
         mainFrame.setContentPane(mainPanel);
         mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
+        mainFrame.setBackground(Color.BLACK);
+        mainPanel.setBackground(Color.BLACK);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        cardLayout =  (CardLayout) mainPanel.getLayout();
-
+        cardLayout = (CardLayout) mainPanel.getLayout();
     }
 
     public CardLayout getCardLayout() {
         cardLayout =  (CardLayout) mainPanel.getLayout();
         return cardLayout;
     }
-
 
     public void addToMainPanel(JPanel windowPanel, PanelEnum name)
     {
@@ -46,5 +47,4 @@ public class MainWindow {
         cardLayout.show(mainPanel, name.toString());
         mainFrame.revalidate();
     }
-
 }

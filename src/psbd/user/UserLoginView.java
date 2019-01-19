@@ -2,6 +2,7 @@ package psbd.user;
 
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
+import sun.awt.WindowIDProvider;
 
 import javax.swing.*;
 
@@ -13,10 +14,19 @@ public class UserLoginView extends ViewTemplate {
     private JButton forgotPasswordButton;
     private JButton createAccountButton;
     private JLabel messagesLabel;
+    private JLabel user_login_icon;
+    private JPanel loginPanel;
+
+    public JLabel getUser_login_icon() {
+        return user_login_icon;
+    }
 
     public UserLoginView()
     {
         setWindowName(PanelEnum.LOGIN);
+        WindowPanel.setPreferredSize(new java.awt.Dimension(860, 650));
+        loginPanel.setSize(new java.awt.Dimension(200, 500));
+        user_login_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psbd/images/user.png")));
     }
 
     public JPanel getWindowPanel(){
@@ -53,4 +63,6 @@ public class UserLoginView extends ViewTemplate {
         passwordTextInput.setText("");
         loginTextInput.setText("");
     }
+
+
 }
