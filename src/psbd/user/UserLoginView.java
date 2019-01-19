@@ -26,7 +26,6 @@ public class UserLoginView extends ViewTemplate {
         setWindowName(PanelEnum.LOGIN);
         WindowPanel.setPreferredSize(new java.awt.Dimension(860, 650));
         loginPanel.setSize(new java.awt.Dimension(200, 500));
-        user_login_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/psbd/images/user.png")));
     }
 
     public JPanel getWindowPanel(){
