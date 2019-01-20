@@ -1,9 +1,12 @@
 package psbd.cook;
 
+import psbd.utils.Messages;
+import psbd.utils.MyTableModel;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class CookMainView extends ViewTemplate {
 
@@ -14,11 +17,17 @@ public class CookMainView extends ViewTemplate {
     private JLabel userDataLabel;
     private JTable ordersTable;
     private JTable orderDetailsTable;
-    private JTable dishRecipetable;
+    private JTable dishRecipeTable;
 
     public CookMainView()
     {
         setWindowName(PanelEnum.COOKMAIN);
+        MyTableModel orderModel = new MyTableModel(Messages.COOK_ORDER_TABLE_HEADERS,2);
+        ordersTable.setModel(orderModel);
+        MyTableModel orderDetailsModel = new MyTableModel(Messages.ORDER_DETAILS_TABLE_HEADERS,1);
+        orderDetailsTable.setModel(orderDetailsModel);
+        DefaultTableModel dishRecipeModel = new DefaultTableModel(Messages.MENU_INGREDIENTS_TABLE_HEADERS,0);
+        dishRecipeTable.setModel(dishRecipeModel);
     }
 
     public JPanel getWindowPanel() {
@@ -27,6 +36,12 @@ public class CookMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
+        DefaultTableModel orderDetailsTableModel = (DefaultTableModel) orderDetailsTable.getModel();
+        orderDetailsTableModel.setRowCount(0);
+        DefaultTableModel ordersTableModel = (DefaultTableModel) ordersTable.getModel();
+        ordersTableModel.setRowCount(0);
+        DefaultTableModel dishRecipeTableModel = (DefaultTableModel) dishRecipeTable.getModel();
+        dishRecipeTableModel.setRowCount(0);
 
     }
 
@@ -50,8 +65,8 @@ public class CookMainView extends ViewTemplate {
         return orderDetailsTable;
     }
 
-    public JTable getDishRecipetable() {
-        return dishRecipetable;
+    public JTable getDishRecipeTable() {
+        return dishRecipeTable;
     }
 
     public JTable getOrdersTable() {

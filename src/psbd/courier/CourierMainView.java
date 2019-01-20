@@ -1,9 +1,12 @@
 package psbd.courier;
 
+import psbd.utils.Messages;
+import psbd.utils.MyTableModel;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class CourierMainView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -15,6 +18,8 @@ public class CourierMainView extends ViewTemplate {
     public CourierMainView()
     {
         setWindowName(PanelEnum.COURIERMAIN);
+        MyTableModel orderModel = new MyTableModel(Messages.COOK_ORDER_TABLE_HEADERS,2);
+        ordersTable.setModel(orderModel);
     }
 
     public JPanel getWindowPanel() {
@@ -23,6 +28,8 @@ public class CourierMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
+        DefaultTableModel ordersTableModel = (DefaultTableModel) ordersTable.getModel();
+        ordersTableModel.setRowCount(0);
 
     }
 

@@ -1,9 +1,11 @@
 package psbd.client;
 
+import psbd.utils.Messages;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ClientMainView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -19,6 +21,10 @@ public class ClientMainView extends ViewTemplate {
     public ClientMainView()
     {
         setWindowName(PanelEnum.CLIENTMAIN);
+        DefaultTableModel orderModel = new DefaultTableModel(Messages.CLIENT_ORDER_TABLE_HEADERS,0);
+        clientOrderTable.setModel(orderModel);
+        DefaultTableModel detailsModel = new DefaultTableModel(Messages.ORDER_DETAILS_TABLE_HEADERS,0);
+        orderDetailsTable.setModel(detailsModel);
     }
 
     public JPanel getWindowPanel() {
@@ -27,6 +33,10 @@ public class ClientMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
+        DefaultTableModel menuModel = (DefaultTableModel) clientOrderTable.getModel();
+        menuModel.setRowCount(0);
+        DefaultTableModel orderModel = (DefaultTableModel) orderDetailsTable.getModel();
+        orderModel.setRowCount(0);
 
     }
 

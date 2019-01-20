@@ -18,7 +18,6 @@ public class Messages {
     public static final String ORDER_COMPLETED = "Your order has been created";
 
 
-
     // table headers
     public static final String[] USER_TABLE_HEADERS = {"Type","Login", "Name", "Surname", "Email","Phone Number","Company","PESEL"};
     public static final String[] COMPANY_TABLE_HEADERS = {"NIP","Company name", "Discount value"};
@@ -30,9 +29,12 @@ public class Messages {
     public static final String[] MENU_ORDER_TABLE_HEADERS = {"Name", "Price"};
     public static final String[] RECIPE_INGREDIENTS_TABLE_HEADERS = {"Name", "Type", "Price", "Quantity", "Optional"};
     public static final String[] MENU_INGREDIENTS_TABLE_HEADERS = {"Name", "Type","Quantity", "Included"};
-    public static final String[] ORDER_DETAILS_TABLE_HEADERS = {"Name", "Price"};
+    public static final String[] ORDER_DETAILS_TABLE_HEADERS = {"Name", "Ready"};
     public static final String[] CLIENT_ADDRESS_TABLE_HEADERS = {"Address details"};
-
+    public static final String[] CLIENT_ORDER_TABLE_HEADERS = {"Delivery time", "Status", "Price"};
+    public static final String[] CLIENT_REVIEW_TABLE_HEADERS = {"Dish name", "Rating"};
+    public static final String[] COOK_ORDER_TABLE_HEADERS = {"Order ID", "Realization time", "Status"};
+    public static final String[] COURIER_ORDER_TABLE_HEADERS = {"Order ID", "Delivery time", "Status"};
 
     private static Messages ourInstance = new Messages();
 

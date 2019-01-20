@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class CreateOrderView extends ViewTemplate {
-    private Messages messages;
     private JButton completeOrderButton;
     private JButton backButton;
     private JPanel WindowPanel;
@@ -28,11 +27,11 @@ public class CreateOrderView extends ViewTemplate {
     public CreateOrderView()
     {
         setWindowName(PanelEnum.CREATEORDER);
-        DefaultTableModel menuModel = new DefaultTableModel(messages.MENU_ORDER_TABLE_HEADERS,0);
+        DefaultTableModel menuModel = new DefaultTableModel(Messages.MENU_ORDER_TABLE_HEADERS,0);
         recipesTable.setModel(menuModel);
-        MyTableModel recipesModel = new MyTableModel(messages.MENU_INGREDIENTS_TABLE_HEADERS,3);
+        MyTableModel recipesModel = new MyTableModel(Messages.MENU_INGREDIENTS_TABLE_HEADERS,3);
         ingredientsTable.setModel(recipesModel);
-        DefaultTableModel orderModel = new DefaultTableModel(messages.ORDER_DETAILS_TABLE_HEADERS,0);
+        DefaultTableModel orderModel = new DefaultTableModel(Messages.MENU_ORDER_TABLE_HEADERS,0);
         orderTable.setModel(orderModel);
     }
 

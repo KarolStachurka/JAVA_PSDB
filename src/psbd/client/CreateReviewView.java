@@ -1,9 +1,11 @@
 package psbd.client;
 
+import psbd.utils.Messages;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class CreateReviewView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -11,12 +13,14 @@ public class CreateReviewView extends ViewTemplate {
     private JButton confirmButton;
     private JEditorPane reviewEditTextInput;
     private JTextField fileDialogTextField;
-    private JTable dishListTable;
+    private JTable dishTable;
     private JButton chooseImageButton;
 
     public CreateReviewView()
     {
         setWindowName(PanelEnum.CREATEREVIEW);
+        DefaultTableModel menuModel = new DefaultTableModel(Messages.CLIENT_REVIEW_TABLE_HEADERS,0);
+        dishTable.setModel(menuModel);
     }
 
     public JPanel getWindowPanel() {
@@ -25,7 +29,8 @@ public class CreateReviewView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-
+        DefaultTableModel dishTableModel = (DefaultTableModel) dishTable.getModel();
+        dishTableModel.setRowCount(0);
     }
 
     public JButton getConfirmButton() {
@@ -44,8 +49,8 @@ public class CreateReviewView extends ViewTemplate {
         return reviewEditTextInput;
     }
 
-    public JTable getDishListTable() {
-        return dishListTable;
+    public JTable getDishTable() {
+        return dishTable;
     }
 
     public JTextField getFileDialogTextField() {

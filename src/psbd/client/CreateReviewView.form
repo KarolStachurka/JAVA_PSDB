@@ -85,7 +85,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="3b7f3" class="javax.swing.JTable" binding="dishListTable">
+          <component id="3b7f3" class="javax.swing.JTable" binding="dishTable">
             <constraints/>
             <properties/>
           </component>
