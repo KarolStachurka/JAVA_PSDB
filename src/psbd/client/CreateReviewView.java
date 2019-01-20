@@ -9,8 +9,10 @@ public class CreateReviewView extends ViewTemplate {
     private JPanel WindowPanel;
     private JButton backButton;
     private JButton confirmButton;
-    private JEditorPane editorPane1;
+    private JEditorPane reviewEditTextInput;
     private JTextField fileDialogTextField;
+    private JTable dishListTable;
+    private JButton chooseImageButton;
 
     public CreateReviewView()
     {
@@ -34,4 +36,19 @@ public class CreateReviewView extends ViewTemplate {
         return backButton;
     }
 
+    public JButton getChooseImageButton() {
+        return chooseImageButton;
+    }
+
+    public JEditorPane getReviewEditTextInput() {
+        return reviewEditTextInput;
+    }
+
+    public JTable getDishListTable() {
+        return dishListTable;
+    }
+
+    public JTextField getFileDialogTextField() {
+        return fileDialogTextField;
+    }
 }

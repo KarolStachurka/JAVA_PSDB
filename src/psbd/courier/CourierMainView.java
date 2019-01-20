@@ -8,9 +8,9 @@ import javax.swing.*;
 public class CourierMainView extends ViewTemplate {
     private JPanel WindowPanel;
     private JButton logoutButton;
-    private JList list1;
-    private JButton getNewListButton;
+    private JButton updateListButton;
     private JLabel userDataLabel;
+    private JTable ordersTable;
 
     public CourierMainView()
     {
@@ -30,7 +30,15 @@ public class CourierMainView extends ViewTemplate {
         return logoutButton;
     }
 
+    public JButton getUpdateListButton() {
+        return updateListButton;
+    }
+
     public JLabel getUserDataLabel() {
         return userDataLabel;
+    }
+
+    public JTable getOrdersTable() {
+        return ordersTable;
     }
 }

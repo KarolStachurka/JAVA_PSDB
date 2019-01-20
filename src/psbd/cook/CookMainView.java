@@ -9,12 +9,12 @@ public class CookMainView extends ViewTemplate {
 
     private JButton logoutButton;
     private JPanel WindowPanel;
-    private JList list1;
-    private JList list2;
-    private JList list3;
     private JButton setOrderReadyButton;
     private JButton updateListButton;
     private JLabel userDataLabel;
+    private JTable ordersTable;
+    private JTable orderDetailsTable;
+    private JTable dishRecipetable;
 
     public CookMainView()
     {
@@ -34,7 +34,27 @@ public class CookMainView extends ViewTemplate {
         return logoutButton;
     }
 
+    public JButton getSetOrderReadyButton() {
+        return setOrderReadyButton;
+    }
+
+    public JButton getUpdateListButton() {
+        return updateListButton;
+    }
+
     public JLabel getUserDataLabel() {
         return userDataLabel;
+    }
+
+    public JTable getOrderDetailsTable() {
+        return orderDetailsTable;
+    }
+
+    public JTable getDishRecipetable() {
+        return dishRecipetable;
+    }
+
+    public JTable getOrdersTable() {
+        return ordersTable;
     }
 }

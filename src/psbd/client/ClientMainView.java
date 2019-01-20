@@ -13,6 +13,8 @@ public class ClientMainView extends ViewTemplate {
     private JButton editUserDataButton;
     private JLabel userDataLabel;
     private JTable clientOrderTable;
+    private JTable orderDetailsTable;
+    private JLabel discountInfoLabel;
 
     public ClientMainView()
     {
@@ -50,5 +52,13 @@ public class ClientMainView extends ViewTemplate {
 
     public JTable getClientOrderTable() {
         return clientOrderTable;
+    }
+
+    public JTable getOrderDetailsTable() {
+        return orderDetailsTable;
+    }
+
+    public JLabel getDiscountInfoLabel() {
+        return discountInfoLabel;
     }
 }
