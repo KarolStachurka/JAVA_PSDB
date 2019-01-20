@@ -1,171 +1,305 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="psbd.manager.ManagerMainView">
-  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="9" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="13" column-count="11" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1006" height="400"/>
+      <xy x="20" y="20" width="896" height="460"/>
     </constraints>
     <properties>
-      <preferredSize width="720" height="480"/>
+      <preferredSize width="900" height="480"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="ed05c" class="javax.swing.JLabel" binding="userDataLabel">
+      <hspacer id="8f3ac">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="8" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="10"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <vspacer id="77229">
+        <constraints>
+          <grid row="0" column="0" row-span="12" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="10" height="-1"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <hspacer id="82c23">
+        <constraints>
+          <grid row="12" column="1" row-span="1" col-span="9" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="10"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <component id="fd155" class="javax.swing.JLabel" binding="userDataLabel">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Manager personal data"/>
+          <font name="Phetsarath OT" size="16"/>
+          <text value=""/>
         </properties>
       </component>
-      <component id="95642" class="javax.swing.JLabel">
+      <vspacer id="da5e3">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="10" row-span="10" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="10" height="-1"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <vspacer id="d90e3">
+        <constraints>
+          <grid row="2" column="5" row-span="10" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="10" height="-1"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <grid id="167f1" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="30">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="1" row-span="10" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Options:"/>
+          <toolTipText value="gj"/>
         </properties>
-      </component>
-      <component id="aa35d" class="javax.swing.JLabel">
+        <border type="none" title="Account control">
+          <font name="Phetsarath OT" size="16"/>
+        </border>
+        <children>
+          <component id="f354" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="87" height="23"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+              <text value="Account balance"/>
+            </properties>
+          </component>
+          <component id="55024" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="16"/>
+              <text value="0$"/>
+            </properties>
+          </component>
+          <component id="b0be5" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="87" height="23"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+              <text value="Add"/>
+            </properties>
+          </component>
+          <component id="1ed29" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="130" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+            </properties>
+          </component>
+          <component id="46708" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="87" height="23"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+              <text value="Withdraw"/>
+            </properties>
+          </component>
+          <component id="5c226" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="130" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+            </properties>
+          </component>
+          <hspacer id="58b20">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <vspacer id="911cb">
+            <constraints>
+              <grid row="1" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+                <maximum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <vspacer id="773c0">
+            <constraints>
+              <grid row="1" column="4" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <hspacer id="f9f1e">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="2" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <component id="66160" class="javax.swing.JButton" binding="modifyAccountBalanceButton" default-binding="true">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-5488584"/>
+              <font name="Phetsarath OT" size="16"/>
+              <foreground color="-1286"/>
+              <text value="Modify account balance"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="38fd9" layout-manager="GridLayoutManager" row-count="5" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="30">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="6" row-span="10" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Delivery time">
+          <font name="Phetsarath OT" size="16"/>
+        </border>
+        <children>
+          <component id="13f6f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+              <text value="Day"/>
+            </properties>
+          </component>
+          <component id="2f7dd" class="javax.swing.JComboBox" binding="dayComboBox">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+            </properties>
+          </component>
+          <component id="bb95f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+              <text value="Time"/>
+            </properties>
+          </component>
+          <component id="a8572" class="javax.swing.JTextField" binding="timeOpenTextInput">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+            </properties>
+          </component>
+          <component id="6bc50" class="javax.swing.JTextField" binding="timeCloseTextInput">
+            <constraints>
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Phetsarath OT" size="14"/>
+            </properties>
+          </component>
+          <component id="fa4bc" class="javax.swing.JButton" binding="hoursChangeButton">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-5488584"/>
+              <enabled value="true"/>
+              <font name="Phetsarath OT" size="16"/>
+              <foreground color="-1286"/>
+              <text value="Accept"/>
+            </properties>
+          </component>
+          <hspacer id="67b3e">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="20"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <vspacer id="ae869">
+            <constraints>
+              <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <hspacer id="13fd2">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <vspacer id="997cb">
+            <constraints>
+              <grid row="1" column="4" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <component id="10161" class="javax.swing.JButton" binding="logoutButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Account control"/>
+          <background color="-5488584"/>
+          <font name="Phetsarath OT" size="16"/>
+          <foreground color="-1286"/>
+          <text value="Logout"/>
         </properties>
       </component>
       <component id="a3dc" class="javax.swing.JButton" binding="recipesControlButton" default-binding="true">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-5488584"/>
+          <font name="Phetsarath OT" size="16"/>
+          <foreground color="-1286"/>
           <text value="Recipes control"/>
         </properties>
       </component>
-      <component id="f354" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Account balance:"/>
-        </properties>
-      </component>
-      <component id="66160" class="javax.swing.JButton" binding="modifyAccountBalanceButton" default-binding="true">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Modify account balance"/>
-        </properties>
-      </component>
-      <component id="1ed29" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-        <constraints>
-          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="55024" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="0$"/>
-        </properties>
-      </component>
-      <component id="3b8d8" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Delivery time"/>
-        </properties>
-      </component>
-      <component id="13f6f" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Day"/>
-        </properties>
-      </component>
-      <component id="bb95f" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Time:"/>
-        </properties>
-      </component>
-      <component id="2f7dd" class="javax.swing.JComboBox" binding="dayComboBox">
-        <constraints>
-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="dad9e" class="javax.swing.JButton" binding="discountsControlButton" default-binding="true">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-5488584"/>
+          <enabled value="true"/>
+          <font name="Phetsarath OT" size="16"/>
+          <foreground color="-1286"/>
           <text value="Discounts control"/>
-        </properties>
-      </component>
-      <component id="439bd" class="javax.swing.JButton" binding="logoutButton" default-binding="true">
-        <constraints>
-          <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Logout"/>
-        </properties>
-      </component>
-      <component id="b0be5" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Add:"/>
-        </properties>
-      </component>
-      <component id="a8572" class="javax.swing.JTextField" binding="timeOpenTextInput">
-        <constraints>
-          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="6bc50" class="javax.swing.JTextField" binding="timeCloseTextInput">
-        <constraints>
-          <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="46708" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Withdraw"/>
-        </properties>
-      </component>
-      <component id="5c226" class="javax.swing.JTextField" binding="textField2" default-binding="true">
-        <constraints>
-          <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="fa4bc" class="javax.swing.JButton" binding="hoursChangeButton">
-        <constraints>
-          <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Accept"/>
         </properties>
       </component>
     </children>
