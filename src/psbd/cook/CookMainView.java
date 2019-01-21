@@ -6,6 +6,7 @@ import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class CookMainView extends ViewTemplate {
@@ -28,6 +29,7 @@ public class CookMainView extends ViewTemplate {
         orderDetailsTable.setModel(orderDetailsModel);
         DefaultTableModel dishRecipeModel = new DefaultTableModel(Messages.MENU_INGREDIENTS_TABLE_HEADERS,0);
         dishRecipeTable.setModel(dishRecipeModel);
+
     }
 
     public JPanel getWindowPanel() {

@@ -7,6 +7,8 @@ import psbd.models.Recipe;
 import psbd.utils.DatabaseConnector;
 import psbd.utils.OrderStatusEnum;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,6 +41,7 @@ public class CookMainController {
                 updateDishList();
             }
         });
+        view.getOrdersTable().getColumnModel().getColumn(0).setMaxWidth(60);
     }
 
     public CookMainView getView() {
