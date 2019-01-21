@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="psbd.client.CreateReviewView">
-  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="11" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="WindowPanel" layout-manager="GridLayoutManager" row-count="12" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="811" height="400"/>
+      <xy x="20" y="20" width="896" height="400"/>
     </constraints>
     <properties>
       <preferredSize width="720" height="480"/>
@@ -12,7 +12,7 @@
     <children>
       <component id="8875d" class="javax.swing.JButton" binding="confirmButton" default-binding="true">
         <constraints>
-          <grid row="9" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="3" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-5488584"/>
@@ -23,7 +23,7 @@
       </component>
       <component id="12631" class="javax.swing.JEditorPane" binding="reviewEditTextInput">
         <constraints>
-          <grid row="7" column="3" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="8" column="3" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
@@ -31,7 +31,7 @@
       </component>
       <component id="610a5" class="javax.swing.JLabel">
         <constraints>
-          <grid row="4" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="3" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Phetsarath OT" size="14"/>
@@ -40,7 +40,7 @@
       </component>
       <component id="647aa" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Phetsarath OT" size="14"/>
@@ -61,21 +61,21 @@
       </component>
       <vspacer id="6f488">
         <constraints>
-          <grid row="1" column="5" row-span="9" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="1" column="9" row-span="10" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="20" height="-1"/>
           </grid>
         </constraints>
       </vspacer>
       <vspacer id="63118">
         <constraints>
-          <grid row="1" column="0" row-span="9" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="10" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="20" height="-1"/>
           </grid>
         </constraints>
       </vspacer>
       <component id="976da" class="javax.swing.JLabel">
         <constraints>
-          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="true"/>
@@ -85,7 +85,7 @@
       </component>
       <scrollpane id="3aa2c">
         <constraints>
-          <grid row="3" column="1" row-span="7" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -98,7 +98,7 @@
       </scrollpane>
       <component id="77cd6" class="javax.swing.JButton" binding="chooseImageButton" default-binding="true">
         <constraints>
-          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="4" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-5488584"/>
@@ -120,14 +120,14 @@
       </component>
       <hspacer id="94f5d">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="0" column="1" row-span="1" col-span="8" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="10"/>
           </grid>
         </constraints>
       </hspacer>
       <hspacer id="5fe2f">
         <constraints>
-          <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="11" column="1" row-span="1" col-span="8" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="20"/>
           </grid>
         </constraints>
@@ -152,18 +152,91 @@
       </component>
       <hspacer id="ca94f">
         <constraints>
-          <grid row="8" column="3" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="9" column="3" row-span="1" col-span="6" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="20"/>
           </grid>
         </constraints>
       </hspacer>
       <vspacer id="fd3e4">
         <constraints>
-          <grid row="3" column="2" row-span="7" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="3" column="2" row-span="8" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="-1"/>
           </grid>
         </constraints>
       </vspacer>
+      <component id="f1516" class="javax.swing.JButton" binding="starButton1">
+        <constraints>
+          <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <icon value="psbd/images/star.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="d32e" class="javax.swing.JButton" binding="starButton2">
+        <constraints>
+          <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <icon value="psbd/images/star.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="cf5bc" class="javax.swing.JButton" binding="starButton3">
+        <constraints>
+          <grid row="6" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <icon value="psbd/images/star.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="f2adc" class="javax.swing.JButton" binding="starButton4">
+        <constraints>
+          <grid row="6" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <icon value="psbd/images/star.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="5fdff" class="javax.swing.JButton" binding="starButton5">
+        <constraints>
+          <grid row="6" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="24" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <icon value="psbd/images/star.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="dc63d" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Phetsarath OT" size="16"/>
+          <text value="1"/>
+        </properties>
+      </component>
+      <component id="4ee42" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Phetsarath OT" size="16"/>
+          <text value="5"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

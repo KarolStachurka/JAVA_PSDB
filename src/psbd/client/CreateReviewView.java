@@ -15,6 +15,11 @@ public class CreateReviewView extends ViewTemplate {
     private JTextField fileDialogTextField;
     private JTable dishTable;
     private JButton chooseImageButton;
+    private JButton starButton1;
+    private JButton starButton2;
+    private JButton starButton3;
+    private JButton starButton4;
+    private JButton starButton5;
 
     public CreateReviewView()
     {
