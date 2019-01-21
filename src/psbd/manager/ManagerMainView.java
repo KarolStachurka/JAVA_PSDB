@@ -20,7 +20,6 @@ public class ManagerMainView extends ViewTemplate {
     private JSpinner timeOpenTextInput;
     private JSpinner timeCloseTextInput;
     private JButton hoursChangeButton;
-    private JSpinner spinner1;
 
     public ManagerMainView()
     {
@@ -81,7 +80,5 @@ public class ManagerMainView extends ViewTemplate {
         return timeOpenTextInput;
     }
 
-    public JComboBox getDayComboBox() {
-        return dayComboBox;
-    }
+    public JComboBox getDayComboBox() { return dayComboBox; }
 }

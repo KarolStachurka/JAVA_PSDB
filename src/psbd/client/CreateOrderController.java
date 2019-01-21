@@ -17,14 +17,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CreateOrderController {
 
     private CreateOrderView view;
     private ArrayList<Ingredient> currentIngredientList;
     private ArrayList<Recipe> currentRecipeList;
-
 
 
     public CreateOrderController(CreateOrderView view) {
@@ -213,10 +214,13 @@ public class CreateOrderController {
     private Order createOrder()
     {
         try{
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            String openTime = format.format((Date)view.getTimeOpenTextInput().getValue());
             String login = CurrentSession.getInstance().getLoggedUser().getLogin();
             String address = view.getAddressComboBox().getSelectedItem().toString();
             String discount = CurrentSession.getInstance().getLoggedUser().getCompany();
-            Timestamp orderTime = Timestamp.valueOf(view.getDateTextInput().getText());
+            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+openTime);
+
             return new Order(login,address,currentRecipeList,getFullPrice(),0,0,orderTime);
         }
         catch (Exception e)

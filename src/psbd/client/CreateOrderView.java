@@ -1,5 +1,6 @@
 package psbd.client;
 
+import datechooser.beans.DateChooserCombo;
 import psbd.utils.Messages;
 import psbd.utils.MyTableModel;
 import psbd.utils.PanelEnum;
@@ -7,6 +8,9 @@ import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CreateOrderView extends ViewTemplate {
     private JButton completeOrderButton;
@@ -23,6 +27,8 @@ public class CreateOrderView extends ViewTemplate {
     private JLabel pictureOfDishLabel;
     private JTextField dateTextInput;
     private JTextField hourTextInput;
+    private DateChooserCombo orderDateInput;
+    private JSpinner timeOpenTextInput;
 
     public CreateOrderView()
     {
@@ -33,6 +39,14 @@ public class CreateOrderView extends ViewTemplate {
         ingredientsTable.setModel(recipesModel);
         DefaultTableModel orderModel = new DefaultTableModel(Messages.MENU_ORDER_TABLE_HEADERS,0);
         orderTable.setModel(orderModel);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        orderDateInput.setDateFormat(format);
+        Date date = new Date();
+        SpinnerDateModel sm =
+                new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        timeOpenTextInput.setModel(sm);
+        JSpinner.DateEditor de = new JSpinner.DateEditor(timeOpenTextInput, "HH:mm:ss");
+        timeOpenTextInput.setEditor(de);
     }
 
     public JPanel getWindowPanel() {
@@ -101,4 +115,8 @@ public class CreateOrderView extends ViewTemplate {
     public JComboBox getAddressComboBox() {
         return addressComboBox;
     }
+
+    public DateChooserCombo getOrderDateInput(){return orderDateInput;}
+
+    public JSpinner getTimeOpenTextInput(){ return timeOpenTextInput;}
 }
