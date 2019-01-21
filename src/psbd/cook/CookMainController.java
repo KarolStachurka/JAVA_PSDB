@@ -68,8 +68,11 @@ public class CookMainController {
                 updateIngredientsList();
                 if(view.getOrderDetailsTable().getSelectedColumn() == 1)
                 {
-                    dishes.get(view.getOrderDetailsTable().getSelectedRow()).setRealized(true);
-                    updateDishList();
+                    if(removeIngredientsFromStorage())
+                    {
+                        dishes.get(view.getOrderDetailsTable().getSelectedRow()).setRealized(true);
+                        updateDishList();
+                    }
                 }
             }
         });
@@ -217,9 +220,65 @@ public class CookMainController {
         return true;
     }
 
-    private void removeIngredientsFromStorage()
+    private boolean removeIngredientsFromStorage()
     {
+        for(Ingredient ingredient:currentIngredientList)
+        {
+            if(!removeSingleIngredient(ingredient))
+            {
+                return false;
+            }
+        }
+        return true;
 
+    }
+    private boolean removeSingleIngredient(Ingredient ingredient)
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT delivery_id FROM deliveries WHERE ingredient = ? AND available_quantity > ?" +
+        "AND received = 1 ORDER BY expiration_date ASC LIMIT 1";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        ResultSet result;
+        if(statement == null)
+        {
+            return false;
+        }
+        try {
+            statement.setString(1, ingredient.getName());
+            statement.setDouble(2, ingredient.getQuantity());
+            database.setPreparedStatement(statement);
+            result = statement.executeQuery();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        String sqlQuery2 = "UPDATE deliveries SET available_quantity = available_quantity - ? WHERE delivery_id = ?";
+        statement = database.getPreparedStatement(sqlQuery2);
+        if(statement == null)
+        {
+            return false;
+        }
+        try {
+            if(!result.next())
+            {
+                System.out.println("No ingredients available");
+                return false;
+            }
+            statement.setDouble(1, ingredient.getQuantity());
+            statement.setInt(2, result.getInt("delivery_id"));
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+
+        return true;
     }
 
     private void updateDishList()
