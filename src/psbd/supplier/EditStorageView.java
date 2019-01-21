@@ -1,9 +1,11 @@
 package psbd.supplier;
 
+import datechooser.beans.DateChooserCombo;
 import psbd.utils.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 
 public class EditStorageView extends ViewTemplate {
     private Messages messages;
@@ -12,7 +14,7 @@ public class EditStorageView extends ViewTemplate {
     private JButton removeButton;
     private JTextField nameTextInput;
     private JTextField quantityTextInput;
-    private JTextField dateTextInput;
+    private DateChooserCombo dateTextInput;
     private JPanel WindowPanel;
     private JButton editButton;
     private JTable ingredientsTable;
@@ -26,6 +28,8 @@ public class EditStorageView extends ViewTemplate {
         DefaultTableModel model = new DefaultTableModel(messages.MANAGER_WAREHOUSE_EDIT_TABLE_HEADERS,0);
         ingredientsTable.setModel(model);
         setIngredientTypesList();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        dateTextInput.setDateFormat(format);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class EditStorageView extends ViewTemplate {
         return nameTextInput;
     }
 
-    public JTextField getDateTextInput() {
+    public DateChooserCombo getDateTextInput() {
         return dateTextInput;
     }
 

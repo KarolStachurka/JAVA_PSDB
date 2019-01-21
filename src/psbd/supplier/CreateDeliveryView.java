@@ -7,6 +7,7 @@ import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 
 public class CreateDeliveryView extends ViewTemplate {
     private JButton backButton;
@@ -29,6 +30,9 @@ public class CreateDeliveryView extends ViewTemplate {
         model.setColumnIdentifiers(messages.DELIVERIES_MANAGER_TABLE_HEADERS);
         deliveriesTable.setModel(model);
         setWindowName(PanelEnum.CREATEDELIVERY);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        orderDateInput.setDateFormat(format);
+        expirationDateInput.setDateFormat(format);
     }
 
     public JButton getBackButton() {

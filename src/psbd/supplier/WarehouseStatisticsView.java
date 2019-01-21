@@ -1,5 +1,6 @@
 package psbd.supplier;
 
+import datechooser.beans.DateChooserCombo;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
@@ -10,9 +11,9 @@ public class WarehouseStatisticsView extends ViewTemplate {
     private JButton backButton;
     private JList list1;
     private JButton getIngredientSummaryButton;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
     private JButton ordersSummaryButton;
+    private DateChooserCombo startDayChooser;
+    private DateChooserCombo endDayChooser;
 
     public WarehouseStatisticsView()
     {
@@ -31,4 +32,8 @@ public class WarehouseStatisticsView extends ViewTemplate {
     public JButton getBackButton() {
         return backButton;
     }
+
+    public DateChooserCombo getStartDayChooser(){ return startDayChooser; }
+
+    public DateChooserCombo getEndDayChooserDayChooser(){ return endDayChooser; }
 }

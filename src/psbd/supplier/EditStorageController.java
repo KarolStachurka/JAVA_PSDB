@@ -11,7 +11,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class EditStorageController {
 
@@ -42,6 +46,17 @@ public class EditStorageController {
                 view.getDateTextInput().setText(view.getIngredientsTable().getValueAt(
                         view.getIngredientsTable().getSelectedRow(), 3).toString()
                 );
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    java.util.Date date = format.parse(view.getIngredientsTable().getValueAt(
+                            view.getIngredientsTable().getSelectedRow(), 3).toString());
+                    Calendar newDat = new GregorianCalendar();
+                    newDat.setTime(date);
+                    view.getDateTextInput().setSelectedDate(newDat);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 createDelivery();
             }
         });
@@ -214,9 +229,9 @@ public class EditStorageController {
         try{
             String name = view.getNameTextInput().getText();
             double quantity = Double.parseDouble(view.getQuantityTextInput().getText());
-            Date expiration_time = Date.valueOf(view.getDateTextInput().getText());
+            Date expiration_date = Date.valueOf(view.getDateTextInput().getText());
             int warehouse = 0;
-            this.delivery = new Delivery(name,warehouse,quantity,expiration_time);
+            this.delivery = new Delivery(name,warehouse,quantity,expiration_date);
             this.delivery.setId(view.getIngredientsTable().getValueAt(view.getIngredientsTable().getSelectedRow(), 4).toString());
         }
         catch (Exception e)

@@ -12,10 +12,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class CreateDeliveryController {
 
@@ -33,12 +34,30 @@ public class CreateDeliveryController {
                 view.getQuantityTextInput().setText(view.getDeliveriesTable().getValueAt(
                         view.getDeliveriesTable().getSelectedRow(), 3).toString()
                 );
-                view.getExpirationDateInput().setText(view.getDeliveriesTable().getValueAt(
-                        view.getDeliveriesTable().getSelectedRow(), 5).toString()
-                );
-                view.getOrderDateInput().setText(view.getDeliveriesTable().getValueAt(
-                        view.getDeliveriesTable().getSelectedRow(), 4).toString()
-                );
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    java.util.Date date = format.parse(view.getDeliveriesTable().getValueAt(
+                        view.getDeliveriesTable().getSelectedRow(), 5).toString());
+                    Calendar newDat = new GregorianCalendar();
+                    newDat.setTime(date);
+                    view.getOrderDateInput().setSelectedDate(newDat);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    java.util.Date date = format.parse(view.getDeliveriesTable().getValueAt(
+                            view.getDeliveriesTable().getSelectedRow(), 4).toString());
+                    Calendar newDat = new GregorianCalendar();
+                    newDat.setTime(date);
+                    view.getExpirationDateInput().setSelectedDate(newDat);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 view.getIngredientsComboBox().setSelectedItem(view.getDeliveriesTable().getValueAt( view.getDeliveriesTable().getSelectedRow(),1));
                 view.getWarehousesComboBox().setSelectedItem(view.getDeliveriesTable().getValueAt( view.getDeliveriesTable().getSelectedRow(),2));
 
@@ -222,14 +241,10 @@ public class CreateDeliveryController {
             return false;
         }
         delivery.setQuantity(Double.parseDouble(view.getQuantityTextInput().getText()));
-        try {
-            delivery.setExpirationDate(convertToSqlDateFormat(view.getExpirationDateInput().getText()));
-            delivery.setDateOfOrder(convertToSqlDateFormat(view.getOrderDateInput().getText()));
-        }
-        catch (ParseException e)
-        {
-            return false;
-        }
+
+        delivery.setExpirationDate(Date.valueOf(view.getExpirationDateInput().getText()));
+        delivery.setDateOfOrder(Date.valueOf(view.getOrderDateInput().getText()));
+
         delivery.setIngredient(view.getIngredientsComboBox().getSelectedItem().toString());
         delivery.setWarehouseId(getSelectedWarehouseId(view.getWarehousesComboBox().getSelectedItem().toString()));
 
@@ -306,9 +321,8 @@ public class CreateDeliveryController {
             String name = view.getIngredientsComboBox().getSelectedItem().toString();
             int warehouseId = getSelectedWarehouseId(view.getWarehousesComboBox().getSelectedItem().toString());
             double quantity = Double.parseDouble(view.getQuantityTextInput().getText());
-            Date expirationDate = convertToSqlDateFormat(view.getExpirationDateInput().getText());
-            Date orderDate = convertToSqlDateFormat(view.getOrderDateInput().getText());
-
+            Date expirationDate = Date.valueOf(view.getExpirationDateInput().getText());
+            Date orderDate = Date.valueOf(view.getOrderDateInput().getText());
             return new Delivery(name,warehouseId,quantity,expirationDate,orderDate);
         }
         catch (Exception e)
@@ -382,16 +396,4 @@ public class CreateDeliveryController {
             return "";
         }
     }
-
-    private Date convertToSqlDateFormat(String dateStr) throws ParseException {
-        DateFormat srcDf = new SimpleDateFormat("MM/dd/yy");
-        // parse the date string into Date object
-        java.util.Date date = srcDf.parse(dateStr);
-        DateFormat destDf = new SimpleDateFormat("yyyy-MM-dd");
-        // format the date into another format
-        dateStr = destDf.format(date);
-        Date expirationDate = Date.valueOf(dateStr);
-        return expirationDate;
-    }
-
 }
