@@ -28,7 +28,7 @@ public class CreateOrderView extends ViewTemplate {
     private JTextField dateTextInput;
     private JTextField hourTextInput;
     private DateChooserCombo orderDateInput;
-    private JSpinner timeOpenTextInput;
+    private JComboBox timeOpenTextInput;
 
     public CreateOrderView()
     {
@@ -41,12 +41,6 @@ public class CreateOrderView extends ViewTemplate {
         orderTable.setModel(orderModel);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         orderDateInput.setDateFormat(format);
-        Date date = new Date();
-        SpinnerDateModel sm =
-                new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
-        timeOpenTextInput.setModel(sm);
-        JSpinner.DateEditor de = new JSpinner.DateEditor(timeOpenTextInput, "HH:mm:ss");
-        timeOpenTextInput.setEditor(de);
     }
 
     public JPanel getWindowPanel() {
@@ -118,5 +112,5 @@ public class CreateOrderView extends ViewTemplate {
 
     public DateChooserCombo getOrderDateInput(){return orderDateInput;}
 
-    public JSpinner getTimeOpenTextInput(){ return timeOpenTextInput;}
+    public JComboBox getTimeOpenTextInput(){ return timeOpenTextInput;}
 }

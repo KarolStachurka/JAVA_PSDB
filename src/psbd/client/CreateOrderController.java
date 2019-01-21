@@ -214,12 +214,10 @@ public class CreateOrderController {
     private Order createOrder()
     {
         try{
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-            String openTime = format.format((Date)view.getTimeOpenTextInput().getValue());
             String login = CurrentSession.getInstance().getLoggedUser().getLogin();
             String address = view.getAddressComboBox().getSelectedItem().toString();
             String discount = CurrentSession.getInstance().getLoggedUser().getCompany();
-            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+openTime);
+            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+view.getTimeOpenTextInput().getSelectedItem().toString());
 
             return new Order(login,address,currentRecipeList,getFullPrice(),0,0,orderTime);
         }
