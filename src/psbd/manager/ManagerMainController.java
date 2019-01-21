@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ManagerMainController {
 
@@ -29,6 +32,7 @@ public class ManagerMainController {
             showHoursValues();
 
         });
+        showHoursValues();
     }
 
     public ManagerMainView getView() {
@@ -50,8 +54,12 @@ public class ManagerMainController {
             return false;
         }
         try {
-            statement.setTime(1, Time.valueOf(view.getTimeOpenTextInput().getText()));
-            statement.setTime(2, Time.valueOf(view.getTimeCloseTextInput().getText()));
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            String openTime = format.format((Date)view.getTimeOpenTextInput().getValue());
+            String closeTime = format.format((Date)view.getTimeCloseTextInput().getValue());
+
+            statement.setTime(1, Time.valueOf(openTime));
+            statement.setTime(2, Time.valueOf(closeTime));
             statement.setString(3,view.getDayComboBox().getSelectedItem().toString());
             database.setPreparedStatement(statement);
             database.executeStatement();
@@ -102,10 +110,14 @@ public class ManagerMainController {
         try
         {
             result.next();
-            view.getTimeOpenTextInput().setText(result.getTime("open_hour").toString());
-            view.getTimeCloseTextInput().setText(result.getTime("close_hour").toString());
+
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            view.getTimeOpenTextInput().setValue(format.parseObject(result.getTime("open_hour").toString()));
+            view.getTimeCloseTextInput().setValue(format.parseObject(result.getTime("close_hour").toString()));
         } catch (SQLException e) {
             return;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }

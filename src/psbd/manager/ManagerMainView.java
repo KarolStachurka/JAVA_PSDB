@@ -4,6 +4,8 @@ import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ManagerMainView extends ViewTemplate {
     private JButton logoutButton;
@@ -15,13 +17,27 @@ public class ManagerMainView extends ViewTemplate {
     private JTextField textField2;
     private JComboBox dayComboBox;
     private JLabel userDataLabel;
-    private JTextField timeOpenTextInput;
-    private JTextField timeCloseTextInput;
+    private JSpinner timeOpenTextInput;
+    private JSpinner timeCloseTextInput;
     private JButton hoursChangeButton;
+    private JSpinner spinner1;
 
     public ManagerMainView()
     {
         setWindowName(PanelEnum.MANAGERMAIN);
+        Date date = new Date();
+        SpinnerDateModel sm =
+                new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        timeOpenTextInput.setModel(sm);
+        JSpinner.DateEditor de = new JSpinner.DateEditor(timeOpenTextInput, "HH:mm:ss");
+        timeOpenTextInput.setEditor(de);
+
+        Date date1 = new Date();
+        SpinnerDateModel sm1 =
+                new SpinnerDateModel(date1, null, null, Calendar.HOUR_OF_DAY);
+        timeCloseTextInput.setModel(sm1);
+        JSpinner.DateEditor dec = new JSpinner.DateEditor(timeCloseTextInput, "HH:mm:ss");
+        timeCloseTextInput.setEditor(dec);
     }
 
     public JPanel getWindowPanel() {
@@ -30,8 +46,6 @@ public class ManagerMainView extends ViewTemplate {
 
     @Override
     public void cleanAll() {
-        timeOpenTextInput.setText("");
-        timeCloseTextInput.setText("");
 
     }
 
@@ -59,11 +73,11 @@ public class ManagerMainView extends ViewTemplate {
         return userDataLabel;
     }
 
-    public JTextField getTimeCloseTextInput() {
+    public JSpinner getTimeCloseTextInput() {
         return timeCloseTextInput;
     }
 
-    public JTextField getTimeOpenTextInput() {
+    public JSpinner getTimeOpenTextInput() {
         return timeOpenTextInput;
     }
 
