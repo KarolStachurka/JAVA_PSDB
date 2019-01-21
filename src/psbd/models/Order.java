@@ -1,6 +1,9 @@
 package psbd.models;
 
+import psbd.utils.OrderStatusEnum;
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Order {
@@ -16,6 +19,18 @@ public class Order {
     private Timestamp orderTime;
     private Timestamp realizationTime;
     private Timestamp deliveryTime;
+    private OrderStatusEnum status;
+    private int id;
+
+
+    public Order(String address, double price,Timestamp deliveryTime, OrderStatusEnum status, int id )
+    {
+        this.id = id;
+        this.address = address;
+        this.price = price;
+        this.deliveryTime = deliveryTime;
+        this.status = status;
+    }
 
     public Order(String login, String address, ArrayList<Recipe> recipeList, double price, double discount, double companyDiscount, Timestamp deliveryTime)
     {
@@ -45,6 +60,15 @@ public class Order {
         this.delivered = delivered;
     }
 
+    public ArrayList<Object> getOrderModelToClientList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(address);
+        list.add(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy ").format(deliveryTime));
+        list.add(price);
+        list.add(status);
+        return list;
+    }
     public ArrayList<Recipe> getRecipeList() {
         return recipeList;
     }
@@ -82,6 +106,14 @@ public class Order {
 
     public Timestamp getRealizationTime() {
         return realizationTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public OrderStatusEnum getStatus() {
+        return status;
     }
 
     public boolean isDelivered() {

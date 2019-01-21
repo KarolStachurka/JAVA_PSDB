@@ -270,7 +270,8 @@ public class AdminMainController {
     {
         for(UserEnum user: UserEnum.values())
         {
-            view.getAccountTypeBox().addItem(user.toString());
+            if(!user.toString().equals("ERROR"))
+                view.getAccountTypeBox().addItem(user.toString());
         }
     }
     private void setCompaniesList()

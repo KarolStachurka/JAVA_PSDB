@@ -26,7 +26,7 @@ public class UserLoginController {
     public boolean userLogin()
     {
         String login = view.getLoginTextInput().getText();
-        String passsword = view.getPasswordTextInput().getText();
+        String password = view.getPasswordTextInput().getText();
 
         DatabaseConnector database = DatabaseConnector.getInstance();
         try {
@@ -48,7 +48,7 @@ public class UserLoginController {
         }
         try {
             statement.setString(1, login);
-            statement.setString(2, passsword);
+            statement.setString(2, password);
             ResultSet result;
             database.setPreparedStatement(statement);
             result = statement.executeQuery();
@@ -68,7 +68,7 @@ public class UserLoginController {
 
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(Messages.INVALID_PASSWORD);
             return false;
         }
 

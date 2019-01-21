@@ -149,11 +149,6 @@ public class MainController {
                         }
                         userLoginController.getView().cleanAll();
                     }
-                    else
-                    {
-                        Messages messages = Messages.getInstance();
-                        userLoginController.setMessage(messages.NOT_EXISTS);
-                    }
                     });
 
         //restore password buttons

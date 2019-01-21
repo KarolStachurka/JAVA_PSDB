@@ -125,11 +125,7 @@ public class CreateOrderController {
             setMessage(Messages.DATABASE_ERROR);
             return false;
         }
-        if(!addRecipesToOrder(order.getRecipeList()))
-        {
-            return false;
-        }
-        return true;
+        return addRecipesToOrder(order.getRecipeList());
     }
 
     private boolean addRecipesToOrder(ArrayList<Recipe> recipesList)
@@ -353,7 +349,6 @@ public class CreateOrderController {
         }
         catch (SQLException e)
         {
-            return;
         }
     }
 
