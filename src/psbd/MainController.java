@@ -129,10 +129,12 @@ public class MainController {
                             case COURIER:
                                 view.setWindowActive(courierMainController.getView().getWindowName());
                                 courierMainController.login();
+                                courierMainController.update();
                                 break;
                             case COOK:
                                 view.setWindowActive(cookMainController.getView().getWindowName());
                                 cookMainController.login();
+                                cookMainController.update();
                                 break;
                             case ADMIN:
                                 view.setWindowActive(adminMainController.getView().getWindowName());

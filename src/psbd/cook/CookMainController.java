@@ -48,8 +48,6 @@ public class CookMainController {
                     updateOrderList();
                 }
             }
-
-
         });
         view.getOrdersTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -284,5 +282,9 @@ public class CookMainController {
             }
         }
         return true;
+    }
+    public void update(){
+        getOrdersList();
+        updateOrderList();
     }
 }

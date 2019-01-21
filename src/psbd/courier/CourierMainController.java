@@ -131,4 +131,8 @@ public class CourierMainController {
             }
         view.getOrdersTable().repaint();
     }
+    public void update(){
+        getOrdersList();
+        updateOrderList();
+    }
 }
