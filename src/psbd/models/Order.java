@@ -31,6 +31,13 @@ public class Order {
         this.deliveryTime = deliveryTime;
         this.status = status;
     }
+    public Order(Timestamp deliveryTime, boolean realized, OrderStatusEnum status, int id )
+    {
+        this.id = id;
+        this.realized = realized;
+        this.deliveryTime = deliveryTime;
+        this.status = status;
+    }
 
     public Order(String login, String address, ArrayList<Recipe> recipeList, double price, double discount, double companyDiscount, Timestamp deliveryTime)
     {
@@ -66,6 +73,15 @@ public class Order {
         list.add(address);
         list.add(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy ").format(deliveryTime));
         list.add(price);
+        list.add(status);
+        return list;
+    }
+
+    public ArrayList<Object> getOrderModelToCookList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(id);
+        list.add(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy ").format(deliveryTime));
         list.add(status);
         return list;
     }

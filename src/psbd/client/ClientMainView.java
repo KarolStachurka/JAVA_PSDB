@@ -23,7 +23,7 @@ public class ClientMainView extends ViewTemplate {
         setWindowName(PanelEnum.CLIENTMAIN);
         DefaultTableModel orderModel = new DefaultTableModel(Messages.CLIENT_ORDER_TABLE_HEADERS,0);
         clientOrderTable.setModel(orderModel);
-        DefaultTableModel detailsModel = new DefaultTableModel(Messages.ORDER_DETAILS_TABLE_HEADERS,0);
+        DefaultTableModel detailsModel = new DefaultTableModel(Messages.MENU_ORDER_TABLE_HEADERS,0);
         orderDetailsTable.setModel(detailsModel);
     }
 

@@ -7,6 +7,8 @@ public class Recipe {
     private double price;
     private String name;
     private boolean available;
+    private boolean realized;
+    private int id;
 
     public Recipe(String name, double price, ArrayList<Ingredient> ingredientsList, boolean available)
     {
@@ -14,6 +16,7 @@ public class Recipe {
         this.price = price;
         this.ingredientsList = ingredientsList;
         this.available = available;
+        this.realized = false;
     }
 
     public String getName() {
@@ -24,6 +27,10 @@ public class Recipe {
         return price;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public ArrayList<Ingredient> getIngredientsList() {
         return ingredientsList;
     }
@@ -32,11 +39,31 @@ public class Recipe {
         return available;
     }
 
+    public boolean isRealized() {
+        return realized;
+    }
+
+    public void setRealized(boolean realized) {
+        this.realized = realized;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public ArrayList<Object> getRecipeModelToClientList()
     {
         ArrayList<Object> list = new ArrayList<>();
         list.add(name);
         list.add(price);
+        return list;
+    }
+
+    public ArrayList<Object> getRecipeModelToCookList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add(false);
         return list;
     }
 

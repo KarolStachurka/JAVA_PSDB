@@ -22,7 +22,7 @@ public class CookMainView extends ViewTemplate {
     public CookMainView()
     {
         setWindowName(PanelEnum.COOKMAIN);
-        MyTableModel orderModel = new MyTableModel(Messages.COOK_ORDER_TABLE_HEADERS,2);
+        DefaultTableModel orderModel = new DefaultTableModel(Messages.COOK_ORDER_TABLE_HEADERS,0);
         ordersTable.setModel(orderModel);
         MyTableModel orderDetailsModel = new MyTableModel(Messages.ORDER_DETAILS_TABLE_HEADERS,1);
         orderDetailsTable.setModel(orderDetailsModel);
