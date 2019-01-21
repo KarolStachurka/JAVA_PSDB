@@ -253,17 +253,17 @@
       </vspacer>
       <component id="439a6" class="javax.swing.JButton" binding="backButton" default-binding="true">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="20"/>
-            <preferred-size width="64" height="64"/>
-            <maximum-size width="64" height="64"/>
+            <preferred-size width="32" height="32"/>
+            <maximum-size width="32" height="32"/>
           </grid>
         </constraints>
         <properties>
           <background color="-5488584"/>
           <font name="Phetsarath OT" size="16"/>
           <foreground color="-1286"/>
-          <icon value="psbd/images/left-arrow.png"/>
+          <icon value="psbd/images/left-arrow32.png"/>
           <text value=""/>
         </properties>
       </component>

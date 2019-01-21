@@ -5,6 +5,7 @@ import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 
 public class WarehouseStatisticsView extends ViewTemplate {
     private JPanel WindowPanel;
@@ -18,6 +19,10 @@ public class WarehouseStatisticsView extends ViewTemplate {
     public WarehouseStatisticsView()
     {
         setWindowName(PanelEnum.WAREHOUSESTATS);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        startDayChooser.setDateFormat(format);
+        endDayChooser.setDateFormat(format);
+
     }
 
     public JPanel getWindowPanel() {
