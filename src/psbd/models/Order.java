@@ -23,14 +23,16 @@ public class Order {
     private int id;
 
 
-    public Order(String address, double price,Timestamp deliveryTime, OrderStatusEnum status, int id )
+    public Order(String address, double price, Timestamp deliveryTime, OrderStatusEnum status, int id )
     {
         this.id = id;
         this.address = address;
         this.price = price;
         this.deliveryTime = deliveryTime;
         this.status = status;
+        this.delivered = false;
     }
+
     public Order(Timestamp deliveryTime, boolean realized, OrderStatusEnum status, int id )
     {
         this.id = id;
@@ -85,6 +87,17 @@ public class Order {
         list.add(status);
         return list;
     }
+
+    public ArrayList<Object> getOrderModelToCourierList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(address);
+        list.add(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy ").format(deliveryTime));
+        list.add(price);
+        list.add(delivered);
+        return list;
+    }
+
     public ArrayList<Recipe> getRecipeList() {
         return recipeList;
     }

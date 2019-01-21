@@ -207,7 +207,7 @@ public class CookMainController {
             return false;
         }
         try {
-            statement.setString(1, OrderStatusEnum.IN_REALIZATION.toString());
+            statement.setString(1, OrderStatusEnum.IN_DELIVERY.toString());
             statement.setInt(2, orders.get(view.getOrdersTable().getSelectedRow()).getId());
             database.setPreparedStatement(statement);
             database.executeStatement();
@@ -256,6 +256,7 @@ public class CookMainController {
             }
         view.getOrdersTable().repaint();
     }
+
     private void updateIngredientsList()
     {
         Object [][] data = new Object[currentIngredientList.size()][];

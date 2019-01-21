@@ -18,7 +18,7 @@ public class CourierMainView extends ViewTemplate {
     public CourierMainView()
     {
         setWindowName(PanelEnum.COURIERMAIN);
-        MyTableModel orderModel = new MyTableModel(Messages.COURIER_ORDER_TABLE_HEADERS,3);
+        MyTableModel orderModel = new MyTableModel(Messages.COURIER_ORDER_TABLE_HEADERS,4);
         ordersTable.setModel(orderModel);
     }
 
