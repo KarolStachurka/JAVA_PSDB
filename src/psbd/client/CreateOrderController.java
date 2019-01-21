@@ -380,8 +380,8 @@ public class CreateOrderController {
                 model.addRow(row);
             }
         view.getIngredientsTable().repaint();
-
     }
+
     private void updateOrderTable()
     {
         Object [][] data = new Object[currentRecipeList.size()][];

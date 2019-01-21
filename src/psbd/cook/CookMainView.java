@@ -27,7 +27,7 @@ public class CookMainView extends ViewTemplate {
         ordersTable.setModel(orderModel);
         MyTableModel orderDetailsModel = new MyTableModel(Messages.ORDER_DETAILS_TABLE_HEADERS,1);
         orderDetailsTable.setModel(orderDetailsModel);
-        DefaultTableModel dishRecipeModel = new DefaultTableModel(Messages.MENU_INGREDIENTS_TABLE_HEADERS,0);
+        DefaultTableModel dishRecipeModel = new DefaultTableModel(Messages.COOK_INGREDIENTS_TABLE_HEADERS,0);
         dishRecipeTable.setModel(dishRecipeModel);
 
     }

@@ -30,6 +30,7 @@ public class Messages {
     public static final String[] MENU_ORDER_TABLE_HEADERS = {"Name", "Price"};
     public static final String[] RECIPE_INGREDIENTS_TABLE_HEADERS = {"Name", "Type", "Price", "Quantity", "Optional"};
     public static final String[] MENU_INGREDIENTS_TABLE_HEADERS = {"Name", "Type","Quantity", "Included"};
+    public static final String[] COOK_INGREDIENTS_TABLE_HEADERS = {"Name","Quantity"};
     public static final String[] ORDER_DETAILS_TABLE_HEADERS = {"Name", "Ready"};
     public static final String[] CLIENT_ADDRESS_TABLE_HEADERS = {"Address details"};
     public static final String[] CLIENT_ORDER_TABLE_HEADERS = {"Address","Delivery time","Price","Status"};

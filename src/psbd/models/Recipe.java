@@ -51,6 +51,11 @@ public class Recipe {
         this.id = id;
     }
 
+    public void setIngredientList(ArrayList<Ingredient> ingredientList)
+    {
+        this.ingredientsList = ingredientList;
+    }
+
     public ArrayList<Object> getRecipeModelToClientList()
     {
         ArrayList<Object> list = new ArrayList<>();
@@ -63,7 +68,7 @@ public class Recipe {
     {
         ArrayList<Object> list = new ArrayList<>();
         list.add(name);
-        list.add(false);
+        list.add(realized);
         return list;
     }
 

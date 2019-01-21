@@ -247,14 +247,14 @@ public class EditClientDataController {
         //verification
         if(!verifyPassword(user))
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(Messages.INVALID_PASSWORD);
             return false;
         }
         String sqlQuery = "UPDATE users SET user_password = SHA2(?, 256)  WHERE user_login = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         if(statement == null)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(Messages.DATABASE_ERROR);
             return false;
         }
         try {
@@ -265,7 +265,7 @@ public class EditClientDataController {
         }
         catch (SQLException e)
         {
-            setMessage(messages.DATABASE_ERROR);
+            setMessage(Messages.DATABASE_ERROR);
             return false;
         }
         return true;
