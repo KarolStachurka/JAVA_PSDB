@@ -227,7 +227,7 @@ public class CreateOrderController {
             String address = view.getAddressComboBox().getSelectedItem().toString();
             double discount = getDiscount();
             double companyDiscount = getCompanyDiscount();
-            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+view.getTimeOpenComboBox().getSelectedItem().toString());
+            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+view.getTimeOpenComboBox().getSelectedItem().toString() + ":00");
 
             return new Order(login,address,currentRecipeList,getFullPrice(),discount,companyDiscount,orderTime);
         }
