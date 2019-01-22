@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CookMainController {
     private CookMainView view;
@@ -159,7 +161,9 @@ public class CookMainController {
                         null,true);
                 dish.setId(result.getInt("id"));
                 getRecipeIngredientsList(dish);
-                dish.setIngredientsList(currentIngredientList);
+                List<Ingredient> ingredients = currentIngredientList.stream().map(ingredient -> new Ingredient(ingredient)).collect(Collectors.toList());
+
+                dish.setIngredientsList((ArrayList<Ingredient>) ingredients);
                 dishes.add(dish);
             }
         }

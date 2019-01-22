@@ -44,6 +44,15 @@ public class Ingredient {
         this.included = true;
     }
 
+    public Ingredient(Ingredient ingredient)
+    {
+        this.name = ingredient.name;
+        this.type = ingredient.type;
+        this.quantity = ingredient.quantity;
+        this.price = ingredient.price;
+        this.included = ingredient.included;
+    }
+
     public ArrayList<Object> getIngredientModelToList()
     {
         ArrayList<Object> list = new ArrayList<>();

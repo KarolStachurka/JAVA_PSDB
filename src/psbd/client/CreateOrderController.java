@@ -1,5 +1,6 @@
 package psbd.client;
 
+import com.rits.cloning.Cloner;
 import psbd.models.CurrentSession;
 import psbd.models.Ingredient;
 import psbd.models.Order;
@@ -20,6 +21,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class CreateOrderController {
 
@@ -47,7 +51,8 @@ public class CreateOrderController {
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
                 view.getRecipesTable().clearSelection();
-                currentIngredientList = new ArrayList<>(currentRecipeList.get(view.getOrderTable().getSelectedRow()).getIngredientsList());
+                List<Ingredient> ingredients = currentRecipeList.get(view.getOrderTable().getSelectedRow()).getIngredientsList().stream().map(ingredient -> new Ingredient(ingredient)).collect(Collectors.toList());
+                currentIngredientList = (ArrayList<Ingredient>)ingredients;
                 updateIngredientsTable();
             }
         });
@@ -359,8 +364,8 @@ public class CreateOrderController {
         try{
             String name = view.getRecipesTable().getValueAt(view.getRecipesTable().getSelectedRow(),0).toString();
             double price = Double.parseDouble(view.getRecipesTable().getValueAt(view.getRecipesTable().getSelectedRow(),1).toString());
-            ArrayList<Ingredient> ingredients = new ArrayList<>(currentIngredientList);
-            return new Recipe(name,price,ingredients,true);
+            List<Ingredient> ingredients = currentIngredientList.stream().map(ingredient -> new Ingredient(ingredient)).collect(Collectors.toList());
+            return new Recipe(name,price,(ArrayList<Ingredient>) ingredients,true);
         }
         catch (Exception e)
         {
@@ -409,9 +414,10 @@ public class CreateOrderController {
                 (boolean) view.getIngredientsTable().getValueAt(
                         index, 3
                 ));
-        currentIngredientList = new ArrayList<>(currentIngredientList);
+        List<Ingredient> ingredients = currentIngredientList.stream().map(ingredient -> new Ingredient(ingredient)).collect(Collectors.toList());
+        currentIngredientList = (ArrayList<Ingredient>)ingredients;
         if (view.getRecipesTable().getSelectionModel().isSelectionEmpty()) {
-            currentRecipeList.get(view.getOrderTable().getSelectedRow()).setIngredientsList(new ArrayList<>(currentIngredientList));
+            currentRecipeList.get(view.getOrderTable().getSelectedRow()).setIngredientsList((ArrayList<Ingredient>) ingredients);
 
         }
     }

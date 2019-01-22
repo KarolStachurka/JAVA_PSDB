@@ -38,6 +38,16 @@ public class ClientMainController {
     }
 
     public ClientMainView getView() {
+
+        view.cleanAll();
+        try {
+            getOrdersList();
+            updateOrderList();
+        }
+        catch (NullPointerException e)
+        {
+
+        }
         return view;
     }
 
