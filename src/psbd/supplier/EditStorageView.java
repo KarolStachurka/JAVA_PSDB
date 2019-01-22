@@ -1,6 +1,7 @@
 package psbd.supplier;
 
 import datechooser.beans.DateChooserCombo;
+import datechooser.model.multiple.MultyModelBehavior;
 import psbd.utils.*;
 
 import javax.swing.*;
@@ -30,6 +31,7 @@ public class EditStorageView extends ViewTemplate {
         setIngredientTypesList();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         dateTextInput.setDateFormat(format);
+        dateTextInput.setBehavior(MultyModelBehavior.SELECT_SINGLE);
     }
 
     @Override

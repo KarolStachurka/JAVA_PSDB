@@ -1,6 +1,7 @@
 package psbd.supplier;
 
 import datechooser.beans.DateChooserCombo;
+import datechooser.model.multiple.MultyModelBehavior;
 import psbd.utils.PanelEnum;
 import psbd.utils.ViewTemplate;
 
@@ -22,6 +23,8 @@ public class WarehouseStatisticsView extends ViewTemplate {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         startDayChooser.setDateFormat(format);
         endDayChooser.setDateFormat(format);
+        startDayChooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
+        endDayChooser.setBehavior(MultyModelBehavior.SELECT_SINGLE);
 
     }
 

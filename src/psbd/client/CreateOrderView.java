@@ -1,6 +1,7 @@
 package psbd.client;
 
 import datechooser.beans.DateChooserCombo;
+import datechooser.model.multiple.MultyModelBehavior;
 import psbd.utils.Messages;
 import psbd.utils.MyTableModel;
 import psbd.utils.PanelEnum;
@@ -39,6 +40,7 @@ public class CreateOrderView extends ViewTemplate {
         orderTable.setModel(orderModel);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         orderDateInput.setDateFormat(format);
+        orderDateInput.setBehavior(MultyModelBehavior.SELECT_SINGLE);
     }
 
     public JPanel getWindowPanel() {
