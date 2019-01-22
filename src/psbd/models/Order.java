@@ -173,5 +173,7 @@ public class Order {
         this.courierId = courierId;
     }
 
-
+    public void setRecipeList(ArrayList<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
 }

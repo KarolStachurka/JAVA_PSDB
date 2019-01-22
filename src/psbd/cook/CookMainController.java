@@ -70,11 +70,19 @@ public class CookMainController {
                 updateIngredientsList();
                 if(view.getOrderDetailsTable().getSelectedColumn() == 1)
                 {
-                    if(removeIngredientsFromStorage())
+                    DefaultTableModel model = (DefaultTableModel) view.getOrderDetailsTable().getModel();
+                    boolean isReady =(boolean) model.getValueAt(view.getOrderDetailsTable().getSelectedRow(),1);
+                    dishes.get(view.getOrderDetailsTable().getSelectedRow()).setRealized(true);
+                    updateDishList();
+                    if(!isReady)
                     {
-                        dishes.get(view.getOrderDetailsTable().getSelectedRow()).setRealized(true);
-                        updateDishList();
+                        if (updateDish(dishes.get(view.getOrderDetailsTable().getSelectedRow()))) {
+                            System.out.println("Now");
+                            orders.get(view.getOrdersTable().getSelectedRow()).setRecipeList(dishes);
+                            getCurrentDishList();
+                        }
                     }
+
                 }
             }
         });
@@ -134,7 +142,7 @@ public class CookMainController {
         dishes.clear();
         int id = orders.get(view.getOrdersTable().getSelectedRow()).getId();
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "SELECT dishes.id, recipes.name, recipes.price FROM dishes " +
+        String sqlQuery = "SELECT dishes.id, recipes.name, recipes.price, realized FROM dishes " +
                 "INNER JOIN recipes ON recipe_id = recipes.id " +
                 "WHERE order_id = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
@@ -160,6 +168,7 @@ public class CookMainController {
                         result.getDouble("price"),
                         null,true);
                 dish.setId(result.getInt("id"));
+                dish.setRealized(result.getBoolean("realized"));
                 getRecipeIngredientsList(dish);
                 List<Ingredient> ingredients = currentIngredientList.stream().map(ingredient -> new Ingredient(ingredient)).collect(Collectors.toList());
 
@@ -214,6 +223,32 @@ public class CookMainController {
         try {
             statement.setString(1, OrderStatusEnum.IN_DELIVERY.toString());
             statement.setInt(2, orders.get(view.getOrdersTable().getSelectedRow()).getId());
+            database.setPreparedStatement(statement);
+            database.executeStatement();
+        }
+        catch (SQLException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean updateDish(Recipe recipe)
+    {
+        if(!removeIngredientsFromStorage())
+        {
+            return false;
+        }
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "UPDATE dishes SET realized = 1, cook_id = (SELECT user_id FROM users WHERE user_login = ?), realization_time = NOW() WHERE id = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        if(statement == null)
+        {
+            return false;
+        }
+        try {
+            statement.setString(1, CurrentSession.getInstance().getLoggedUser().getLogin());
+            statement.setInt(2, recipe.getId());
             database.setPreparedStatement(statement);
             database.executeStatement();
         }
