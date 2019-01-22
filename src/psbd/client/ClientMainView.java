@@ -17,6 +17,7 @@ public class ClientMainView extends ViewTemplate {
     private JTable clientOrderTable;
     private JTable orderDetailsTable;
     private JLabel discountInfoLabel;
+    private JLabel discountLabel;
 
     public ClientMainView()
     {
@@ -37,6 +38,8 @@ public class ClientMainView extends ViewTemplate {
         menuModel.setRowCount(0);
         DefaultTableModel orderModel = (DefaultTableModel) orderDetailsTable.getModel();
         orderModel.setRowCount(0);
+        discountInfoLabel.setText("");
+        discountLabel.setText("");
 
     }
 
@@ -70,5 +73,9 @@ public class ClientMainView extends ViewTemplate {
 
     public JLabel getDiscountInfoLabel() {
         return discountInfoLabel;
+    }
+
+    public JLabel getDiscountLabel() {
+        return discountLabel;
     }
 }

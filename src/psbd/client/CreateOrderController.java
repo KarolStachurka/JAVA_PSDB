@@ -1,6 +1,5 @@
 package psbd.client;
 
-import com.rits.cloning.Cloner;
 import psbd.models.CurrentSession;
 import psbd.models.Ingredient;
 import psbd.models.Order;
@@ -14,15 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class CreateOrderController {
@@ -30,6 +26,7 @@ public class CreateOrderController {
     private CreateOrderView view;
     private ArrayList<Ingredient> currentIngredientList;
     private ArrayList<Recipe> currentRecipeList;
+    private double totalSpentInCurrentMonth;
 
 
     public CreateOrderController(CreateOrderView view) {
@@ -64,6 +61,11 @@ public class CreateOrderController {
             }
         });
 
+        view.getOrderDateInput().addCommitListener(e->
+        {
+            setAvailableHours();
+        });
+
 
 
         view.getCompleteOrderButton().addActionListener(e->{
@@ -90,6 +92,8 @@ public class CreateOrderController {
     public CreateOrderView getView() {
 
         view.cleanAll();
+        updateBalance();
+        setAvailableHours();
         updateMenuTable();
         setAddressList();
         return view;
@@ -221,10 +225,11 @@ public class CreateOrderController {
         try{
             String login = CurrentSession.getInstance().getLoggedUser().getLogin();
             String address = view.getAddressComboBox().getSelectedItem().toString();
-            String discount = CurrentSession.getInstance().getLoggedUser().getCompany();
-            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+view.getTimeOpenTextInput().getSelectedItem().toString());
+            double discount = getDiscount();
+            double companyDiscount = getCompanyDiscount();
+            Timestamp orderTime = Timestamp.valueOf(view.getOrderDateInput().getText()+" "+view.getTimeOpenComboBox().getSelectedItem().toString());
 
-            return new Order(login,address,currentRecipeList,getFullPrice(),0,0,orderTime);
+            return new Order(login,address,currentRecipeList,getFullPrice(),discount,companyDiscount,orderTime);
         }
         catch (Exception e)
         {
@@ -241,7 +246,64 @@ public class CreateOrderController {
                 price += recipe.getPrice();
             }
         }
+        double companyDiscount = getCompanyDiscount();
+        double discount = getDiscount();
+        if(price > companyDiscount + 10)
+            price -= companyDiscount;
+        if(price > discount + 15)
+            price -= discount;
+
+
         return BigDecimal.valueOf(price).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+    private  double getDiscount()
+    {
+        double discount = 0;
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "select discount from discounts where threshold <= ? group by discount desc limit 1 ";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+
+        try{
+            statement.setDouble(1, totalSpentInCurrentMonth);
+            database.setPreparedStatement(statement);
+            ResultSet result = statement.executeQuery();
+            if(result.next())
+            {
+                discount = result.getDouble("discount");
+            }
+
+
+        }
+        catch (Exception e)
+        {
+            // Leave list empty
+        }
+        return discount;
+    }
+
+    private double getCompanyDiscount()
+    {
+        double discount = 0;
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT discount FROM companies WHERE company_name = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+
+        try{
+            statement.setString(1, CurrentSession.getInstance().getLoggedUser().getCompany());
+            database.setPreparedStatement(statement);
+            ResultSet result = statement.executeQuery();
+            if(result.next())
+            {
+                discount = result.getDouble("discount");
+            }
+
+
+        }
+        catch (Exception e)
+        {
+        }
+
+        return discount;
     }
 
     private void setMessage(String error) {
@@ -406,8 +468,6 @@ public class CreateOrderController {
 
     }
 
-    //todo: check this method below, it might have some bugs. Cloning arraylist does not clone its content.
-
     private void updateIngredient() {
         int index = view.getIngredientsTable().getSelectedRow();
         currentIngredientList.get(index).setIncluded(
@@ -426,6 +486,78 @@ public class CreateOrderController {
     {
         double price = getFullPrice();
         view.getPriceLabel().setText(String.valueOf(price));
+    }
+
+    private void setAvailableHours()
+    {
+        Calendar calendar = view.getOrderDateInput().getCurrent();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT open_hour, close_hour FROM delivery_time WHERE id = ?";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        ResultSet result;
+        if(statement == null)
+        {
+            return;
+        }
+        try {
+            statement.setInt(1,day);
+            database.setPreparedStatement(statement);
+            result = statement.executeQuery();
+        }
+        catch (SQLException e)
+        {
+            return;
+        }
+        try {
+            result.next();
+            LocalTime open = result.getTime("open_hour").toLocalTime();
+            LocalTime close = result.getTime("close_hour").toLocalTime();
+            view.getTimeOpenComboBox().removeAllItems();
+            while(open.isBefore(close))
+            {
+                view.getTimeOpenComboBox().addItem(open);
+                open = open.plusMinutes(30);
+
+            }
+        }
+        catch (SQLException e)
+        {
+        }
+
+
+    }
+
+    private void updateBalance()
+    {
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "SELECT SUM(price) AS total FROM orders " +
+                "INNER JOIN client_addresses ON orders.address_id = client_addresses.address_id " +
+                "WHERE orders.client_id = 30 AND order_time BETWEEN (CURRENT_DATE() - INTERVAL 1 MONTH) AND CURRENT_DATE()";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+        ResultSet result;
+        if(statement == null)
+        {
+            return;
+        }
+        try {
+            database.setPreparedStatement(statement);
+            result = statement.executeQuery();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+
+            return;
+        }
+        try {
+            result.next();
+            totalSpentInCurrentMonth = result.getDouble("total");
+        }
+        catch (SQLException e)
+        {
+            totalSpentInCurrentMonth = 0;
+        }
     }
 
 }

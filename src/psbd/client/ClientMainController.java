@@ -40,6 +40,7 @@ public class ClientMainController {
     public ClientMainView getView() {
 
         view.cleanAll();
+        checkDiscount();
         try {
             getOrdersList();
             updateOrderList();
@@ -158,6 +159,13 @@ public class ClientMainController {
         }
 
     }
+
+    private void checkDiscount()
+    {
+        updateBalance();
+        double discount = getDiscount();
+        view.getDiscountLabel().setText(Messages.DISCOUNT_INFO + Double.toString(discount));
+    }
     private void updateBalance()
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
@@ -188,6 +196,31 @@ public class ClientMainController {
         {
             totalSpentInCurrentMonth = 0;
         }
+    }
+
+    private  double getDiscount()
+    {
+        double discount = 0;
+        DatabaseConnector database = DatabaseConnector.getInstance();
+        String sqlQuery = "select discount from discounts where threshold <= ? group by discount desc limit 1 ";
+        PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+
+        try{
+            statement.setDouble(1, totalSpentInCurrentMonth);
+            database.setPreparedStatement(statement);
+            ResultSet result = statement.executeQuery();
+            if(result.next())
+            {
+                discount = result.getDouble("discount");
+            }
+
+
+        }
+        catch (Exception e)
+        {
+            // Leave list empty
+        }
+        return discount;
     }
 
     private void updateDishList()

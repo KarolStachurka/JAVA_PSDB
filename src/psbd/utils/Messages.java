@@ -17,6 +17,7 @@ public class Messages {
     public static final String RECORD_EDITED = "Element data has been successfully edited";
     public static final String RECORD_REMOVED = "Element has been successfully removed";
     public static final String ORDER_COMPLETED = "Your order has been created";
+    public static final String DISCOUNT_INFO = "Your discount in this month is worth: ";
 
 
     // table headers

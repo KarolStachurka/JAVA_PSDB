@@ -39,7 +39,7 @@ public class UserLoginController {
         {
             setMessage(messages.DATABASE_ERROR);
         }
-        String SQLQuery = "SELECT * FROM users WHERE user_login = ? AND user_password = SHA2(?, 256)" ;
+        String SQLQuery = "SELECT * FROM users WHERE user_login = ? AND user_password = SHA2(?, 256) AND active = 1" ;
         PreparedStatement statement = database.getPreparedStatement(SQLQuery);
 
         if(statement == null)

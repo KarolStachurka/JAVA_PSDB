@@ -9,8 +9,6 @@ import psbd.utils.ViewTemplate;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class CreateOrderView extends ViewTemplate {
     private JButton completeOrderButton;
@@ -28,7 +26,7 @@ public class CreateOrderView extends ViewTemplate {
     private JTextField dateTextInput;
     private JTextField hourTextInput;
     private DateChooserCombo orderDateInput;
-    private JComboBox timeOpenTextInput;
+    private JComboBox timeOpenComboBox;
 
     public CreateOrderView()
     {
@@ -112,5 +110,5 @@ public class CreateOrderView extends ViewTemplate {
 
     public DateChooserCombo getOrderDateInput(){return orderDateInput;}
 
-    public JComboBox getTimeOpenTextInput(){ return timeOpenTextInput;}
+    public JComboBox getTimeOpenComboBox(){ return timeOpenComboBox;}
 }

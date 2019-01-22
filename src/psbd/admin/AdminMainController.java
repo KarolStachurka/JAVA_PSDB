@@ -231,7 +231,7 @@ public class AdminMainController {
     private boolean removeAccount(User user)
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "DELETE FROM users WHERE user_login = ?";
+        String sqlQuery = "UPDATE users SET active = 0 WHERE user_login = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         try {
             statement.setString(1, user.getLogin());
@@ -244,7 +244,7 @@ public class AdminMainController {
             setMessage(messages.DATABASE_ERROR);
             return false;
         }
-        return !checkIfAccountExist(user.getLogin());
+        return true;
     }
 
     private boolean checkIfAccountExist(String login)
@@ -370,7 +370,8 @@ public class AdminMainController {
                 dataRow.add(result.getString("phone_number"));
                 dataRow.add(result.getString("company"));
                 dataRow.add(result.getString("pesel"));
-                dataList.add(dataRow);
+                if(result.getBoolean("active"))
+                    dataList.add(dataRow);
             }
         }
         catch (SQLException e)

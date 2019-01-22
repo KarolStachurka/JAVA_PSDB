@@ -6,11 +6,9 @@ import psbd.models.Order;
 import psbd.models.Recipe;
 import psbd.utils.DatabaseConnector;
 import psbd.utils.Messages;
-import psbd.utils.MyTableModel;
 import psbd.utils.OrderStatusEnum;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
