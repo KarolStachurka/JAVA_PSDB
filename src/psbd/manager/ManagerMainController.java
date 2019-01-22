@@ -54,9 +54,9 @@ public class ManagerMainController {
             return false;
         }
         try {
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-            String openTime = format.format((Date)view.getTimeOpenTextInput().getValue());
-            String closeTime = format.format((Date)view.getTimeCloseTextInput().getValue());
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            String openTime = format.format((Date)view.getTimeOpenTextInput().getValue())+":00";
+            String closeTime = format.format((Date)view.getTimeCloseTextInput().getValue())+":00";
 
             statement.setTime(1, Time.valueOf(openTime));
             statement.setTime(2, Time.valueOf(closeTime));

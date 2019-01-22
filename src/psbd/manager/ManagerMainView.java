@@ -28,14 +28,14 @@ public class ManagerMainView extends ViewTemplate {
         SpinnerDateModel sm =
                 new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         timeOpenTextInput.setModel(sm);
-        JSpinner.DateEditor de = new JSpinner.DateEditor(timeOpenTextInput, "HH:mm:ss");
+        JSpinner.DateEditor de = new JSpinner.DateEditor(timeOpenTextInput, "HH:mm");
         timeOpenTextInput.setEditor(de);
 
         Date date1 = new Date();
         SpinnerDateModel sm1 =
                 new SpinnerDateModel(date1, null, null, Calendar.HOUR_OF_DAY);
         timeCloseTextInput.setModel(sm1);
-        JSpinner.DateEditor dec = new JSpinner.DateEditor(timeCloseTextInput, "HH:mm:ss");
+        JSpinner.DateEditor dec = new JSpinner.DateEditor(timeCloseTextInput, "HH:mm");
         timeCloseTextInput.setEditor(dec);
     }
 
