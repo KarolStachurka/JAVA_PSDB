@@ -13,8 +13,6 @@ public class ManagerMainView extends ViewTemplate {
     private JButton recipesControlButton;
     private JButton discountsControlButton;
     private JButton modifyAccountBalanceButton;
-    private JTextField textField1;
-    private JTextField textField2;
     private JComboBox dayComboBox;
     private JLabel userDataLabel;
     private JSpinner timeOpenTextInput;
