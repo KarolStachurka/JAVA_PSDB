@@ -38,6 +38,8 @@ public class Messages {
     public static final String[] CLIENT_REVIEW_TABLE_HEADERS = {"Dish name", "Rating"};
     public static final String[] COOK_ORDER_TABLE_HEADERS = {"Order ID", "Realization time", "Status"};
     public static final String[] COURIER_ORDER_TABLE_HEADERS = {"Order ID", "Address","Delivery time","Price", "Delivered"};
+    public static final String[] SUPPLIER_STATISTICS_INGREDIENTS_HEADERS = {"Name", "Total amount spent"};
+    public static final String[] SUPPLIER_STATISTICS_ORDERS_HEADERS = {"Name", "Number of orders"};
 
     private static Messages ourInstance = new Messages();
 

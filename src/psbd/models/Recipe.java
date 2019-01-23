@@ -72,6 +72,15 @@ public class Recipe {
         return list;
     }
 
+    public ArrayList<Object> getRecipeModelToSupplierList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add((int) price);
+        return list;
+    }
+
+
     public void setIngredientsList(ArrayList<Ingredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
     }

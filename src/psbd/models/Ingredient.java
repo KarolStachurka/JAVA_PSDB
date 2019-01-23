@@ -81,6 +81,14 @@ public class Ingredient {
         return list;
     }
 
+    public ArrayList<Object> getIngredientModelSupplierList()
+    {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(name);
+        list.add(quantity);
+        return list;
+    }
+
     public String getName() {
         return name;
     }
