@@ -16,9 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-/*
- todo: remove test button
- */
 public class AdminMainController {
     private AdminMainView view;
     private Messages messages;

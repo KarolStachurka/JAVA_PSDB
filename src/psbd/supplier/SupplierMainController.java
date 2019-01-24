@@ -100,7 +100,6 @@ public class SupplierMainController {
 
         return database.executeStatement();
     }
-    // todo: clean this mess below
     private Delivery createExistingDelivery()
     {
         try{
@@ -108,7 +107,6 @@ public class SupplierMainController {
             String name = view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 1).toString();
             double quantity = Double.parseDouble(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 3).toString());
             Date orderDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 5).toString());
-            //Date receiveDate = Date.valueOf(view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 6).toString());
             Boolean isReceived = (boolean)view.getDeliveriesTable().getValueAt(view.getDeliveriesTable().getSelectedRow(), 4);
             Delivery delivery = new Delivery(name,0,quantity,quantity,orderDate,orderDate,null,isReceived);
             delivery.setId(id);
