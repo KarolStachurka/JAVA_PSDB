@@ -279,10 +279,12 @@ public class AdminMainController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         view.getCompanyNameBox().addItem("Empty");
         try{
-            ResultSet table = database.getFullTableData("companies");
-            while (table.next())
+            String sqlQuery = "SELECT * FROM companies WHERE active = 1";
+            PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
             {
-                view.getCompanyNameBox().addItem(table.getString("company_name"));
+                view.getCompanyNameBox().addItem(result.getString("company_name"));
             }
         }
         catch (Exception e)

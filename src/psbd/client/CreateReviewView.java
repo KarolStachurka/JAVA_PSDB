@@ -61,4 +61,24 @@ public class CreateReviewView extends ViewTemplate {
     public JTextField getFileDialogTextField() {
         return fileDialogTextField;
     }
+
+    public JButton getStarButton1() {
+        return starButton1;
+    }
+
+    public JButton getStarButton2() {
+        return starButton2;
+    }
+
+    public JButton getStarButton3() {
+        return starButton3;
+    }
+
+    public JButton getStarButton4() {
+        return starButton4;
+    }
+
+    public JButton getStarButton5() {
+        return starButton5;
+    }
 }

@@ -172,7 +172,7 @@ public class DiscountManagerController {
     private boolean removeExistingCompany(Company company)
     {
         DatabaseConnector database = DatabaseConnector.getInstance();
-        String sqlQuery = "DELETE FROM companies WHERE nip = ?";
+        String sqlQuery = "UPDATE companies SET active = 0 ,discount = 0 WHERE nip = ?";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         try {
             statement.setInt(1, company.getNip());
@@ -185,7 +185,7 @@ public class DiscountManagerController {
             setMessage(messages.DATABASE_ERROR);
             return false;
         }
-        return !checkIfCompanyExist((String.valueOf(company.getNip())));
+        return true;
     }
 
     private void setMessage(String error)
@@ -226,7 +226,10 @@ public class DiscountManagerController {
 
         DatabaseConnector database = DatabaseConnector.getInstance();
         try {
-            ResultSet result = database.getFullTableData("companies");
+            String sqlQuery = "SELECT * FROM companies WHERE active = 1";
+            PreparedStatement statement = database.getPreparedStatement(sqlQuery);
+            ResultSet result;
+            result = statement.executeQuery();
             while (result.next()) {
                 ArrayList<String> dataRow = new ArrayList<>();
                 dataRow.add(result.getString("nip"));

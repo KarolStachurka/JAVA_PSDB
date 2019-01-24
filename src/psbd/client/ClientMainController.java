@@ -171,7 +171,7 @@ public class ClientMainController {
         DatabaseConnector database = DatabaseConnector.getInstance();
         String sqlQuery = "SELECT SUM(price) AS total FROM orders " +
                 "INNER JOIN client_addresses ON orders.address_id = client_addresses.address_id " +
-                "WHERE orders.client_id = 30 AND order_time BETWEEN (CURRENT_DATE() - INTERVAL 1 MONTH) AND CURRENT_DATE()";
+                "WHERE orders.client_id = (SELECT user_id FROM users WHERE user_login = ?)  AND order_time BETWEEN (CURRENT_DATE() - INTERVAL 1 MONTH) AND CURRENT_DATE()";
         PreparedStatement statement = database.getPreparedStatement(sqlQuery);
         ResultSet result;
         if(statement == null)
@@ -179,10 +179,11 @@ public class ClientMainController {
             return;
         }
         try {
+            statement.setString(1,CurrentSession.getInstance().getLoggedUser().getLogin());
             database.setPreparedStatement(statement);
             result = statement.executeQuery();
         }
-        catch (SQLException e)
+        catch (Exception e)
         {
             e.printStackTrace();
 
